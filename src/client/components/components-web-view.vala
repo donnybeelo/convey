@@ -91,11 +91,16 @@ public abstract class Components.WebView : Components.NativeWebView, Convey.Base
     // Scripts and stylesheets injected into every view, as source
     // text. Kept engine-independent so the platform's native view
     // decides how to inject them.
-    private static string[] scripts = {};
+    //
+    // Deliberately not given inline initialisers: Vala emits those
+    // into class_init, which GObject runs lazily on first
+    // instantiation, i.e. after load_resources() has run. An
+    // initialiser here silently wipes the loaded resources.
+    private static string[] scripts;
 
-    private static string[] styles = {};
+    private static string[] styles;
 
-    private static string? user_style = null;
+    private static string? user_style;
 
 
     /**
