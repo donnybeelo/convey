@@ -572,7 +572,6 @@ public class ConversationEmail : Gtk.Box, Convey.BaseInterface {
         yield this.primary_message.evaluate_javascript(js, null);
 
         Gtk.Window? window = get_root() as Gtk.Window;
-        WebKit.PrintOperation op = this.primary_message.new_print_operation();
         Gtk.PrintSettings settings = new Gtk.PrintSettings();
 
         // Use XDG_DOWNLOADS as default while WebKitGTK printing is
@@ -596,8 +595,7 @@ public class ConversationEmail : Gtk.Box, Convey.BaseInterface {
             }
         }
 
-        op.set_print_settings(settings);
-        op.run_dialog(window);
+        this.primary_message.print_content(window, settings);
     }
 
     /**

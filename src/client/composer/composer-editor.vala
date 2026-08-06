@@ -171,7 +171,7 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
         this.body.command_stack_changed.connect(on_command_state_changed);
         this.body.context_menu.connect(on_context_menu);
         this.body.cursor_context_changed.connect(on_cursor_context_changed);
-        this.body.get_editor_state().notify["typing-attributes"].connect(on_typing_attributes_changed);
+        this.body.typing_attributes_changed.connect(on_typing_attributes_changed);
         this.body.mouse_target_changed.connect(on_mouse_target_changed);
         this.body.notify["has-selection"].connect(on_selection_changed);
         this.body.set_hexpand(true);
@@ -492,22 +492,19 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
     }
 
     private void on_typing_attributes_changed() {
-        uint mask = this.body.get_editor_state().get_typing_attributes();
+        Components.WebViewTypingAttributes attrs =
+            this.body.get_typing_attributes();
         this.actions.change_action_state(
-            ACTION_BOLD,
-            (mask & WebKit.EditorTypingAttributes.BOLD) == WebKit.EditorTypingAttributes.BOLD
+            ACTION_BOLD, BOLD in attrs
         );
         this.actions.change_action_state(
-            ACTION_ITALIC,
-            (mask & WebKit.EditorTypingAttributes.ITALIC) == WebKit.EditorTypingAttributes.ITALIC
+            ACTION_ITALIC, ITALIC in attrs
         );
         this.actions.change_action_state(
-            ACTION_UNDERLINE,
-            (mask & WebKit.EditorTypingAttributes.UNDERLINE) == WebKit.EditorTypingAttributes.UNDERLINE
+            ACTION_UNDERLINE, UNDERLINE in attrs
         );
         this.actions.change_action_state(
-            ACTION_STRIKETHROUGH,
-            (mask & WebKit.EditorTypingAttributes.STRIKETHROUGH) == WebKit.EditorTypingAttributes.STRIKETHROUGH
+            ACTION_STRIKETHROUGH, STRIKETHROUGH in attrs
         );
     }
 

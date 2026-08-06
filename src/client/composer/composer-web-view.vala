@@ -266,7 +266,7 @@ public class Composer.WebView : Components.WebView {
      * Cuts selected content and sends it to the clipboard.
      */
     public void cut_clipboard() {
-        execute_editing_command(WebKit.EDITING_COMMAND_CUT);
+        execute_editing_command(EDITING_COMMAND_CUT);
     }
 
     /**
@@ -289,7 +289,7 @@ public class Composer.WebView : Components.WebView {
      * Pastes rich text from the clipboard into the view.
      */
     public void paste_rich_text() {
-        execute_editing_command(WebKit.EDITING_COMMAND_PASTE);
+        execute_editing_command(EDITING_COMMAND_PASTE);
     }
 
     /**

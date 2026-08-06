@@ -679,10 +679,11 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         web_view.add_internal_resources(res);
     }
 
-    public WebKit.PrintOperation new_print_operation() {
+    public void print_content(Gtk.Window? parent,
+                              Gtk.PrintSettings settings) {
         if (this.web_view == null)
             initialize_web_view();
-        return new WebKit.PrintOperation(web_view);
+        this.web_view.print_content(parent, settings);
     }
 
     public async void evaluate_javascript(string script, Cancellable? cancellable) throws Error {

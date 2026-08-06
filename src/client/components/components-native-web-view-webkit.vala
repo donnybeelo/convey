@@ -77,6 +77,23 @@ public class Components.NativeWebView : WebKit.WebView {
         NativeWebView.default_context = context;
     }
 
+    /**
+     * Returns a label naming the browser engine, for the about dialog.
+     */
+    public static string engine_version_label() {
+        /// Application runtime information label
+        return _("WebKitGTK version");
+    }
+
+    /** Returns the version of the browser engine in use. */
+    public static string engine_version() {
+        return "%u.%u.%u".printf(
+            WebKit.get_major_version(),
+            WebKit.get_minor_version(),
+            WebKit.get_micro_version()
+        );
+    }
+
     private static inline void update_spellcheck(WebKit.WebContext context,
                                                  Application.Configuration config) {
         string[] langs = config.get_spell_check_languages();
@@ -226,6 +243,98 @@ public class Components.NativeWebView : WebKit.WebView {
     }
 
     /**
+     * Highlights the given text in the view.
+     *
+     * Returns the number of matches found.
+     */
+    public async uint find_text(string text, GLib.Cancellable cancellable)
+        throws GLib.IOError.CANCELLED {
+        WebKit.FindController controller = get_find_controller();
+
+        // Remove existing highlights
+        controller.search_finish();
+
+        uint found = 0;
+        bool finished = false;
+
+        SourceFunc callback = this.find_text.callback;
+        ulong found_handler = controller.found_text.connect((count) => {
+                if (!finished) {
+                    found = count;
+                    callback();
+                }
+            });
+        ulong not_found_handler = controller.failed_to_find_text.connect(() => {
+                if (!finished) {
+                    callback();
+                }
+            });
+        ulong cancelled_handler = cancellable.cancelled.connect(() => {
+                if (!finished) {
+                    // Do this at idle since per the docs for
+                    // GLib.Cancellable.disconnect, disconnecting a
+                    // handler from within a handler causes a deadlock.
+                    GLib.Idle.add(() => callback());
+                }
+            });
+
+        controller.search(
+            text,
+            WebKit.FindOptions.CASE_INSENSITIVE |
+            WebKit.FindOptions.WRAP_AROUND,
+            128
+        );
+
+        yield;
+
+        finished = true;
+        controller.disconnect(found_handler);
+        controller.disconnect(not_found_handler);
+        cancellable.disconnect(cancelled_handler);
+
+        if (cancellable.is_cancelled()) {
+            throw new IOError.CANCELLED("Web view find text cancelled");
+        }
+
+        return found;
+    }
+
+    /** Removes any highlights added by {@link find_text}. */
+    public void find_finish() {
+        get_find_controller().search_finish();
+    }
+
+    /** Shows the platform's print dialog for the view's content. */
+    public void print_content(Gtk.Window? parent,
+                              Gtk.PrintSettings settings) {
+        var op = new WebKit.PrintOperation(this);
+        op.set_print_settings(settings);
+        op.run_dialog(parent);
+    }
+
+    /** Returns the text styles applied at the editing caret. */
+    public Components.WebViewTypingAttributes get_typing_attributes() {
+        uint mask = get_editor_state().get_typing_attributes();
+        Components.WebViewTypingAttributes attrs = 0;
+        if ((mask & WebKit.EditorTypingAttributes.BOLD) != 0) {
+            attrs |= BOLD;
+        }
+        if ((mask & WebKit.EditorTypingAttributes.ITALIC) != 0) {
+            attrs |= ITALIC;
+        }
+        if ((mask & WebKit.EditorTypingAttributes.UNDERLINE) != 0) {
+            attrs |= UNDERLINE;
+        }
+        if ((mask & WebKit.EditorTypingAttributes.STRIKETHROUGH) != 0) {
+            attrs |= STRIKETHROUGH;
+        }
+        return attrs;
+    }
+
+    /** Emitted when the text styles at the editing caret change. */
+    public signal void typing_attributes_changed();
+
+    /**
      * Returns the content of an internal resource, if known.
      *
      * Called when the page requests a `convey:` or `cid:` URI.
@@ -256,6 +365,9 @@ public class Components.NativeWebView : WebKit.WebView {
                 handle_page_message(message.name, message.parameters);
                 return true;
             });
+        get_editor_state().notify["typing-attributes"].connect(
+            () => typing_attributes_changed()
+        );
     }
 
     private void serve_request(WebKit.URISchemeRequest request,

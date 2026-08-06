@@ -25,6 +25,17 @@ public class Components.WebViewResponse : GLib.Object {
 }
 
 /**
+ * The text styles applied to text typed at the editing caret.
+ */
+[Flags]
+public enum Components.WebViewTypingAttributes {
+    BOLD,
+    ITALIC,
+    UNDERLINE,
+    STRIKETHROUGH;
+}
+
+/**
  * Base class for all web view instances used by the Convey client.
  *
  * This provides common functionality expected by the client for
@@ -47,6 +58,13 @@ public abstract class Components.WebView : Components.NativeWebView, Convey.Base
 
     /** URI Scheme and delimiter for resources loaded by Content-ID. */
     public const string CID_URL_PREFIX = "cid:";
+
+    // Editing command names. These are the standard HTML editing
+    // command names, and are the same for every browser engine.
+    protected const string EDITING_COMMAND_COPY = "Copy";
+    protected const string EDITING_COMMAND_CUT = "Cut";
+    protected const string EDITING_COMMAND_PASTE = "Paste";
+    protected const string EDITING_COMMAND_SELECT_ALL = "SelectAll";
 
     // Keep these in sync with ConveyWebExtension
     private const string MESSAGE_ENABLE_REMOTE_LOAD = "__enable_remote_load__";
@@ -381,14 +399,14 @@ public abstract class Components.WebView : Components.NativeWebView, Convey.Base
      * Selects all content in the web view.
      */
     public void select_all() {
-        execute_editing_command(WebKit.EDITING_COMMAND_SELECT_ALL);
+        execute_editing_command(EDITING_COMMAND_SELECT_ALL);
     }
 
     /**
      * Copies selected content and sends it to the clipboard.
      */
     public void copy_clipboard() {
-        execute_editing_command(WebKit.EDITING_COMMAND_COPY);
+        execute_editing_command(EDITING_COMMAND_COPY);
     }
 
     public void zoom_reset() {

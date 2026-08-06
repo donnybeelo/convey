@@ -108,68 +108,18 @@ public class ConversationWebView : Components.WebView {
     public async uint highlight_search_terms(Gee.Collection<string> terms,
                                              GLib.Cancellable cancellable)
         throws GLib.IOError.CANCELLED {
-        WebKit.FindController controller = get_find_controller();
-
-        // Remove existing highlights
-        controller.search_finish();
-
-        // Browser engines don't deal with the multiple
-        // highlighting required by search folder matches, only
-        // single highlighting for a find-like interface. For now,
-        // just highlight the first term
-
-        uint found = 0;
-        bool finished = false;
-
-        SourceFunc callback = this.highlight_search_terms.callback;
-        ulong found_handler = controller.found_text.connect((count) => {
-                if (!finished) {
-                    found = count;
-                    callback();
-                }
-            });
-        ulong not_found_handler = controller.failed_to_find_text.connect(() => {
-                if (!finished) {
-                    callback();
-                }
-            });
-        ulong cancelled_handler = cancellable.cancelled.connect(() => {
-                if (!finished) {
-                    // Do this at idle since per the docs for
-                    // GLib.Cancellable.disconnect, disconnecting a
-                    // handler from within a handler causes a deadlock.
-                    GLib.Idle.add(() => callback());
-                }
-            });
-
-        controller.search(
-            Convey.Collection.first(terms),
-            WebKit.FindOptions.CASE_INSENSITIVE |
-            WebKit.FindOptions.WRAP_AROUND,
-            128
-        );
-
-        yield;
-
-        finished = true;
-        controller.disconnect(found_handler);
-        controller.disconnect(not_found_handler);
-        cancellable.disconnect(cancelled_handler);
-
-        if (cancellable.is_cancelled()) {
-            throw new IOError.CANCELLED(
-                "ConversationWebView highlight search terms cancelled"
-            );
-        }
-
-        return found;
+        // XXX Browser engines don't deal with the multiple
+        // highlighting required by search folder matches, only single
+        // highlighting for a find-like interface. For now, just
+        // highlight the first term
+        return yield find_text(Convey.Collection.first(terms), cancellable);
     }
 
     /**
      * Unmarks any search terms highlighted in the message view.
      */
     public void unmark_search_terms() {
-        get_find_controller().search_finish();
+        find_finish();
     }
 
     public override void measure(Gtk.Orientation orientation,

@@ -252,13 +252,8 @@ public class Application.Client : Adw.Application {
                         GLib.Version.minor,
                         GLib.Version.micro
                     )});
-        /// Application runtime information label
-        info.add({ _("WebKitGTK version"),
-                    "%u.%u.%u".printf(
-                        WebKit.get_major_version(),
-                        WebKit.get_minor_version(),
-                        WebKit.get_micro_version()
-                    )});
+        info.add({ Components.NativeWebView.engine_version_label(),
+                    Components.NativeWebView.engine_version() });
         /// Application runtime information label
         info.add({ _("Desktop environment"),
                     Environment.get_variable("XDG_CURRENT_DESKTOP") ??
