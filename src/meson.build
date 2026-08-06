@@ -78,9 +78,14 @@ convey_c_args += cc.get_supported_arguments([
 ])
 
 subdir('engine')
-subdir('client')
+if build_client
+  subdir('client')
+endif
 subdir('console')
 subdir('mailer')
+
+# Everything below is client-only. Not indented, to keep the diff readable.
+if build_client
 
 web_process_sources = files(
   'client/web-process/web-process-extension.vala',
@@ -205,3 +210,5 @@ if valadoc.found()
     ]
   )
 endif
+
+endif # build_client

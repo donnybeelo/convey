@@ -32,6 +32,12 @@ data_dir = convey_prefix / get_option('datadir')
 lib_dir = convey_prefix / get_option('libdir')
 locale_dir = convey_prefix / get_option('localedir')
 
+# The client is not yet buildable on Windows: it needs a WebView2-backed
+# Components.NativeWebView, plus native replacements for the GNOME desktop
+# services it uses (GOA, folks, libsecret, gsound, gcr/gck). The engine is
+# portable, so on Windows configure just the engine and its tests for now.
+build_client = host_machine.system() != 'windows'
+
 # Source dirs
 metadata_dir = meson.project_source_root() / 'bindings'/ 'metadata'
 po_dir = meson.project_source_root() / 'po'
@@ -64,30 +70,15 @@ endif
 # Primary deps
 glib = dependency('glib-2.0', version: '>=' + target_glib)
 gmime = dependency('gmime-3.0', version: '>= 3.2.4')
-gtk = dependency('gtk4', version: '>=' + target_gtk)
 sqlite = dependency('sqlite3', version: '>= 3.24')
-webkitgtk = dependency('webkitgtk-6.0', version: '>=' + target_webkit)
 
 # Secondary deps - keep sorted alphabetically
-cairo = dependency('cairo')
-enchant = dependency('enchant-2', version: '>=2.1')
-folks = dependency('folks', version: '>=0.11')
-gck = dependency('gck-2')
-gcr = dependency('gcr-4')
 gee = dependency('gee-0.8', version: '>= 0.8.5')
 gio = dependency('gio-2.0', version: '>=' + target_glib)
-goa = dependency('goa-1.0')
-gsound = dependency('gsound')
-libspelling = dependency('libspelling-1')
 gthread = dependency('gthread-2.0', version: '>=' + target_glib)
 icu_uc = dependency('icu-uc', version: '>=60')
-iso_codes = dependency('iso-codes')
-javascriptcoregtk = dependency('javascriptcoregtk-6.0', version: '>=' + target_webkit)
 json_glib = dependency('json-glib-1.0', version: '>= 1.0')
-libadwaita = dependency('libadwaita-1', version: '>= 1.7')
 libmath = cc.find_library('m')
-libpeas = dependency('libpeas-2')
-libsecret = dependency('libsecret-1', version: '>= 0.11')
 libsoup = dependency('libsoup-3.0')
 libstemmer_dep = cc.find_library('stemmer')
 libunwind_dep = dependency(
@@ -99,7 +90,28 @@ libunwind_generic_dep = dependency(
 libxml = dependency('libxml-2.0', version: '>= 2.7.8')
 libytnef = dependency('libytnef', version: '>= 1.9.3', required: get_option('tnef'))
 posix = valac.find_library('posix')
-webkitgtk_web_extension = dependency('webkitgtk-web-process-extension-6.0', version: '>=' + target_webkit)
+
+# Client-only deps, several of which are Linux-only. See build_client above.
+if build_client
+  gtk = dependency('gtk4', version: '>=' + target_gtk)
+  webkitgtk = dependency('webkitgtk-6.0', version: '>=' + target_webkit)
+  cairo = dependency('cairo')
+  enchant = dependency('enchant-2', version: '>=2.1')
+  folks = dependency('folks', version: '>=0.11')
+  gck = dependency('gck-2')
+  gcr = dependency('gcr-4')
+  goa = dependency('goa-1.0')
+  gsound = dependency('gsound')
+  iso_codes = dependency('iso-codes')
+  javascriptcoregtk = dependency('javascriptcoregtk-6.0', version: '>=' + target_webkit)
+  libadwaita = dependency('libadwaita-1', version: '>= 1.7')
+  libpeas = dependency('libpeas-2')
+  libsecret = dependency('libsecret-1', version: '>= 0.11')
+  libspelling = dependency('libspelling-1')
+  webkitgtk_web_extension = dependency(
+    'webkitgtk-web-process-extension-6.0', version: '>=' + target_webkit
+  )
+endif
 
 # System dependencies above ensures appropriate versions for the
 # following libraries, but the declared dependency is what we actually
@@ -183,27 +195,26 @@ vala_unit_dep = vala_unit_proj.get_variable('vala_unit_dep')
 
 # Language detection
 
-iso_codes_dir = iso_codes.get_variable(pkgconfig: 'prefix')/'share'/'xml'/'iso-codes'
-
 iso_639_xml = get_option('iso_639_xml')
-if iso_639_xml == ''
-  iso_639_xml = iso_codes_dir / 'iso_639.xml'
-endif
-
 iso_3166_xml = get_option('iso_3166_xml')
-if iso_3166_xml == ''
-  iso_3166_xml = iso_codes_dir / 'iso_3166.xml'
-endif
 
-files(iso_639_xml, iso_3166_xml) # Check to make sure these exist
+if build_client
+  iso_codes_dir = iso_codes.get_variable(pkgconfig: 'prefix')/'share'/'xml'/'iso-codes'
+  if iso_639_xml == ''
+    iso_639_xml = iso_codes_dir / 'iso_639.xml'
+  endif
+  if iso_3166_xml == ''
+    iso_3166_xml = iso_codes_dir / 'iso_3166.xml'
+  endif
 
-# Make sure the locale C.UTF-8 is installed on the system
+  files(iso_639_xml, iso_3166_xml) # Check to make sure these exist
 
-c_utf8_check = run_command('locale', '-a', check: true).stdout()
-have_c_utf8 = 'C.utf8' in c_utf8_check.split('\n')
-
-if not have_c_utf8
-  warning('C.utf8 locale not available on this system.')
+  # Make sure the locale C.UTF-8 is installed on the system. No `locale`
+  # binary on Windows, hence the guard.
+  c_utf8_check = run_command('locale', '-a', check: true).stdout()
+  if not ('C.utf8' in c_utf8_check.split('\n'))
+    warning('C.utf8 locale not available on this system.')
+  endif
 endif
 
 # Post-install script

@@ -153,7 +153,8 @@ test_engine_bin = executable('test-engine',
   c_args: convey_c_args,
 )
 
-# Client tests
+# Client tests. Not indented, to keep the diff readable.
+if build_client
 
 test_client_dependencies = [
   config_dep,
@@ -205,11 +206,14 @@ test_integration_bin = executable('test-integration',
   c_args: convey_c_args,
 )
 
+endif # build_client
+
 test(
   'engine-tests',
   test_engine_bin,
   depends: [ engine_lib ]
 )
+if build_client
 test(
   'client-tests',
   test_client_bin,
@@ -232,3 +236,4 @@ test(
   depends: [ client_lib, web_process ],
   env: [ 'GTK_IM_MODULE=gtk-im-context-simple' ]
 )
+endif # build_client
