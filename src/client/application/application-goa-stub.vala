@@ -38,6 +38,7 @@ namespace Goa {
     public class Mail : GLib.Object {
 
         public string email_address { get; default = ""; }
+        public string name { get; default = ""; }
 
         public string imap_host { get; default = ""; }
         public string imap_user_name { get; default = ""; }
@@ -57,12 +58,28 @@ namespace Goa {
 
         public string id { get; default = ""; }
         public string provider_type { get; default = ""; }
+        public string provider_name { get; default = ""; }
         public string presentation_identity { get; default = ""; }
+        public bool mail_disabled { get; default = true; }
 
         public async void call_ensure_credentials(
             GLib.Cancellable? cancellable, out int expires_in = null
         ) throws GLib.Error {
             expires_in = 0;
+            throw new Goa.Error.NOT_AUTHORIZED(
+                "No desktop accounts service on this platform"
+            );
+        }
+
+    }
+
+    /** An account's stored password. */
+    public class PasswordBased : GLib.Object {
+
+        public async void call_get_password(string id,
+                                            GLib.Cancellable? cancellable,
+                                            out string password) throws GLib.Error {
+            password = "";
             throw new Goa.Error.NOT_AUTHORIZED(
                 "No desktop accounts service on this platform"
             );
@@ -102,6 +119,10 @@ namespace Goa {
             return null;
         }
 
+        public PasswordBased? get_password_based() {
+            return null;
+        }
+
     }
 
     /** The accounts service itself. */
@@ -121,6 +142,10 @@ namespace Goa {
 
         public GLib.List<Object> get_accounts() {
             return new GLib.List<Object>();
+        }
+
+        public Object? lookup_by_id(string id) {
+            return null;
         }
 
     }

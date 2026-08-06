@@ -29,8 +29,20 @@
 
 namespace Gck {
 
+    /** Flags describing what a token can do. */
+    [Flags]
+    public enum SlotFlags {
+        TOKEN_PRESENT,
+        REMOVABLE_DEVICE,
+        HW_SLOT;
+    }
+
     /** A PKCS#11 slot, holding a token. */
     public class Slot : GLib.Object {
+
+        public bool has_flags(ulong flags) {
+            return false;
+        }
 
     }
 
@@ -58,7 +70,7 @@ namespace Gcr {
     }
 
     /** Returns the URIs consulted when looking up trust. */
-    public unowned string[] pkcs11_get_trust_lookup_uris() {
+    public string[] pkcs11_get_trust_lookup_uris() {
         return {};
     }
 

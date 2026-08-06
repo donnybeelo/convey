@@ -46,6 +46,8 @@ have_gsound = host_machine.system() != 'windows'
 have_gcr = host_machine.system() != 'windows'
 # Yelp user documentation needs itstool, which is not packaged for Windows.
 have_yelp = host_machine.system() != 'windows'
+# A few POSIX functions have no Windows equivalent in the C library.
+have_posix = host_machine.system() != 'windows'
 
 # Source dirs
 metadata_dir = meson.project_source_root() / 'bindings'/ 'metadata'

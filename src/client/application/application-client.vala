@@ -296,9 +296,18 @@ public class Application.Client : Adw.Application {
     public override bool local_command_line(ref unowned string[] args,
                                             out int exit_status) {
         this.binary = args[0];
+#if HAVE_POSIX
         string? current_path = Posix.realpath(
             GLib.Environment.find_program_in_path(this.binary)
         );
+#else
+        // No realpath() in the Windows C library. find_program_in_path
+        // already returns an absolute path, and programs on Windows are
+        // rarely installed behind a symlink, so use it as it comes.
+        string? current_path = GLib.Environment.find_program_in_path(
+            this.binary
+        );
+#endif
         if (current_path == null) {
             // Couldn't find the path, are being run as a unit test?
             // Probably should deal with the null either way though.

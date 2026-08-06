@@ -163,8 +163,15 @@ namespace Folks {
             return IndividualAggregator.instance;
         }
 
+        public bool is_prepared { get; default = false; }
+
         public async void prepare() throws GLib.Error {
             // Nothing to prepare.
+        }
+
+        public async Individual? look_up_individual(string id)
+            throws GLib.Error {
+            return null;
         }
 
     }
@@ -182,6 +189,10 @@ namespace Folks {
 
         public async void prepare() throws GLib.Error {
             // Nothing to prepare: the result set is always empty.
+        }
+
+        public async void unprepare() throws GLib.Error {
+            // Nothing to tear down.
         }
 
     }

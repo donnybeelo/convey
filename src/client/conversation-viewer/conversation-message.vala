@@ -395,8 +395,10 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         new Gee.LinkedList<ContactFlowBoxChild>();
 
     // Resource that have been loaded by the web view
+#if HAVE_WEBKIT
     private Gee.Map<string,WebKit.WebResource> resources =
         new Gee.HashMap<string,WebKit.WebResource>();
+#endif
 
     // Message-specific actions
     private SimpleActionGroup message_actions = new SimpleActionGroup();
@@ -617,14 +619,20 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             viewer.previous_web_view = this.web_view;
         }
 
+#if HAVE_WEBKIT
         this.web_view.context_menu.connect(on_context_menu);
+#endif
         this.web_view.deceptive_link_clicked.connect(on_deceptive_link_clicked);
         this.web_view.link_activated.connect((link) => {
                 on_link_activated(new GLib.Variant("s", link));
             });
+#if HAVE_WEBKIT
         this.web_view.mouse_target_changed.connect(on_mouse_target_changed);
+#endif
         this.web_view.notify["has-selection"].connect(on_selection_changed);
+#if HAVE_WEBKIT
         this.web_view.resource_load_started.connect(on_resource_load_started);
+#endif
         this.web_view.remote_resource_load_blocked.connect(on_remote_resources_blocked);
         this.web_view.internal_resource_loaded.connect(trigger_internal_resource_loaded);
         this.web_view.content_loaded.connect(trigger_content_loaded);
@@ -636,7 +644,9 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 web_view.copy_clipboard();
             });
         add_action(ACTION_OPEN_INSPECTOR, config.enable_inspector).activate.connect(() => {
+#if HAVE_WEBKIT
                 this.web_view.get_inspector().show();
+#endif
             });
         add_action(ACTION_SELECT_ALL, true).activate.connect(() => {
                 web_view.select_all();
@@ -651,7 +661,9 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         this.show_progress_timeout.reset();
         this.hide_progress_timeout.reset();
         this.progress_pulse.reset();
+#if HAVE_WEBKIT
         this.resources.clear();
+#endif
         this.searchable_addresses.clear();
         base.dispose();
     }
@@ -1251,6 +1263,8 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         this.body_progress.hide();
     }
 
+#if HAVE_WEBKIT
+    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
     private void on_resource_load_started(WebKit.WebView view,
                                           WebKit.WebResource res,
                                           WebKit.URIRequest req) {
@@ -1277,6 +1291,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 }
             });
     }
+#endif
 
     [GtkCallback]
     private void on_address_box_child_activated(Gtk.Widget _unused,
@@ -1315,6 +1330,8 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         }
     }
 
+#if HAVE_WEBKIT
+    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
     private bool on_context_menu(WebKit.WebView view,
                                  WebKit.ContextMenu context_menu,
                                  WebKit.HitTestResult hit_test) {
@@ -1376,7 +1393,10 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
 
         return true;
     }
+#endif
 
+#if HAVE_WEBKIT
+    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
     private void on_mouse_target_changed(WebKit.WebView web_view,
                                          WebKit.HitTestResult hit_test,
                                          uint modifiers) {
@@ -1387,6 +1407,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         );
         this.body_container.trigger_tooltip_query();
     }
+#endif
 
     // Check for possible phishing links, displays a popover if found.
     // If not, lets it go through to the default handler.
@@ -1529,6 +1550,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             // don't bother getting it from the web view
             save_image(uri, alt_text, null);
         } else {
+#if HAVE_WEBKIT
             WebKit.WebResource response = this.resources.get(uri);
             response.get_data.begin(null, (obj, res) => {
                     try {
@@ -1545,6 +1567,10 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                         );
                     }
                 });
+#else
+            // No engine to fetch the image data from yet.
+            save_image(uri, alt_text, null);
+#endif
         }
     }
 

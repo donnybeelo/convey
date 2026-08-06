@@ -169,10 +169,14 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
 
         this.body = new WebView(config, cache_dir);
         this.body.command_stack_changed.connect(on_command_state_changed);
+#if HAVE_WEBKIT
         this.body.context_menu.connect(on_context_menu);
+#endif
         this.body.cursor_context_changed.connect(on_cursor_context_changed);
         this.body.typing_attributes_changed.connect(on_typing_attributes_changed);
+#if HAVE_WEBKIT
         this.body.mouse_target_changed.connect(on_mouse_target_changed);
+#endif
         this.body.notify["has-selection"].connect(on_selection_changed);
         this.body.set_hexpand(true);
         this.body.set_vexpand(true);
@@ -362,6 +366,8 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
         }
     }
 
+#if HAVE_WEBKIT
+    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
     private bool on_context_menu(WebKit.WebView view,
                                  WebKit.ContextMenu context_menu,
                                  WebKit.HitTestResult hit_test_result) {
@@ -441,7 +447,10 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
 
         return Gdk.EVENT_PROPAGATE;
     }
+#endif
 
+#if HAVE_WEBKIT
+    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
     private inline void append_menu_section(WebKit.ContextMenu context_menu,
                                             Menu section) {
         Util.Gtk.menu_foreach(section, (label, name, target, section) => {
@@ -462,6 +471,7 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
                 }
             });
     }
+#endif
 
     private void on_cursor_context_changed(WebView.EditContext context) {
         this.cursor_url = context.is_link ? context.link_url : null;
@@ -481,6 +491,8 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
             this.actions.change_action_state(ACTION_FONT_SIZE, "medium");
     }
 
+#if HAVE_WEBKIT
+    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
     private void on_mouse_target_changed(WebKit.WebView web_view,
                                          WebKit.HitTestResult hit_test,
                                          uint modifiers) {
@@ -490,6 +502,7 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
         this.message_overlay_label.set_visible(copy_link_enabled);
         get_action(ACTION_COPY_LINK).set_enabled(copy_link_enabled);
     }
+#endif
 
     private void on_typing_attributes_changed() {
         Components.WebViewTypingAttributes attrs =
@@ -726,7 +739,9 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
     }
 
     private void on_open_inspector() {
+#if HAVE_WEBKIT
         this.body.get_inspector().show();
+#endif
     }
 
 }

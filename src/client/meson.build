@@ -170,6 +170,9 @@ endif
 if not have_gcr
   client_vala_sources += files('application/application-gcr-stub.vala')
 endif
+if not have_webkit
+  client_vala_sources += files('util/util-jsc-stub.vala')
+endif
 
 client_dependencies = [
   config_dep,
@@ -209,6 +212,9 @@ endif
 if have_gcr
   client_dependencies += [ gck, gcr ]
   client_vala_defines += '--define=HAVE_GCR'
+endif
+if have_posix
+  client_vala_defines += '--define=HAVE_POSIX'
 endif
 
 client_build_dir = meson.current_build_dir()
