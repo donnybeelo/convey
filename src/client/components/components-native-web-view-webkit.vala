@@ -312,6 +312,28 @@ public class Components.NativeWebView : WebKit.WebView {
         op.run_dialog(parent);
     }
 
+    /** Determines if the view has the data for a loaded resource. */
+    public bool has_resource(string uri) {
+        return this.resources.has_key(uri);
+    }
+
+    /**
+     * Returns the data of a resource the view loaded, if it has it.
+     *
+     * Used to save an image the user asked for without fetching it a
+     * second time.
+     */
+    public async GLib.Bytes? get_resource_data(string uri,
+                                               GLib.Cancellable? cancellable)
+        throws GLib.Error {
+        WebKit.WebResource? resource = this.resources[uri];
+        if (resource == null) {
+            return null;
+        }
+        uint8[] data = yield resource.get_data(cancellable);
+        return new GLib.Bytes(data);
+    }
+
     /** Returns the text styles applied at the editing caret. */
     public Components.WebViewTypingAttributes get_typing_attributes() {
         uint mask = get_editor_state().get_typing_attributes();
@@ -335,6 +357,32 @@ public class Components.NativeWebView : WebKit.WebView {
     public signal void typing_attributes_changed();
 
     /**
+     * Emitted when the user asks for a context menu in the view.
+     *
+     * The engine's own menu is shown only if no handler returns true,
+     * so a handler that presents a menu of its own should do so.
+     */
+    public signal bool context_menu_requested(
+        Components.WebViewHitTest hit_test, double x, double y
+    );
+
+    /** Emitted when the content under the pointer changes. */
+    public signal void pointer_target_changed(
+        Components.WebViewHitTest hit_test
+    );
+
+    /**
+     * Emitted when the view starts loading a resource.
+     *
+     * Named apart from WebKit's own resource-load-started, which this is
+     * driven by.
+     */
+    public signal void resource_started(string uri);
+
+    /** Emitted when a resource the view was loading has finished. */
+    public signal void resource_finished(string uri);
+
+    /**
      * Returns the content of an internal resource, if known.
      *
      * Called when the page requests a `convey:` or `cid:` URI.
@@ -356,7 +404,14 @@ public class Components.NativeWebView : WebKit.WebView {
         // Noop
     }
 
+    private Gee.Map<string,WebKit.WebResource> resources =
+        new Gee.HashMap<string,WebKit.WebResource>();
+
+
     private void init_native() {
+        this.context_menu.connect(on_context_menu);
+        this.mouse_target_changed.connect(on_mouse_target_changed);
+        this.resource_load_started.connect(on_resource_load_started);
         this.decide_policy.connect(on_decide_policy);
         this.web_process_terminated.connect((reason) => {
                 warning("Web process crashed: %s", reason.to_string());
@@ -368,6 +423,50 @@ public class Components.NativeWebView : WebKit.WebView {
         get_editor_state().notify["typing-attributes"].connect(
             () => typing_attributes_changed()
         );
+    }
+
+    private static Components.WebViewHitTest to_hit_test(
+        WebKit.HitTestResult hit
+    ) {
+        return new Components.WebViewHitTest(
+            hit.context_is_link() ? hit.get_link_uri() : null,
+            hit.context_is_link() ? hit.get_link_label() : null,
+            hit.context_is_image() ? hit.get_image_uri() : null,
+            hit.context_is_media() ? hit.get_media_uri() : null,
+            hit.context_is_editable(),
+            hit.context_is_selection()
+        );
+    }
+
+    private bool on_context_menu(WebKit.WebView view,
+                                 WebKit.ContextMenu menu,
+                                 WebKit.HitTestResult hit) {
+        double x = 0, y = 0;
+        var event = menu.get_event();
+        if (event != null) {
+            event.get_position(out x, out y);
+        }
+        return context_menu_requested(to_hit_test(hit), x, y);
+    }
+
+    private void on_mouse_target_changed(WebKit.WebView view,
+                                         WebKit.HitTestResult hit,
+                                         uint modifiers) {
+        pointer_target_changed(to_hit_test(hit));
+    }
+
+    private void on_resource_load_started(WebKit.WebView view,
+                                          WebKit.WebResource resource,
+                                          WebKit.URIRequest request) {
+        string uri = resource.get_uri();
+        this.resources[uri] = resource;
+        resource_started(uri);
+        resource.finished.connect(() => resource_finished(uri));
+    }
+
+    /** Forgets the data of every resource loaded so far. */
+    public void clear_resources() {
+        this.resources.clear();
     }
 
     private void serve_request(WebKit.URISchemeRequest request,

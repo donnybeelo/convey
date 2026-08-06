@@ -25,6 +25,61 @@ public class Components.WebViewResponse : GLib.Object {
 }
 
 /**
+ * What the pointer was over when a web view was clicked.
+ *
+ * Engine-independent replacement for WebKit's hit test result, so that
+ * the client's context menus and link handling do not depend on the
+ * browser engine in use.
+ */
+public class Components.WebViewHitTest : GLib.Object {
+
+    /** The URI of the link under the pointer, if any. */
+    public string? link_uri { get; construct; default = null; }
+
+    /** The text of the link under the pointer, if any. */
+    public string? link_label { get; construct; default = null; }
+
+    /** The URI of the image under the pointer, if any. */
+    public string? image_uri { get; construct; default = null; }
+
+    /** The URI of the media element under the pointer, if any. */
+    public string? media_uri { get; construct; default = null; }
+
+    /** Determines if the pointer was over editable content. */
+    public bool is_editable { get; construct; default = false; }
+
+    /** Determines if the pointer was over the current selection. */
+    public bool is_selection { get; construct; default = false; }
+
+    /** Determines if the pointer was over a link. */
+    public bool is_link {
+        get { return this.link_uri != null; }
+    }
+
+    /** Determines if the pointer was over an image. */
+    public bool is_image {
+        get { return this.image_uri != null; }
+    }
+
+    public WebViewHitTest(string? link_uri = null,
+                          string? link_label = null,
+                          string? image_uri = null,
+                          string? media_uri = null,
+                          bool is_editable = false,
+                          bool is_selection = false) {
+        Object(
+            link_uri: link_uri,
+            link_label: link_label,
+            image_uri: image_uri,
+            media_uri: media_uri,
+            is_editable: is_editable,
+            is_selection: is_selection
+        );
+    }
+
+}
+
+/**
  * The text styles applied to text typed at the editing caret.
  */
 [Flags]

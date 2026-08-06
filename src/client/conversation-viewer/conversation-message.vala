@@ -395,10 +395,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         new Gee.LinkedList<ContactFlowBoxChild>();
 
     // Resource that have been loaded by the web view
-#if HAVE_WEBKIT
-    private Gee.Map<string,WebKit.WebResource> resources =
-        new Gee.HashMap<string,WebKit.WebResource>();
-#endif
+
 
     // Message-specific actions
     private SimpleActionGroup message_actions = new SimpleActionGroup();
@@ -619,20 +616,15 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             viewer.previous_web_view = this.web_view;
         }
 
-#if HAVE_WEBKIT
-        this.web_view.context_menu.connect(on_context_menu);
-#endif
+        this.web_view.context_menu_requested.connect(on_context_menu);
         this.web_view.deceptive_link_clicked.connect(on_deceptive_link_clicked);
         this.web_view.link_activated.connect((link) => {
                 on_link_activated(new GLib.Variant("s", link));
             });
-#if HAVE_WEBKIT
-        this.web_view.mouse_target_changed.connect(on_mouse_target_changed);
-#endif
+        this.web_view.pointer_target_changed.connect(on_pointer_target_changed);
         this.web_view.notify["has-selection"].connect(on_selection_changed);
-#if HAVE_WEBKIT
-        this.web_view.resource_load_started.connect(on_resource_load_started);
-#endif
+        this.web_view.resource_started.connect(on_resource_started);
+        this.web_view.resource_finished.connect(on_resource_finished);
         this.web_view.remote_resource_load_blocked.connect(on_remote_resources_blocked);
         this.web_view.internal_resource_loaded.connect(trigger_internal_resource_loaded);
         this.web_view.content_loaded.connect(trigger_content_loaded);
@@ -645,6 +637,8 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             });
         add_action(ACTION_OPEN_INSPECTOR, config.enable_inspector).activate.connect(() => {
 #if HAVE_WEBKIT
+                // The inspector is WebKit's own window; other engines
+                // expose their developer tools differently.
                 this.web_view.get_inspector().show();
 #endif
             });
@@ -661,9 +655,9 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         this.show_progress_timeout.reset();
         this.hide_progress_timeout.reset();
         this.progress_pulse.reset();
-#if HAVE_WEBKIT
-        this.resources.clear();
-#endif
+        if (this.web_view != null) {
+            this.web_view.clear_resources();
+        }
         this.searchable_addresses.clear();
         base.dispose();
     }
@@ -1263,35 +1257,25 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         this.body_progress.hide();
     }
 
-#if HAVE_WEBKIT
-    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
-    private void on_resource_load_started(WebKit.WebView view,
-                                          WebKit.WebResource res,
-                                          WebKit.URIRequest req) {
-        // Cache the resource to allow images to be saved
-        this.resources[res.get_uri()] = res;
-
+    private void on_resource_started(string uri) {
         // Kick off the progress timer if this is the first or next in
         // a batch
         if (this.remote_resources_loaded == this.remote_resources_requested) {
             start_progress_loading();
         }
-
         this.remote_resources_requested++;
-        res.finished.connect(() => {
-                this.remote_resources_loaded++;
-                this.body_progress.fraction = (
-                    (float) this.remote_resources_loaded /
-                    (float) this.remote_resources_requested
-                );
-
-                if (this.remote_resources_loaded ==
-                    this.remote_resources_requested) {
-                    stop_progress_loading();
-                }
-            });
     }
-#endif
+
+    private void on_resource_finished(string uri) {
+        this.remote_resources_loaded++;
+        this.body_progress.fraction = (
+            (float) this.remote_resources_loaded /
+            (float) this.remote_resources_requested
+        );
+        if (this.remote_resources_loaded == this.remote_resources_requested) {
+            stop_progress_loading();
+        }
+    }
 
     [GtkCallback]
     private void on_address_box_child_activated(Gtk.Widget _unused,
@@ -1330,11 +1314,9 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         }
     }
 
-#if HAVE_WEBKIT
-    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
-    private bool on_context_menu(WebKit.WebView view,
-                                 WebKit.ContextMenu context_menu,
-                                 WebKit.HitTestResult hit_test) {
+    private bool on_context_menu(Components.WebViewHitTest hit_test,
+                                 double x,
+                                 double y) {
         if (this.context_menu != null) {
             this.context_menu.popdown();
         }
@@ -1346,8 +1328,8 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         // need.
         Menu model = new Menu();
 
-        if (hit_test.context_is_link()) {
-            string link_url = hit_test.get_link_uri();
+        if (hit_test.is_link) {
+            string link_url = hit_test.link_uri;
             MenuModel link_menu =
                 link_url.has_prefix(MAILTO_URI_PREFIX)
                 ? context_menu_email
@@ -1360,16 +1342,18 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             );
         }
 
-        if (hit_test.context_is_image()) {
-            string uri = hit_test.get_image_uri();
-            set_action_enabled(ACTION_SAVE_IMAGE, this.resources.has_key(uri));
+        if (hit_test.is_image) {
+            string uri = hit_test.image_uri;
+            set_action_enabled(
+                ACTION_SAVE_IMAGE, this.web_view.has_resource(uri)
+            );
             model.append_section(
                 null,
                 set_action_param_value(
                     context_menu_image,
                     new Variant.tuple({
                             new Variant.string(uri),
-                            new Variant("ms", hit_test.get_link_label()),
+                            new Variant("ms", hit_test.link_label),
                         })
                 )
             );
@@ -1383,31 +1367,21 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
 
         this.context_menu = new Gtk.PopoverMenu.from_model(model);
         this.context_menu.set_parent(this);
-        var event = context_menu.get_event();
-        double x = 0, y = 0;
-        if (event != null && event.get_position(out x, out y)) {
-            Gdk.Rectangle rect = { (int) x, (int) y, 1, 1 };
-            this.context_menu.set_pointing_to(rect);
-        }
+        Gdk.Rectangle rect = { (int) x, (int) y, 1, 1 };
+        this.context_menu.set_pointing_to(rect);
         this.context_menu.popup();
 
         return true;
     }
-#endif
 
-#if HAVE_WEBKIT
-    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
-    private void on_mouse_target_changed(WebKit.WebView web_view,
-                                         WebKit.HitTestResult hit_test,
-                                         uint modifiers) {
+    private void on_pointer_target_changed(Components.WebViewHitTest hit_test) {
         this.body_container.set_tooltip_text(
-            hit_test.context_is_link()
-            ? Util.Gtk.shorten_url(hit_test.get_link_uri())
+            hit_test.is_link
+            ? Util.Gtk.shorten_url(hit_test.link_uri)
             : null
         );
         this.body_container.trigger_tooltip_query();
     }
-#endif
 
     // Check for possible phishing links, displays a popover if found.
     // If not, lets it go through to the default handler.
@@ -1550,15 +1524,18 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             // don't bother getting it from the web view
             save_image(uri, alt_text, null);
         } else {
-#if HAVE_WEBKIT
-            WebKit.WebResource response = this.resources.get(uri);
-            response.get_data.begin(null, (obj, res) => {
+            this.web_view.get_resource_data.begin(uri, null, (obj, res) => {
                     try {
-                        uint8[] data = response.get_data.end(res);
+                        GLib.Bytes? data =
+                            this.web_view.get_resource_data.end(res);
                         save_image(
                             uri,
                             alt_text,
-                            new Convey.Memory.ByteBuffer(data, data.length)
+                            data != null
+                            ? new Convey.Memory.ByteBuffer(
+                                data.get_data(), (int) data.get_size()
+                            )
+                            : null
                         );
                     } catch (GLib.Error err) {
                         debug(
@@ -1567,10 +1544,6 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                         );
                     }
                 });
-#else
-            // No engine to fetch the image data from yet.
-            save_image(uri, alt_text, null);
-#endif
         }
     }
 

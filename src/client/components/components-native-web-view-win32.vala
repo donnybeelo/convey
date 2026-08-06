@@ -69,6 +69,29 @@ public class Components.NativeWebView : Gtk.Widget {
     /** Emitted when the text styles at the editing caret change. */
     public signal void typing_attributes_changed();
 
+    /**
+     * Emitted when the user asks for a context menu in the view.
+     *
+     * WebView2 reports this through ContextMenuRequested, which unlike
+     * WebKitGTK also exposes the labels of the engine's own items, so the
+     * composer's spelling and text-input items can be rebuilt here when
+     * this class grows an engine.
+     */
+    public signal bool context_menu_requested(
+        Components.WebViewHitTest hit_test, double x, double y
+    );
+
+    /** Emitted when the content under the pointer changes. */
+    public signal void pointer_target_changed(
+        Components.WebViewHitTest hit_test
+    );
+
+    /** Emitted when the view starts loading a resource. */
+    public signal void resource_started(string uri);
+
+    /** Emitted when a resource the view was loading has finished. */
+    public signal void resource_finished(string uri);
+
     /** The view's zoom level, where 1.0 is unscaled. */
     public double zoom_level { get; set; default = 1.0; }
 
@@ -173,6 +196,23 @@ public class Components.NativeWebView : Gtk.Widget {
     /** Shows the platform's print dialog for the view's content. */
     public void print_content(Gtk.Window? parent,
                               Gtk.PrintSettings settings) {
+        // No engine yet.
+    }
+
+    /** Determines if the view has the data for a loaded resource. */
+    public bool has_resource(string uri) {
+        return false;
+    }
+
+    /** Returns the data of a resource the view loaded, if it has it. */
+    public async GLib.Bytes? get_resource_data(string uri,
+                                               GLib.Cancellable? cancellable)
+        throws GLib.Error {
+        return null;
+    }
+
+    /** Forgets the data of every resource loaded so far. */
+    public void clear_resources() {
         // No engine yet.
     }
 
