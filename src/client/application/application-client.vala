@@ -545,10 +545,20 @@ public class Application.Client : Adw.Application {
         yield this.present();
 
         Accounts.Editor editor = new Accounts.Editor(this);
-        editor.present(get_active_main_window());
         editor.closed.connect((editor) => {
             this.controller.expunge_accounts.begin();
         });
+
+        // Return only once the editor has been closed, so that callers
+        // can act on whatever the user did in it. The first-run path
+        // depends on this: it quits when no account has been added, and
+        // without waiting it would reach that check before the user
+        // could add one, and exit immediately.
+        GLib.SourceFunc resume = show_accounts.callback;
+        ulong closed_handler = editor.closed.connect(() => resume());
+        editor.present(get_active_main_window());
+        yield;
+        editor.disconnect(closed_handler);
     }
 
     /**
