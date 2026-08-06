@@ -384,14 +384,18 @@ namespace Util.JS {
             this.name = name;
         }
 
-        public WebKit.UserMessage to_message() {
+        public string get_name() {
+            return this.name;
+        }
+
+        public GLib.Variant? to_parameters() {
             GLib.Variant? args = null;
             if (this.args.length == 1) {
                 args = this.args[0];
             } else if (this.args.length > 1) {
                 args = new GLib.Variant.tuple(this.args);
             }
-            return new WebKit.UserMessage(this.name, args);
+            return args;
         }
 
         public string to_string() {

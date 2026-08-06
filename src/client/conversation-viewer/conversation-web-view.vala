@@ -22,8 +22,8 @@ public class ConversationWebView : Components.WebView {
         DECEPTIVE_DOMAIN = 2;
     }
 
-    private static WebKit.UserStyleSheet? app_stylesheet = null;
-    private static WebKit.UserScript? app_script = null;
+    private static string? app_stylesheet = null;
+    private static string? app_script = null;
 
     public static new void load_resources()
         throws Error {
@@ -53,8 +53,8 @@ public class ConversationWebView : Components.WebView {
 
         // These only need to be added when creating a new WebProcess,
         // not when sharing one
-        this.user_content_manager.add_script(ConversationWebView.app_script);
-        this.user_content_manager.add_style_sheet(ConversationWebView.app_stylesheet);
+        add_user_script(ConversationWebView.app_script);
+        add_user_stylesheet(ConversationWebView.app_stylesheet);
     }
 
     /**

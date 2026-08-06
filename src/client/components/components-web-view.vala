@@ -7,14 +7,36 @@
  */
 
 /**
- * Base class for all WebKit2 WebView instances used by the Convey client.
+ * A reply sent by a web view's page in response to a method call.
+ */
+public class Components.WebViewResponse : GLib.Object {
+
+    /** The name of the reply message. */
+    public string name { get; private set; }
+
+    /** The reply's payload, if any. */
+    public GLib.Variant? parameters { get; private set; }
+
+    public WebViewResponse(string name, GLib.Variant? parameters) {
+        this.name = name;
+        this.parameters = parameters;
+    }
+
+}
+
+/**
+ * Base class for all web view instances used by the Convey client.
  *
  * This provides common functionality expected by the client for
- * displaying HTML, such as common WebKit settings, desktop font
+ * displaying HTML, such as common engine settings, desktop font
  * integration, Inspector support, and remote and inline resource
  * handling for content such as images and videos.
+ *
+ * The underlying browser engine is supplied by {@link
+ * Components.NativeWebView}, which is a different implementation on
+ * each platform.
  */
-public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface {
+public abstract class Components.WebView : Components.NativeWebView, Convey.BaseInterface {
 
 
     /** URI Scheme and delimiter for internal resource loads. */
@@ -48,57 +70,15 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
     private const string USER_CSS_LEGACY = "user-message.css";
 
 
-    private static WebKit.WebContext? default_context = null;
+    // Scripts and stylesheets injected into every view, as source
+    // text. Kept engine-independent so the platform's native view
+    // decides how to inject them.
+    private static string[] scripts = {};
 
-    private static GenericArray<WebKit.UserStyleSheet> styles = null;
+    private static string[] styles = {};
 
-    private static GenericArray<WebKit.UserScript> scripts = null;
+    private static string? user_style = null;
 
-
-    /**
-     * Initialises WebKit.WebContext for use by the client.
-     */
-    public static void init_web_context(Application.Configuration config,
-                                        File web_extension_dir) {
-        WebKit.WebContext context = new WebKit.WebContext();
-
-        // Configure WebProcess sandboxing
-        context.add_path_to_sandbox(web_extension_dir.get_path(), true);
-
-        // Use the doc browser model so that we get some caching of
-        // resources between email body loads.
-        context.set_cache_model(WebKit.CacheModel.DOCUMENT_BROWSER);
-
-        context.register_uri_scheme("cid", (req) => {
-                WebView? view = req.get_web_view() as WebView;
-                if (view != null) {
-                    view.handle_cid_request(req);
-                }
-            });
-        context.register_uri_scheme("convey", (req) => {
-                WebView? view = req.get_web_view() as WebView;
-                if (view != null) {
-                    view.handle_internal_request(req);
-                }
-            });
-        context.initialize_web_process_extensions.connect((context) => {
-                context.set_web_process_extensions_directory(
-                    web_extension_dir.get_path()
-                );
-                context.set_web_process_extensions_initialization_user_data(
-                    new Variant.boolean(config.enable_debug)
-                );
-            });
-
-        update_spellcheck(context, config);
-        config.settings.changed[
-            Application.Configuration.SPELL_CHECK_LANGUAGES
-        ].connect(() => {
-                update_spellcheck(context, config);
-            });
-
-        WebView.default_context = context;
-    }
 
     /**
      * Loads static resources used by WebView.
@@ -106,17 +86,17 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
     public static void load_resources(GLib.File user_dir)
         throws GLib.Error {
         // Initialize, or overwrite any user scripts/styles we've loaded before
-        WebView.scripts = new GenericArray<WebKit.UserScript>();
-        WebView.styles = new GenericArray<WebKit.UserStyleSheet>();
-
-        WebView.scripts.add(load_app_script("darkreader.js"));
-        WebView.scripts.add(load_app_script("components-web-view.js"));
-        WebView.styles.add(load_app_stylesheet("components-web-view.css"));
+        WebView.scripts = {
+            load_app_script("darkreader.js"),
+            load_app_script("components-web-view.js")
+        };
+        WebView.styles = { load_app_stylesheet("components-web-view.css") };
+        WebView.user_style = null;
 
         foreach (string name in new string[] { USER_CSS, USER_CSS_LEGACY }) {
             GLib.File stylesheet = user_dir.get_child(name);
             try {
-                WebView.styles.add(load_user_stylesheet(stylesheet));
+                WebView.user_style = load_user_stylesheet(stylesheet);
                 break;
             } catch (GLib.IOError.NOT_FOUND err) {
                 // All good, try the next one or just exit
@@ -130,57 +110,22 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         }
     }
 
-    /** Loads an application-specific WebKit stylesheet. */
-    protected static WebKit.UserStyleSheet load_app_stylesheet(string name)
+    /** Loads an application-specific stylesheet's source. */
+    protected static string load_app_stylesheet(string name)
         throws GLib.Error {
-        return new WebKit.UserStyleSheet(
-            GioUtil.read_resource(name),
-            WebKit.UserContentInjectedFrames.TOP_FRAME,
-            WebKit.UserStyleLevel.USER,
-            null,
-            null
-        );
+        return GioUtil.read_resource(name);
     }
 
-    /** Loads a user stylesheet from disk. */
-    protected static WebKit.UserStyleSheet? load_user_stylesheet(GLib.File name)
+    /** Loads a user stylesheet's source from disk. */
+    protected static string load_user_stylesheet(GLib.File name)
         throws GLib.Error {
-        Convey.Memory.FileBuffer buf = new Convey.Memory.FileBuffer(name, true);
-        return new WebKit.UserStyleSheet(
-            buf.get_valid_utf8(),
-            WebKit.UserContentInjectedFrames.ALL_FRAMES,
-            WebKit.UserStyleLevel.USER,
-            null,
-            null
-        );
+        return new Convey.Memory.FileBuffer(name, true).get_valid_utf8();
     }
 
-    /** Loads an application-specific WebKit JavaScript script. */
-    protected static WebKit.UserScript load_app_script(string name)
+    /** Loads an application-specific JavaScript script's source. */
+    protected static string load_app_script(string name)
         throws Error {
-        return new WebKit.UserScript(
-            GioUtil.read_resource(name),
-            WebKit.UserContentInjectedFrames.TOP_FRAME,
-            WebKit.UserScriptInjectionTime.START,
-            null,
-            null
-        );
-    }
-
-    private static inline void update_spellcheck(WebKit.WebContext context,
-                                                 Application.Configuration config) {
-        string[] langs = config.get_spell_check_languages();
-        context.set_spell_checking_enabled(langs.length > 0);
-        context.set_spell_checking_languages(langs);
-    }
-
-    private static inline uint to_wk2_font_size(Pango.FontDescription font) {
-        // XXX GTK4 I have no idea what to do here
-        double size = font.get_size();
-        if (!font.get_size_is_absolute()) {
-            size = size / Pango.SCALE;
-        }
-        return (uint) WebKit.Settings.font_size_to_pixels((uint) size);
+        return GioUtil.read_resource(name);
     }
 
     private static inline double get_text_scale () {
@@ -251,11 +196,7 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         }
         set {
             _document_font = value;
-            Pango.FontDescription font = Pango.FontDescription.from_string(value);
-            WebKit.Settings settings = get_settings();
-            settings.default_font_family = font.get_family();
-            settings.default_font_size = to_wk2_font_size(font);
-            set_settings(settings);
+            apply_document_font(Pango.FontDescription.from_string(value));
         }
     }
     private string _document_font;
@@ -266,11 +207,7 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         }
         set {
             _monospace_font = value;
-            Pango.FontDescription font = Pango.FontDescription.from_string(value);
-            WebKit.Settings settings = get_settings();
-            settings.monospace_font_family = font.get_family();
-            settings.default_monospace_font_size = to_wk2_font_size(font);
-            set_settings(settings);
+            apply_monospace_font(Pango.FontDescription.from_string(value));
         }
     }
     private string _monospace_font;
@@ -315,78 +252,41 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
     public signal void remote_resource_load_blocked();
 
 
+    /**
+     * Initialises the browser engine for use by the client.
+     */
+    public static void init_web_context(Application.Configuration config,
+                                        GLib.File web_extension_dir) {
+        NativeWebView.init_platform(config, web_extension_dir);
+    }
+
     protected WebView(Application.Configuration config,
-                      GLib.File? cache_dir = null,
-                      WebKit.UserContentManager? custom_manager = null,
-                      WebView? related = null) {
-        WebKit.Settings setts = new WebKit.Settings();
-        setts.allow_modal_dialogs = false;
-        setts.default_charset = "UTF-8";
-        setts.enable_developer_extras = config.enable_inspector;
-        setts.enable_fullscreen = false;
-        setts.enable_html5_database = false;
-        setts.enable_html5_local_storage = false;
-        setts.enable_javascript = true;
-        setts.enable_javascript_markup = false;
-        setts.enable_media_stream = false;
-        setts.enable_offline_web_application_cache = false;
-        setts.enable_page_cache = false;
-        // Let WebKit use the GPU. Software rendering scrolls poorly,
-        // especially under fractional scaling where each message's
-        // surface is rescaled on the CPU every frame. If many-message
-        // threads exhaust VRAM on low-end GPUs, gate this behind a
-        // setting instead of forcing NEVER.
-        setts.hardware_acceleration_policy =
-            WebKit.HardwareAccelerationPolicy.ALWAYS;
-        setts.javascript_can_access_clipboard = true;
-
-        WebKit.UserContentManager content_manager =
-             custom_manager ?? new WebKit.UserContentManager();
-
-        if (WebView.scripts != null) {
-            WebView.scripts.foreach(script => content_manager.add_script(script));
-        }
-        if (WebView.styles != null) {
-            WebView.styles.foreach(style => content_manager.add_style_sheet(style));
-        }
-
-        // Use cache dir for both cache & data since a) emails shouldn't be
-        // storing data anyway, and b) so WK doesn't use the default, shared datadir
-        WebKit.NetworkSession nw_session;
-        if (cache_dir != null) {
-            nw_session = new WebKit.NetworkSession(
-                cache_dir.get_path(),
-                cache_dir.get_path()
-            );
-        } else {
-            nw_session = new WebKit.NetworkSession.ephemeral();
-        }
-
-        Object(
-            settings: setts,
-            user_content_manager: content_manager,
-            web_context: WebView.default_context,
-            network_session: nw_session
-        );
+                      GLib.File? cache_dir = null) {
+        base(config, cache_dir);
         base_ref();
+
+        foreach (string script in WebView.scripts) {
+            add_user_script(script);
+        }
+        foreach (string style in WebView.styles) {
+            add_user_stylesheet(style);
+        }
+        if (WebView.user_style != null) {
+            add_user_stylesheet(WebView.user_style, true);
+        }
+
         init(config);
     }
 
     /**
-     * Constructs a new web view with a new shared WebProcess.
+     * Constructs a new web view sharing another view's engine process.
      *
-     * The new view will use the same WebProcess, settings and content
-     * manager as the given related view's.
-     *
-     * @see WebKit.WebView.WebView.with_related_view
+     * The new view will use the same process, settings and injected
+     * content as the given related view's.
      */
     protected WebView.with_related_view(Application.Configuration config,
                                         WebView related) {
-        Object(
-            related_view: related,
-            settings: related.get_settings(),
-            user_content_manager: related.user_content_manager
-        );
+        base.with_related_view(config, related);
         base_ref();
         init(config);
     }
@@ -556,7 +456,9 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
     protected async T call_returning<T>(Util.JS.Callable target,
                                         GLib.Cancellable? cancellable)
         throws GLib.Error {
-        WebKit.UserMessage? response = yield call_impl(target, cancellable);
+        Components.WebViewResponse? response = yield call_impl(
+            target, cancellable
+        );
         if (response == null) {
             throw new Util.JS.Error.TYPE(
                 "Method call %s did not return a value", target.to_string()
@@ -625,10 +527,10 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
 
     private void init(Application.Configuration config) {
         this.config = config;
-        this.decide_policy.connect(on_decide_policy);
-        this.web_process_terminated.connect((reason) => {
-                warning("Web process crashed: %s", reason.to_string());
-            });
+        this.link_clicked.connect((uri) => link_activated(uri));
+        this.internal_resource_served.connect(
+            (name) => internal_resource_loaded(name)
+        );
 
         register_message_callback(
             COMMAND_STACK_CHANGED, on_command_stack_changed
@@ -649,7 +551,6 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
             SELECTION_CHANGED, on_selection_changed
         );
 
-        this.user_message_received.connect(this.on_message_received);
         config.settings.changed[
             Application.Configuration.UNSET_HTML_COLORS
         ].connect(() => {
@@ -700,11 +601,12 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         }
     }
 
-    private async WebKit.UserMessage? call_impl(Util.JS.Callable target,
-                                                GLib.Cancellable? cancellable)
-        throws GLib.Error {
-        WebKit.UserMessage? response = yield send_message_to_page(
-            target.to_message(), cancellable
+    private async Components.WebViewResponse? call_impl(
+        Util.JS.Callable target,
+        GLib.Cancellable? cancellable
+    ) throws GLib.Error {
+        Components.WebViewResponse? response = yield send_page_message(
+            target.get_name(), target.to_parameters(), cancellable
         );
         if (response != null) {
             var response_name = response.name;
@@ -742,81 +644,14 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         return response;
     }
 
-    private void handle_cid_request(WebKit.URISchemeRequest request) {
-        if (!handle_internal_response(request)) {
-            request.finish_error(new FileError.NOENT("Unknown CID"));
-        }
-    }
-
-    private void handle_internal_request(WebKit.URISchemeRequest request) {
-        if (request.get_uri() == INTERNAL_URL_BODY) {
-            Convey.Memory.Buffer buf = new Convey.Memory.StringBuffer(this.body);
-            request.finish(buf.get_input_stream(), buf.size, null);
-        } else if (!handle_internal_response(request)) {
-            request.finish_error(new FileError.NOENT("Unknown internal URL"));
-        }
-    }
-
-    private bool handle_internal_response(WebKit.URISchemeRequest request) {
-        string name = GLib.Uri.unescape_string(request.get_path());
-        Convey.Memory.Buffer? buf = this.internal_resources[name];
-        bool handled = false;
-        if (buf != null) {
-            request.finish(buf.get_input_stream(), buf.size, null);
-            internal_resource_loaded(name);
-            handled = true;
-        }
-        return handled;
-    }
-
-    // This method is called only when determining if something should
-    // be loaded for display in the web view as the primary
-    // resource. It is not used to determine if sub-resources such as
-    // images or JS will be loaded. So we only allow convey:body loads,
-    // and notify but ignore if the user attempts to click on a link,
-    // and deny everything else.
-    private bool on_decide_policy(WebKit.WebView view,
-                                  WebKit.PolicyDecision policy,
-                                  WebKit.PolicyDecisionType type) {
-        if (type == WebKit.PolicyDecisionType.NAVIGATION_ACTION ||
-            type == WebKit.PolicyDecisionType.NEW_WINDOW_ACTION) {
-            WebKit.NavigationPolicyDecision nav_policy =
-                (WebKit.NavigationPolicyDecision) policy;
-            WebKit.NavigationAction nav_action =
-                nav_policy.get_navigation_action();
-            switch (nav_action.get_navigation_type()) {
-            case WebKit.NavigationType.OTHER:
-                if (nav_action.get_request().uri == INTERNAL_URL_BODY) {
-                    policy.use();
-                } else {
-                    policy.ignore();
-                }
-                break;
-
-            case WebKit.NavigationType.LINK_CLICKED:
-                // Let the app know a user activated a link, but don't
-                // try to load it ourselves.
-
-                // We need to call ignore() before emitting the signal
-                // to unblock the WebKit WebProcess, otherwise the
-                // call chain for mailto links will cause the
-                // WebProcess to deadlock, and the resulting composer
-                // will be useless. See Convey Bug 771504
-                // <https://bugzilla.gnome.org/show_bug.cgi?id=771504>
-                // and WebKitGTK Bug 182528
-                // <https://bugs.webkit.org/show_bug.cgi?id=182528>
-                policy.ignore();
-                link_activated(nav_action.get_request().uri);
-                break;
-
-            default:
-                policy.ignore();
-                break;
-            }
-        } else {
-            policy.ignore();
-        }
-        return Gdk.EVENT_STOP;
+    protected override Convey.Memory.Buffer? lookup_internal_resource(
+        string uri, string path
+    ) {
+        return (
+            uri == INTERNAL_URL_BODY
+            ? new Convey.Memory.StringBuffer(this.body)
+            : this.internal_resources[path]
+        );
     }
 
     private bool on_scroll_event(Gtk.EventControllerScroll scroll_controller, double dx, double dy) {
@@ -906,28 +741,28 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         }
     }
 
-    private bool on_message_received(WebKit.UserMessage message) {
-        if (message.name == MESSAGE_EXCEPTION) {
-            var detail = new GLib.VariantDict(message.parameters);
-            var name = detail.lookup_value("name", GLib.VariantType.STRING) as string;
+    protected override void handle_page_message(string name,
+                                                GLib.Variant? parameters) {
+        if (name == MESSAGE_EXCEPTION) {
+            var detail = new GLib.VariantDict(parameters);
+            var error_name = detail.lookup_value("name", GLib.VariantType.STRING) as string;
             var log_message = detail.lookup_value("message", GLib.VariantType.STRING) as string;
             warning(
                 "Error sending message from JS: %s: %s",
-                name ?? "unknown",
+                error_name ?? "unknown",
                 log_message ?? "unknown"
             );
-        } else if (this.message_handlers.has_key(message.name)) {
+        } else if (this.message_handlers.has_key(name)) {
             debug(
                 "Message received: %s(%s)",
-                message.name,
-                message.parameters != null ? message.parameters.print(true) : ""
+                name,
+                parameters != null ? parameters.print(true) : ""
             );
-            MessageCallable callback = this.message_handlers.get(message.name);
-            callback.handler(message.parameters);
+            MessageCallable callback = this.message_handlers.get(name);
+            callback.handler(parameters);
         } else {
-            warning("Message with unknown handler received: %s", message.name);
+            warning("Message with unknown handler received: %s", name);
         }
-        return true;
     }
 
 }

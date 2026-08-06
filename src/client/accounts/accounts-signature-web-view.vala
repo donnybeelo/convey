@@ -11,7 +11,7 @@
 public class Accounts.SignatureWebView : Components.WebView {
 
 
-    private static WebKit.UserScript? app_script = null;
+    private static string? app_script = null;
 
     public static new void load_resources()
         throws GLib.Error {
@@ -23,7 +23,7 @@ public class Accounts.SignatureWebView : Components.WebView {
 
     public SignatureWebView(Application.Configuration config) {
         base(config, null);
-        this.user_content_manager.add_script(SignatureWebView.app_script);
+        add_user_script(SignatureWebView.app_script);
         add_css_class("convey-signature");
     }
 

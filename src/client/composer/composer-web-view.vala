@@ -114,8 +114,8 @@ public class Composer.WebView : Components.WebView {
     }
 
 
-    private static WebKit.UserStyleSheet? app_style = null;
-    private static WebKit.UserScript? app_script = null;
+    private static string? app_style = null;
+    private static string? app_script = null;
 
     public static new void load_resources()
         throws Error {
@@ -159,8 +159,8 @@ public class Composer.WebView : Components.WebView {
     public WebView(Application.Configuration config, GLib.File cache_dir) {
         base(config, cache_dir);
 
-        this.user_content_manager.add_style_sheet(WebView.app_style);
-        this.user_content_manager.add_script(WebView.app_script);
+        add_user_stylesheet(WebView.app_style);
+        add_user_script(WebView.app_script);
 
         register_message_callback(CURSOR_CONTEXT_CHANGED, on_cursor_context_changed);
         register_message_callback(DRAG_DROP_RECEIVED, on_drag_drop_received);

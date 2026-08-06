@@ -145,6 +145,18 @@ client_vala_sources = files(
   'util/util-migrate.vala',
 )
 
+# The native web view is per-platform: same class name and API, one
+# implementation per host system. See
+# components/components-native-web-view-webkit.vala.
+native_web_view_sources = {
+  'windows': ['components/components-native-web-view-win32.vala'],
+  'darwin': ['components/components-native-web-view-darwin.vala'],
+}.get(
+  host_machine.system(),
+  ['components/components-native-web-view-webkit.vala'],
+)
+client_vala_sources += files(native_web_view_sources)
+
 client_dependencies = [
   config_dep,
   enchant,
