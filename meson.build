@@ -32,11 +32,20 @@ data_dir = convey_prefix / get_option('datadir')
 lib_dir = convey_prefix / get_option('libdir')
 locale_dir = convey_prefix / get_option('localedir')
 
-# The client is not yet buildable on Windows: it needs a WebView2-backed
-# Components.NativeWebView, plus native replacements for the GNOME desktop
-# services it uses (GOA, folks, libsecret, gsound, gcr/gck). The engine is
-# portable, so on Windows configure just the engine and its tests for now.
-build_client = host_machine.system() != 'windows'
+# Not every platform has every library the client uses. Each flag below
+# gates both the dependency and a --define of the same name in upper case,
+# so the code can do without it. See src/client/meson.build.
+#
+# WebKitGTK has no Windows port: Components.NativeWebView has a
+# placeholder Windows implementation until a WebView2-backed one exists,
+# and the WebKit web process extension is not built at all.
+have_webkit = host_machine.system() != 'windows'
+have_goa = host_machine.system() != 'windows'
+have_folks = host_machine.system() != 'windows'
+have_gsound = host_machine.system() != 'windows'
+have_gcr = host_machine.system() != 'windows'
+# Yelp user documentation needs itstool, which is not packaged for Windows.
+have_yelp = host_machine.system() != 'windows'
 
 # Source dirs
 metadata_dir = meson.project_source_root() / 'bindings'/ 'metadata'
@@ -91,26 +100,38 @@ libxml = dependency('libxml-2.0', version: '>= 2.7.8')
 libytnef = dependency('libytnef', version: '>= 1.9.3', required: get_option('tnef'))
 posix = valac.find_library('posix')
 
-# Client-only deps, several of which are Linux-only. See build_client above.
-if build_client
-  gtk = dependency('gtk4', version: '>=' + target_gtk)
+# Client deps
+gtk = dependency('gtk4', version: '>=' + target_gtk)
+cairo = dependency('cairo')
+enchant = dependency('enchant-2', version: '>=2.1')
+iso_codes = dependency('iso-codes')
+libadwaita = dependency('libadwaita-1', version: '>= 1.7')
+libpeas = dependency('libpeas-2')
+libsecret = dependency('libsecret-1', version: '>= 0.11')
+libspelling = dependency('libspelling-1')
+
+# Client deps that are not available everywhere
+if have_webkit
   webkitgtk = dependency('webkitgtk-6.0', version: '>=' + target_webkit)
-  cairo = dependency('cairo')
-  enchant = dependency('enchant-2', version: '>=2.1')
-  folks = dependency('folks', version: '>=0.11')
-  gck = dependency('gck-2')
-  gcr = dependency('gcr-4')
-  goa = dependency('goa-1.0')
-  gsound = dependency('gsound')
-  iso_codes = dependency('iso-codes')
-  javascriptcoregtk = dependency('javascriptcoregtk-6.0', version: '>=' + target_webkit)
-  libadwaita = dependency('libadwaita-1', version: '>= 1.7')
-  libpeas = dependency('libpeas-2')
-  libsecret = dependency('libsecret-1', version: '>= 0.11')
-  libspelling = dependency('libspelling-1')
+  javascriptcoregtk = dependency(
+    'javascriptcoregtk-6.0', version: '>=' + target_webkit
+  )
   webkitgtk_web_extension = dependency(
     'webkitgtk-web-process-extension-6.0', version: '>=' + target_webkit
   )
+endif
+if have_goa
+  goa = dependency('goa-1.0')
+endif
+if have_folks
+  folks = dependency('folks', version: '>=0.11')
+endif
+if have_gsound
+  gsound = dependency('gsound')
+endif
+if have_gcr
+  gck = dependency('gck-2')
+  gcr = dependency('gcr-4')
 endif
 
 # System dependencies above ensures appropriate versions for the
@@ -195,22 +216,23 @@ vala_unit_dep = vala_unit_proj.get_variable('vala_unit_dep')
 
 # Language detection
 
+iso_codes_dir = iso_codes.get_variable(pkgconfig: 'prefix')/'share'/'xml'/'iso-codes'
+
 iso_639_xml = get_option('iso_639_xml')
+if iso_639_xml == ''
+  iso_639_xml = iso_codes_dir / 'iso_639.xml'
+endif
+
 iso_3166_xml = get_option('iso_3166_xml')
+if iso_3166_xml == ''
+  iso_3166_xml = iso_codes_dir / 'iso_3166.xml'
+endif
 
-if build_client
-  iso_codes_dir = iso_codes.get_variable(pkgconfig: 'prefix')/'share'/'xml'/'iso-codes'
-  if iso_639_xml == ''
-    iso_639_xml = iso_codes_dir / 'iso_639.xml'
-  endif
-  if iso_3166_xml == ''
-    iso_3166_xml = iso_codes_dir / 'iso_3166.xml'
-  endif
+files(iso_639_xml, iso_3166_xml) # Check to make sure these exist
 
-  files(iso_639_xml, iso_3166_xml) # Check to make sure these exist
-
-  # Make sure the locale C.UTF-8 is installed on the system. No `locale`
-  # binary on Windows, hence the guard.
+# Make sure the locale C.UTF-8 is installed on the system. There is no
+# `locale` binary on Windows, hence the guard.
+if host_machine.system() != 'windows'
   c_utf8_check = run_command('locale', '-a', check: true).stdout()
   if not ('C.utf8' in c_utf8_check.split('\n'))
     warning('C.utf8 locale not available on this system.')
@@ -226,8 +248,7 @@ gnome.post_install(
 
 # Subfolders
 subdir('desktop')
-if build_client
-  # Yelp user docs; not shipped on platforms without the client.
+if have_yelp
   subdir('help')
 endif
 subdir('icons')

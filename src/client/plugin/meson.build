@@ -5,19 +5,24 @@
 
 plugin_dependencies = [
   config_dep,
-  folks,
   client_dep,
   engine_dep,
   gee,
   gmime,
-  goa,
   gtk,
-  javascriptcoregtk,
   libadwaita,
   libmath,
   libpeas,
-  webkitgtk,
 ]
+if have_webkit
+  plugin_dependencies += [ javascriptcoregtk, webkitgtk ]
+endif
+if have_goa
+  plugin_dependencies += goa
+endif
+if have_folks
+  plugin_dependencies += folks
+endif
 
 plugin_c_args = convey_c_args
 
@@ -44,5 +49,7 @@ subdir('folder-highlight')
 subdir('mail-merge')
 subdir('messaging-menu')
 subdir('notification-badge')
-subdir('sent-sound')
+if have_gsound
+  subdir('sent-sound')
+endif
 subdir('special-folders')

@@ -31,7 +31,6 @@ client_vala_sources = files(
   'application/application-notification-plugin-context.vala',
   'application/application-plugin-manager.vala',
   'application/application-startup-manager.vala',
-  'application/goa-mediator.vala',
   'application/secret-mediator.vala',
 
   'accounts/accounts-autoconfig.vala',
@@ -157,30 +156,60 @@ native_web_view_sources = {
 )
 client_vala_sources += files(native_web_view_sources)
 
+client_vala_sources += files('application/goa-mediator.vala')
+
+# Where a library the client uses is unavailable, a stub supplies the
+# symbols it needs so the code above compiles unmodified. Each file
+# documents what is lost. See the have_* flags in meson.build.
+if not have_folks
+  client_vala_sources += files('application/application-folks-stub.vala')
+endif
+if not have_goa
+  client_vala_sources += files('application/application-goa-stub.vala')
+endif
+if not have_gcr
+  client_vala_sources += files('application/application-gcr-stub.vala')
+endif
+
 client_dependencies = [
   config_dep,
   enchant,
-  folks,
-  gck,
-  gcr,
   engine_dep,
   gee,
   gio,
   gmime,
-  goa,
   gtk,
   icu_uc,
-  javascriptcoregtk,
   json_glib,
   libadwaita,
   libmath,
   libpeas,
   libsecret,
+  libsoup,
   libspelling,
   libxml,
   posix,
-  webkitgtk,
 ]
+
+# Each of these also defines a matching HAVE_* symbol for the Vala
+# compiler, so the code can do without the library. See meson.build.
+client_vala_defines = []
+if have_webkit
+  client_dependencies += [ javascriptcoregtk, webkitgtk ]
+  client_vala_defines += '--define=HAVE_WEBKIT'
+endif
+if have_goa
+  client_dependencies += goa
+  client_vala_defines += '--define=HAVE_GOA'
+endif
+if have_folks
+  client_dependencies += folks
+  client_vala_defines += '--define=HAVE_FOLKS'
+endif
+if have_gcr
+  client_dependencies += [ gck, gcr ]
+  client_vala_defines += '--define=HAVE_GCR'
+endif
 
 client_build_dir = meson.current_build_dir()
 
@@ -188,6 +217,7 @@ client_build_dir = meson.current_build_dir()
 # https://github.com/mesonbuild/meson/issues/1781 for official
 # internal VAPI support.
 client_vala_args = convey_vala_args
+client_vala_args += client_vala_defines
 client_vala_args += [
   '--internal-header=@0@/@1@-internal.h'.format(
     client_build_dir, client_package_name
@@ -197,7 +227,7 @@ client_vala_args += [
   )
 ]
 
-if webkitgtk.version().version_compare('<2.31')
+if have_webkit and webkitgtk.version().version_compare('<2.31')
   client_vala_args += [ '--define=WEBKIT_PLUGINS_SUPPORTED' ]
 endif
 

@@ -78,17 +78,16 @@ convey_c_args += cc.get_supported_arguments([
 ])
 
 subdir('engine')
-if build_client
-  subdir('client')
-endif
-# Both link webkitgtk, so they follow the client for now.
-if build_client
+subdir('client')
+# Both link webkitgtk directly.
+if have_webkit
   subdir('console')
   subdir('mailer')
 endif
 
-# Everything below is client-only. Not indented, to keep the diff readable.
-if build_client
+# The WebKit web process extension has no counterpart on platforms without
+# WebKitGTK; there, the equivalent work happens in injected JavaScript.
+if have_webkit
 
 web_process_sources = files(
   'client/web-process/web-process-extension.vala',
@@ -111,6 +110,8 @@ web_process = library('convey-web-process',
   install_dir: web_extensions_dir
 )
 
+endif # have_webkit
+
 # Now finally, make the convey executable
 bin_sources = files(
   'client' / 'application' / 'main.vala',
@@ -121,19 +122,24 @@ bin_sources += [
   convey_resources # Included here so they show up in the executable.
 ]
 bin_dependencies = [
-  folks,
   client_dep,
   engine_dep,
   gee,
   gmime,
-  goa,
   gtk,
-  javascriptcoregtk,
   libadwaita,
   libmath,
   libpeas,
-  webkitgtk,
 ]
+if have_webkit
+  bin_dependencies += [ javascriptcoregtk, webkitgtk ]
+endif
+if have_goa
+  bin_dependencies += goa
+endif
+if have_folks
+  bin_dependencies += folks
+endif
 
 bin = executable('convey',
   bin_sources,
@@ -143,6 +149,8 @@ bin = executable('convey',
   install: true,
   install_rpath: client_lib_dir,
 )
+
+if have_webkit
 
 valadoc_dependencies = [
   cairo,
@@ -214,4 +222,4 @@ if valadoc.found()
   )
 endif
 
-endif # build_client
+endif # have_webkit
