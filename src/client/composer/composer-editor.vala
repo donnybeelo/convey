@@ -174,9 +174,7 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
 #endif
         this.body.cursor_context_changed.connect(on_cursor_context_changed);
         this.body.typing_attributes_changed.connect(on_typing_attributes_changed);
-#if HAVE_WEBKIT
-        this.body.mouse_target_changed.connect(on_mouse_target_changed);
-#endif
+        this.body.pointer_target_changed.connect(on_pointer_target_changed);
         this.body.notify["has-selection"].connect(on_selection_changed);
         this.body.set_hexpand(true);
         this.body.set_vexpand(true);
@@ -367,7 +365,17 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
     }
 
 #if HAVE_WEBKIT
-    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
+    // Engine-specific by necessity, unlike the conversation viewer's menu:
+    // this one keeps the engine's own spelling suggestions and text-input
+    // items, and WebKit.ContextMenuItem exposes no way to read an item's
+    // label, which for a spelling suggestion is the suggested word. So the
+    // items cannot be lifted into a menu of the client's own, and the
+    // engine's menu is amended in place instead.
+    //
+    // WebView2 does report labels with its ContextMenuRequested event, so
+    // the Windows implementation can build this menu itself from the
+    // portable Components.WebViewHitTest and its own item list. Until it
+    // does, right-clicking the composer body there does nothing.
     private bool on_context_menu(WebKit.WebView view,
                                  WebKit.ContextMenu context_menu,
                                  WebKit.HitTestResult hit_test_result) {
@@ -450,7 +458,7 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
 #endif
 
 #if HAVE_WEBKIT
-    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
+    // See on_context_menu above for why this is engine-specific.
     private inline void append_menu_section(WebKit.ContextMenu context_menu,
                                             Menu section) {
         Util.Gtk.menu_foreach(section, (label, name, target, section) => {
@@ -491,18 +499,13 @@ public class Composer.Editor : Gtk.Grid, Convey.BaseInterface {
             this.actions.change_action_state(ACTION_FONT_SIZE, "medium");
     }
 
-#if HAVE_WEBKIT
-    // ponytail: fenced off until the portable hit-test and context-menu types land; see components-native-web-view-win32.vala.
-    private void on_mouse_target_changed(WebKit.WebView web_view,
-                                         WebKit.HitTestResult hit_test,
-                                         uint modifiers) {
-        bool copy_link_enabled = hit_test.context_is_link();
-        this.pointer_url = copy_link_enabled ? hit_test.get_link_uri() : null;
+    private void on_pointer_target_changed(Components.WebViewHitTest hit_test) {
+        bool copy_link_enabled = hit_test.is_link;
+        this.pointer_url = copy_link_enabled ? hit_test.link_uri : null;
         this.message_overlay_label.label = this.pointer_url ?? "";
         this.message_overlay_label.set_visible(copy_link_enabled);
         get_action(ACTION_COPY_LINK).set_enabled(copy_link_enabled);
     }
-#endif
 
     private void on_typing_attributes_changed() {
         Components.WebViewTypingAttributes attrs =
