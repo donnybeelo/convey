@@ -1367,8 +1367,20 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
 
         this.context_menu = new Gtk.PopoverMenu.from_model(model);
         this.context_menu.set_parent(this);
-        Gdk.Rectangle rect = { (int) x, (int) y, 1, 1 };
-        this.context_menu.set_pointing_to(rect);
+
+        // The coordinates are relative to the web view, so translate them
+        // into this widget's space before pointing the menu at them. Left
+        // unset if that is not possible, so that the menu falls back to
+        // being positioned against this widget rather than at its corner.
+        Graphene.Point pointer;
+        if (this.web_view.compute_point(
+                this, { (float) x, (float) y }, out pointer
+            )) {
+            this.context_menu.set_pointing_to(
+                { (int) pointer.x, (int) pointer.y, 1, 1 }
+            );
+        }
+
         this.context_menu.popup();
 
         return true;

@@ -359,8 +359,9 @@ public class Components.NativeWebView : WebKit.WebView {
     /**
      * Emitted when the user asks for a context menu in the view.
      *
-     * The engine's own menu is shown only if no handler returns true,
-     * so a handler that presents a menu of its own should do so.
+     * The coordinates are relative to this widget. The engine's own menu
+     * is shown only if no handler returns true, so a handler that presents
+     * a menu of its own should do so.
      */
     public signal bool context_menu_requested(
         Components.WebViewHitTest hit_test, double x, double y
@@ -407,8 +408,23 @@ public class Components.NativeWebView : WebKit.WebView {
     private Gee.Map<string,WebKit.WebResource> resources =
         new Gee.HashMap<string,WebKit.WebResource>();
 
+    // Where the pointer last was, in this widget's coordinates. Tracked
+    // rather than taken from the menu's triggering event: that event is
+    // not always present, and when it is its coordinates are relative to
+    // the surface rather than to this widget.
+    private double pointer_x = 0;
+    private double pointer_y = 0;
+
 
     private void init_native() {
+        var motion = new Gtk.EventControllerMotion();
+        // Capture phase: the web view handles pointer events itself, so a
+        // controller in the default bubble phase would not see them.
+        motion.propagation_phase = Gtk.PropagationPhase.CAPTURE;
+        motion.enter.connect((x, y) => set_pointer_position(x, y));
+        motion.motion.connect((x, y) => set_pointer_position(x, y));
+        add_controller(motion);
+
         this.context_menu.connect(on_context_menu);
         this.mouse_target_changed.connect(on_mouse_target_changed);
         this.resource_load_started.connect(on_resource_load_started);
@@ -438,15 +454,17 @@ public class Components.NativeWebView : WebKit.WebView {
         );
     }
 
+    private inline void set_pointer_position(double x, double y) {
+        this.pointer_x = x;
+        this.pointer_y = y;
+    }
+
     private bool on_context_menu(WebKit.WebView view,
                                  WebKit.ContextMenu menu,
                                  WebKit.HitTestResult hit) {
-        double x = 0, y = 0;
-        var event = menu.get_event();
-        if (event != null) {
-            event.get_position(out x, out y);
-        }
-        return context_menu_requested(to_hit_test(hit), x, y);
+        return context_menu_requested(
+            to_hit_test(hit), this.pointer_x, this.pointer_y
+        );
     }
 
     private void on_mouse_target_changed(WebKit.WebView view,
