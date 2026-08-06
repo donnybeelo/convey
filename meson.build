@@ -48,6 +48,8 @@ have_gcr = host_machine.system() != 'windows'
 have_yelp = host_machine.system() != 'windows'
 # A few POSIX functions have no Windows equivalent in the C library.
 have_posix = host_machine.system() != 'windows'
+# libsecret needs a Secret Service; Windows uses the Credential Manager.
+have_libsecret = host_machine.system() != 'windows'
 
 # Source dirs
 metadata_dir = meson.project_source_root() / 'bindings'/ 'metadata'
@@ -109,7 +111,6 @@ enchant = dependency('enchant-2', version: '>=2.1')
 iso_codes = dependency('iso-codes')
 libadwaita = dependency('libadwaita-1', version: '>= 1.7')
 libpeas = dependency('libpeas-2')
-libsecret = dependency('libsecret-1', version: '>= 0.11')
 libspelling = dependency('libspelling-1')
 
 # Client deps that are not available everywhere
@@ -134,6 +135,9 @@ endif
 if have_gcr
   gck = dependency('gck-2')
   gcr = dependency('gcr-4')
+endif
+if have_libsecret
+  libsecret = dependency('libsecret-1', version: '>= 0.11')
 endif
 
 # System dependencies above ensures appropriate versions for the

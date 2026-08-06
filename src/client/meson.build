@@ -31,7 +31,6 @@ client_vala_sources = files(
   'application/application-notification-plugin-context.vala',
   'application/application-plugin-manager.vala',
   'application/application-startup-manager.vala',
-  'application/secret-mediator.vala',
 
   'accounts/accounts-autoconfig.vala',
   'accounts/accounts-editor.vala',
@@ -144,6 +143,21 @@ client_vala_sources = files(
   'util/util-migrate.vala',
 )
 
+# The credentials mediator is per-platform: same class name and API, one
+# implementation per host system. libsecret is packaged for Windows but
+# needs a Secret Service to talk to, which Windows has no equivalent of,
+# so it uses the Credential Manager instead.
+secret_mediator_sources = {
+  'windows': [
+    'application/credman-mediator.vala',
+    'application/application-credman.c',
+  ],
+}.get(
+  host_machine.system(),
+  ['application/secret-mediator.vala'],
+)
+client_vala_sources += files(secret_mediator_sources)
+
 # The native web view is per-platform: same class name and API, one
 # implementation per host system. See
 # components/components-native-web-view-webkit.vala.
@@ -187,7 +201,6 @@ client_dependencies = [
   libadwaita,
   libmath,
   libpeas,
-  libsecret,
   libsoup,
   libspelling,
   libxml,
@@ -215,6 +228,9 @@ if have_gcr
 endif
 if have_posix
   client_vala_defines += '--define=HAVE_POSIX'
+endif
+if have_libsecret
+  client_dependencies += libsecret
 endif
 
 client_build_dir = meson.current_build_dir()
