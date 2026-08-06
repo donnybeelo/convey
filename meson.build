@@ -226,7 +226,10 @@ gnome.post_install(
 
 # Subfolders
 subdir('desktop')
-subdir('help')
+if build_client
+  # Yelp user docs; not shipped on platforms without the client.
+  subdir('help')
+endif
 subdir('icons')
 subdir('po')
 subdir('sql')

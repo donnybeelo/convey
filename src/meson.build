@@ -81,8 +81,11 @@ subdir('engine')
 if build_client
   subdir('client')
 endif
-subdir('console')
-subdir('mailer')
+# Both link webkitgtk, so they follow the client for now.
+if build_client
+  subdir('console')
+  subdir('mailer')
+endif
 
 # Everything below is client-only. Not indented, to keep the diff readable.
 if build_client

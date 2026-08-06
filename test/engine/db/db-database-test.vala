@@ -43,6 +43,12 @@ class Convey.Db.DatabaseTest : TestCase {
         // actually get created until then
         db.get_primary_connection();
 
+        // Release the database's connection, and the stream below,
+        // before deleting: Windows will not remove a file that is
+        // still open.
+        db.close();
+        stream.close();
+
         tmp_file.delete();
     }
 
@@ -62,6 +68,8 @@ class Convey.Db.DatabaseTest : TestCase {
         // Need to get a connection since the database doesn't
         // actually get created until then
         db.get_primary_connection();
+
+        db.close();
 
         db.file.delete();
         tmp_dir.delete();
@@ -86,6 +94,8 @@ class Convey.Db.DatabaseTest : TestCase {
         // Need to get a connection since the database doesn't
         // actually get created until then
         db.get_primary_connection();
+
+        db.close();
 
         db.file.delete();
         db.file.get_parent().delete();
@@ -112,6 +122,8 @@ class Convey.Db.DatabaseTest : TestCase {
         // actually get created until then
         db.get_primary_connection();
 
+        db.close();
+
         db.file.delete();
         tmp_dir.delete();
     }
@@ -135,6 +147,8 @@ class Convey.Db.DatabaseTest : TestCase {
         // Need to get a connection since the database doesn't
         // actually get created until then
         db.get_primary_connection();
+
+        db.close();
 
         db.file.delete();
         tmp_dir.delete();
@@ -160,6 +174,8 @@ class Convey.Db.DatabaseTest : TestCase {
         // Need to get a connection since the database doesn't
         // actually get created until then
         db.get_primary_connection();
+
+        db.close();
 
         db.file.delete();
         db.file.get_parent().delete();

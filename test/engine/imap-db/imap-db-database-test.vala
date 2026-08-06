@@ -149,7 +149,7 @@ class Convey.ImapDB.DatabaseTest : TestCase {
         """);
 
         string[] expected = { "🤯", "a", "BB", "B" };
-        Db.Result result = db.query(
+        Db.Result? result = db.query(
             "SELECT test_str FROM Test ORDER BY test_str COLLATE UTF8COLL DESC"
         );
 
@@ -161,6 +161,11 @@ class Convey.ImapDB.DatabaseTest : TestCase {
             result.next();
         }
         assert_true(i == expected.length, "Not enough rows");
+
+        // Drop the result first: it holds a connection of its own, which
+        // keeps the database file open, and Windows will not let tear_down
+        // delete it while it is.
+        result = null;
 
         // Need to close it again to stop the GC process running
         db.close();
@@ -174,20 +179,24 @@ class Convey.ImapDB.DatabaseTest : TestCase {
 
         GLib.InputStream bytes = archive.read();
 
+        // Forward slashes: tar mangles the backslashes of a native Windows
+        // path, and accepts this form on every platform.
         GLib.Subprocess untar = new GLib.Subprocess(
             GLib.SubprocessFlags.STDIN_PIPE,
-            "tar", "-xJf", "-", "-C", dest.get_path()
+            "tar", "-xJf", "-", "-C", dest.get_path().replace("\\", "/")
         );
-        GLib.OutputStream stdin = untar.get_stdin_pipe();
+        // Not named `stdin`: that is a macro in Windows' stdio.h, and the
+        // generated C then fails to compile.
+        GLib.OutputStream stdin_pipe = untar.get_stdin_pipe();
 
         uint8[] buf = new uint8[4096];
         ssize_t len = 0;
         do {
             len = bytes.read(buf);
-            stdin.write(buf[0:len]);
+            stdin_pipe.write(buf[0:len]);
         } while (len > 0);
 
-        stdin.close();
+        stdin_pipe.close();
 
         untar.wait();
     }
