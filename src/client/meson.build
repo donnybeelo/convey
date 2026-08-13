@@ -162,7 +162,10 @@ client_vala_sources += files(secret_mediator_sources)
 # implementation per host system. See
 # components/components-native-web-view-webkit.vala.
 native_web_view_sources = {
-  'windows': ['components/components-native-web-view-win32.vala'],
+  'windows': [
+    'components/components-native-web-view-win32.vala',
+    'components/components-webview2.c',
+  ],
   'darwin': ['components/components-native-web-view-darwin.vala'],
 }.get(
   host_machine.system(),

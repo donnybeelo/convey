@@ -36,9 +36,9 @@ locale_dir = convey_prefix / get_option('localedir')
 # gates both the dependency and a --define of the same name in upper case,
 # so the code can do without it. See src/client/meson.build.
 #
-# WebKitGTK has no Windows port: Components.NativeWebView has a
-# placeholder Windows implementation until a WebView2-backed one exists,
-# and the WebKit web process extension is not built at all.
+# WebKitGTK has no Windows port: Components.NativeWebView is backed by
+# WebView2 there instead, and the WebKit web process extension is not
+# built at all, its work being done by injected JavaScript.
 have_webkit = host_machine.system() != 'windows'
 have_goa = host_machine.system() != 'windows'
 have_folks = host_machine.system() != 'windows'
@@ -78,6 +78,18 @@ target_webkit = '2.40'
 
 if not valac.version().version_compare('>=' + target_vala)
   error('Vala does not meet minimum required version: ' + target_vala)
+endif
+
+if host_machine.system() == 'windows'
+  # Only the WebView2 headers are needed to build: the loader is opened
+  # at run time, so that a machine without the Edge WebView2 Runtime
+  # installed still starts, and says so in place of each message body.
+  if not cc.has_header('WebView2.h')
+    error(
+      'WebView2.h not found. Install the webview2-loader package, ' +
+      'e.g. pacman -S mingw-w64-ucrt-x86_64-webview2-loader'
+    )
+  endif
 endif
 
 # Primary deps
