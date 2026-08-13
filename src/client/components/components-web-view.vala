@@ -207,7 +207,19 @@ public abstract class Components.WebView : Components.NativeWebView, Convey.Base
     }
 
     private static inline double get_text_scale () {
-        return Gtk.Settings.get_default().gtk_xft_dpi / 96.0 / 1024.0;
+#if HAVE_WEBKIT
+        // WebKitGTK (after 2.45.3) reports a height that does not
+        // account for font scaling, so apply it here. The setting reads
+        // as -1 where nothing provides it, which would scale the height
+        // to nothing, so fall back to unscaled.
+        int xft_dpi = Gtk.Settings.get_default().gtk_xft_dpi;
+        return xft_dpi > 0 ? xft_dpi / 96.0 / 1024.0 : 1.0;
+#else
+        // Other engines report a height with their own scaling already
+        // applied, WebView2 included: it scales the page itself from the
+        // monitor's DPI, so scaling again here would double it.
+        return 1.0;
+#endif
     }
 
     /**
