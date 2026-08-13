@@ -71,6 +71,15 @@ static const IID ConveyIID_ICoreWebView2Controller3 = {
 
 struct _ConveyWebView2 {
   HWND parent;
+  /*
+   * A window of this file's own making, between the toplevel and the
+   * control. The control is given the whole height of the message, and
+   * this is sized to the part of it that should be on screen, so that
+   * Windows clips the content the way an ancestor widget would: GTK
+   * cannot clip a window, and the alternative is scrolling the page
+   * inside the control, which means a script call on every frame.
+   */
+  HWND host;
   ICoreWebView2Controller *controller;
   ICoreWebView2 *core;
 
@@ -86,6 +95,7 @@ struct _ConveyWebView2 {
 
   /* State set before the controller exists, applied once it does. */
   RECT bounds;
+  RECT clip;
   gboolean visible;
   gboolean devtools;
   double zoom;
@@ -125,6 +135,81 @@ static gboolean convey_env_started = FALSE;
 
 static void convey_webview2_create_controller (ConveyWebView2 *self);
 static void convey_webview2_realise (ConveyWebView2 *self);
+
+#define CONVEY_HOST_CLASS L"ConveyWebView2Host"
+
+/*
+ * Creates the window the control is hosted in.
+ *
+ * Painting nothing itself, so that resizing it shows the control rather
+ * than a flash of background.
+ */
+static HWND
+convey_webview2_create_host (HWND parent)
+{
+  static gboolean registered = FALSE;
+  HINSTANCE instance = GetModuleHandleW (NULL);
+
+  if (!registered)
+    {
+      WNDCLASSEXW klass = { 0 };
+      klass.cbSize = sizeof (klass);
+      klass.lpfnWndProc = DefWindowProcW;
+      klass.hInstance = instance;
+      klass.lpszClassName = CONVEY_HOST_CLASS;
+      klass.hbrBackground = NULL;
+      RegisterClassExW (&klass);
+      registered = TRUE;
+    }
+
+  return CreateWindowExW (
+      0, CONVEY_HOST_CLASS, NULL,
+      WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
+      0, 0, 0, 0,
+      parent, NULL, instance, NULL
+  );
+}
+
+/*
+ * Puts the host where the visible part of the view is, and the control
+ * where the whole of it is, in the host's coordinates.
+ */
+static void
+convey_webview2_apply_geometry (ConveyWebView2 *self)
+{
+  gboolean clipped_away = (self->clip.right <= self->clip.left ||
+                           self->clip.bottom <= self->clip.top);
+
+  if (self->host != NULL)
+    {
+      if (clipped_away)
+        {
+          ShowWindow (self->host, SW_HIDE);
+        }
+      else
+        {
+          SetWindowPos (
+              self->host, NULL,
+              self->clip.left, self->clip.top,
+              self->clip.right - self->clip.left,
+              self->clip.bottom - self->clip.top,
+              SWP_NOZORDER | SWP_NOACTIVATE |
+              (self->visible ? SWP_SHOWWINDOW : SWP_HIDEWINDOW)
+          );
+        }
+    }
+
+  if (self->controller != NULL)
+    {
+      RECT bounds = {
+        self->bounds.left - self->clip.left,
+        self->bounds.top - self->clip.top,
+        self->bounds.right - self->clip.left,
+        self->bounds.bottom - self->clip.top
+      };
+      ICoreWebView2Controller_put_Bounds (self->controller, bounds);
+    }
+}
 
 /*
  * Pins how many raw pixels the control puts a CSS pixel in.
@@ -655,7 +740,7 @@ controller_completed (void *this_,
     apply_script (self, g_ptr_array_index (self->scripts, i));
 
   convey_webview2_apply_scale (self);
-  ICoreWebView2Controller_put_Bounds (controller, self->bounds);
+  convey_webview2_apply_geometry (self);
   ICoreWebView2Controller_put_IsVisible (controller, self->visible);
   ICoreWebView2Controller_put_ZoomFactor (controller, self->zoom);
 
@@ -686,9 +771,12 @@ controller_completed_vtbl = {
 static void
 convey_webview2_create_controller (ConveyWebView2 *self)
 {
+  if (self->host == NULL)
+    self->host = convey_webview2_create_host (self->parent);
+
   HRESULT result = ICoreWebView2Environment_CreateCoreWebView2Controller (
       convey_env,
-      self->parent,
+      self->host,
       (ICoreWebView2CreateCoreWebView2ControllerCompletedHandler *)
       handler_new (self, &controller_completed_vtbl)
   );
@@ -755,24 +843,33 @@ convey_webview2_destroy (ConveyWebView2 *self)
       ICoreWebView2Controller_Close (self->controller);
       ICoreWebView2Controller_Release (self->controller);
     }
+  if (self->host != NULL)
+    DestroyWindow (self->host);
   g_ptr_array_unref (self->scripts);
   g_free (self->html);
   g_free (self);
 }
 
 void
-convey_webview2_set_bounds (ConveyWebView2 *self,
-                            int x,
-                            int y,
-                            int width,
-                            int height)
+convey_webview2_set_geometry (ConveyWebView2 *self,
+                              int x,
+                              int y,
+                              int width,
+                              int height,
+                              int clip_x,
+                              int clip_y,
+                              int clip_width,
+                              int clip_height)
 {
   self->bounds.left = x;
   self->bounds.top = y;
   self->bounds.right = x + width;
   self->bounds.bottom = y + height;
-  if (self->controller != NULL)
-    ICoreWebView2Controller_put_Bounds (self->controller, self->bounds);
+  self->clip.left = clip_x;
+  self->clip.top = clip_y;
+  self->clip.right = clip_x + clip_width;
+  self->clip.bottom = clip_y + clip_height;
+  convey_webview2_apply_geometry (self);
 }
 
 void
@@ -782,6 +879,8 @@ convey_webview2_set_visible (ConveyWebView2 *self,
   self->visible = visible;
   if (self->controller != NULL)
     ICoreWebView2Controller_put_IsVisible (self->controller, visible);
+  if (self->host != NULL)
+    ShowWindow (self->host, visible ? SW_SHOWNA : SW_HIDE);
 }
 
 void

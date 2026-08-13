@@ -48,11 +48,22 @@ ConveyWebView2 *convey_webview2_new (gpointer parent_hwnd,
 
 void convey_webview2_destroy (ConveyWebView2 *self);
 
-void convey_webview2_set_bounds (ConveyWebView2 *self,
-                                 int x,
-                                 int y,
-                                 int width,
-                                 int height);
+/*
+ * Places the view.
+ *
+ * The first rectangle is the whole of the view, the second the part of
+ * it that should be on screen. Both are in the toplevel window's raw
+ * pixels.
+ */
+void convey_webview2_set_geometry (ConveyWebView2 *self,
+                                   int x,
+                                   int y,
+                                   int width,
+                                   int height,
+                                   int clip_x,
+                                   int clip_y,
+                                   int clip_width,
+                                   int clip_height);
 
 void convey_webview2_set_visible (ConveyWebView2 *self, gboolean visible);
 

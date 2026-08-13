@@ -31,12 +31,16 @@ private extern void* webview2_new(void* parent_hwnd,
 [CCode (cname = "convey_webview2_destroy")]
 private extern void webview2_destroy(void* view);
 
-[CCode (cname = "convey_webview2_set_bounds")]
-private extern void webview2_set_bounds(void* view,
-                                        int x,
-                                        int y,
-                                        int width,
-                                        int height);
+[CCode (cname = "convey_webview2_set_geometry")]
+private extern void webview2_set_geometry(void* view,
+                                          int x,
+                                          int y,
+                                          int width,
+                                          int height,
+                                          int clip_x,
+                                          int clip_y,
+                                          int clip_width,
+                                          int clip_height);
 
 [CCode (cname = "convey_webview2_set_visible")]
 private extern void webview2_set_visible(void* view, bool visible);
@@ -313,6 +317,10 @@ public class Components.NativeWebView : Gtk.Widget {
     private int last_y = -1;
     private int last_width = -1;
     private int last_height = -1;
+    private int last_clip_x = -1;
+    private int last_clip_y = -1;
+    private int last_clip_width = -1;
+    private int last_clip_height = -1;
 
     private double last_scale = 0;
 
@@ -775,19 +783,52 @@ public class Components.NativeWebView : Gtk.Widget {
             this.last_scale = scale;
             webview2_set_scale(this.native, scale);
         }
+        // What is on screen of the view, which is what an ancestor that
+        // scrolls would have clipped it to. The control is a window, so
+        // GTK cannot clip it; the shim sizes its host window to this and
+        // leaves the content where it is, showing the right part.
+        Graphene.Rect clip = bounds;
+        Gtk.Widget? scroller = find_scrolled_window();
+        if (scroller != null) {
+            Graphene.Rect scroller_bounds = {};
+            if (scroller.compute_bounds((Gtk.Widget) native_widget,
+                                        out scroller_bounds)) {
+                Graphene.Rect visible = {};
+                clip = (
+                    clip.intersection(scroller_bounds, out visible)
+                    ? visible
+                    : Graphene.Rect().init(0, 0, 0, 0)
+                );
+            }
+        }
+
         int x = (int) ((offset_x + bounds.origin.x) * scale);
         int y = (int) ((offset_y + bounds.origin.y) * scale);
         int width = (int) (bounds.size.width * scale);
         int height = (int) (bounds.size.height * scale);
+        int clip_x = (int) ((offset_x + clip.origin.x) * scale);
+        int clip_y = (int) ((offset_y + clip.origin.y) * scale);
+        int clip_width = (int) (clip.size.width * scale);
+        int clip_height = (int) (clip.size.height * scale);
         if (x == this.last_x && y == this.last_y &&
-            width == this.last_width && height == this.last_height) {
+            width == this.last_width && height == this.last_height &&
+            clip_x == this.last_clip_x && clip_y == this.last_clip_y &&
+            clip_width == this.last_clip_width &&
+            clip_height == this.last_clip_height) {
             return;
         }
         this.last_x = x;
         this.last_y = y;
         this.last_width = width;
         this.last_height = height;
-        webview2_set_bounds(this.native, x, y, width, height);
+        this.last_clip_x = clip_x;
+        this.last_clip_y = clip_y;
+        this.last_clip_width = clip_width;
+        this.last_clip_height = clip_height;
+        webview2_set_geometry(
+            this.native, x, y, width, height,
+            clip_x, clip_y, clip_width, clip_height
+        );
     }
 
     /**
@@ -812,18 +853,24 @@ public class Components.NativeWebView : Gtk.Widget {
             return;
         }
 
-        Gtk.ScrolledWindow? scroller = null;
-        for (Gtk.Widget? parent = get_parent();
-             parent != null && scroller == null;
-             parent = parent.get_parent()) {
-            scroller = parent as Gtk.ScrolledWindow;
-        }
+        Gtk.ScrolledWindow? scroller = find_scrolled_window();
         if (scroller == null) {
             return;
         }
 
         scroll_by(scroller.get_vadjustment(), delta_y);
         scroll_by(scroller.get_hadjustment(), delta_x);
+    }
+
+    /** Returns the nearest ancestor that scrolls this view, if any. */
+    private Gtk.ScrolledWindow? find_scrolled_window() {
+        Gtk.ScrolledWindow? scroller = null;
+        for (Gtk.Widget? parent = get_parent();
+             parent != null && scroller == null;
+             parent = parent.get_parent()) {
+            scroller = parent as Gtk.ScrolledWindow;
+        }
+        return scroller;
     }
 
     private static void scroll_by(Gtk.Adjustment? adjustment, double delta) {
