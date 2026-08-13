@@ -31,6 +31,11 @@ typedef void (*ConveyWebView2MessageFunc) (const gchar *json,
 typedef void (*ConveyWebView2LinkFunc) (const gchar *uri,
                                         gpointer user_data);
 
+/* Called with the PNG of an image the control captured of itself. */
+typedef void (*ConveyWebView2CaptureFunc) (const guchar *data,
+                                           gsize length,
+                                           gpointer user_data);
+
 /* Called when a remote resource the page asked for was not fetched. */
 typedef void (*ConveyWebView2BlockedFunc) (gpointer user_data);
 
@@ -69,6 +74,9 @@ void convey_webview2_set_visible (ConveyWebView2 *self, gboolean visible);
 
 void convey_webview2_set_scale (ConveyWebView2 *self, double scale);
 
+/* Sets what the page's prefers-color-scheme reports. */
+void convey_webview2_set_dark_scheme (ConveyWebView2 *self, gboolean dark);
+
 void convey_webview2_set_zoom (ConveyWebView2 *self, double zoom);
 
 void convey_webview2_add_user_script (ConveyWebView2 *self,
@@ -83,6 +91,10 @@ void convey_webview2_execute_script (ConveyWebView2 *self,
 
 void convey_webview2_set_load_remote (ConveyWebView2 *self,
                                       gboolean load_remote);
+
+/* Asks the control for an image of itself, reported to capture_func. */
+void convey_webview2_capture (ConveyWebView2 *self,
+                              ConveyWebView2CaptureFunc capture_func);
 
 void convey_webview2_stop (ConveyWebView2 *self);
 

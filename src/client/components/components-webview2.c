@@ -23,11 +23,21 @@
  * no import library, and a machine without the Edge WebView2 Runtime
  * installed should start Convey and say so rather than fail to launch.
  *
- * ponytail: the control is a child HWND of the window's own HWND, so it
- * composites above everything GTK draws and cannot be clipped by an
- * ancestor. The visual-hosting API (ICoreWebView2CompositionController)
- * is the fix if that becomes a problem, and needs a DirectComposition
- * surface shared with GDK.
+ * The control lives in a window of this file's own making, a child of
+ * the toplevel's. Sizing that host to the part of the view that should
+ * be on screen is what clips the content, since GTK cannot clip a
+ * window of someone else's making.
+ *
+ * Nothing here can put the control among what GTK draws, though, so the
+ * caller hides it and draws a captured image in its place while a dialog
+ * or the like is over it. Visual hosting
+ * (ICoreWebView2CompositionController) looks like the answer to that and
+ * is not: it wants a DirectComposition visual tree to put the content
+ * in, and while GDK does composite through DirectComposition on Windows,
+ * it keeps its device and visuals to itself. A target of our own on the
+ * same window composites wholly above or wholly below GDK's, which is
+ * the problem again rather than a fix. Interleaving needs GDK to hand
+ * out its visual tree first.
  */
 
 #define COBJMACROS
@@ -69,6 +79,12 @@ static const IID ConveyIID_ICoreWebView2Controller3 = {
   { 0xae, 0xf7, 0x73, 0xd6, 0x2b, 0x51, 0x54, 0x3b }
 };
 
+/* ICoreWebView2_13, for reaching the profile. See above. */
+static const IID ConveyIID_ICoreWebView2_13 = {
+  0xf75f09a8, 0x667e, 0x4983,
+  { 0x88, 0xd6, 0xc8, 0x77, 0x3f, 0x31, 0x5e, 0x84 }
+};
+
 struct _ConveyWebView2 {
   HWND parent;
   /*
@@ -98,10 +114,16 @@ struct _ConveyWebView2 {
   RECT clip;
   gboolean visible;
   gboolean devtools;
+  gboolean dark_scheme;
   double zoom;
   double scale;
   GPtrArray *scripts;
   gchar *html;
+
+  /* An image of the page, taken so that GTK can draw the view while
+     something is over it and the control has to be taken away. */
+  IStream *capture_stream;
+  ConveyWebView2CaptureFunc capture_func;
 
   /* Handlers, which outlive this struct if a call is still in flight. */
   GSList *handlers;
@@ -433,7 +455,6 @@ web_message_received (void *this_,
       CoTaskMemFree (json);
       if (utf8 != NULL)
         {
-          g_debug ("WebView2 page message: %.200s", utf8);
           handler->view->message_func (utf8, handler->view->user_data);
         }
       g_free (utf8);
@@ -740,6 +761,7 @@ controller_completed (void *this_,
     apply_script (self, g_ptr_array_index (self->scripts, i));
 
   convey_webview2_apply_scale (self);
+  convey_webview2_set_dark_scheme (self, self->dark_scheme);
   convey_webview2_apply_geometry (self);
   ICoreWebView2Controller_put_IsVisible (controller, self->visible);
   ICoreWebView2Controller_put_ZoomFactor (controller, self->zoom);
@@ -800,6 +822,83 @@ convey_webview2_realise (ConveyWebView2 *self)
 }
 
 
+/* -- Capturing ------------------------------------------------------- */
+
+/*
+ * Hands back the image the control captured of itself.
+ *
+ * The stream is a memory one grown by the control, so the bytes are
+ * copied out of it rather than the whole of it being kept.
+ */
+static HRESULT STDMETHODCALLTYPE
+capture_completed (void *this_, HRESULT result)
+{
+  ConveyHandler *handler = (ConveyHandler *) this_;
+  ConveyWebView2 *self = handler->view;
+  STATSTG stat = { 0 };
+  LARGE_INTEGER start = { 0 };
+  guchar *data = NULL;
+  ULONG read = 0;
+
+  if (self == NULL || self->capture_stream == NULL)
+    return S_OK;
+
+  if (SUCCEEDED (result) &&
+      SUCCEEDED (IStream_Stat (self->capture_stream, &stat, STATFLAG_NONAME)) &&
+      stat.cbSize.QuadPart > 0 &&
+      SUCCEEDED (IStream_Seek (self->capture_stream, start,
+                               STREAM_SEEK_SET, NULL)))
+    {
+      data = g_malloc ((gsize) stat.cbSize.QuadPart);
+      if (FAILED (IStream_Read (self->capture_stream, data,
+                                (ULONG) stat.cbSize.QuadPart, &read)))
+        read = 0;
+    }
+
+  IStream_Release (self->capture_stream);
+  self->capture_stream = NULL;
+
+  if (read > 0 && self->capture_func != NULL)
+    self->capture_func (data, read, self->user_data);
+  g_free (data);
+
+  return S_OK;
+}
+
+static ICoreWebView2CapturePreviewCompletedHandlerVtbl capture_completed_vtbl = {
+  handler_query_interface,
+  handler_add_ref,
+  handler_release,
+  capture_completed,
+};
+
+void
+convey_webview2_capture (ConveyWebView2 *self,
+                         ConveyWebView2CaptureFunc capture_func)
+{
+  if (self->core == NULL || self->capture_stream != NULL)
+    return;
+
+  if (FAILED (CreateStreamOnHGlobal (NULL, TRUE, &self->capture_stream)))
+    {
+      self->capture_stream = NULL;
+      return;
+    }
+
+  self->capture_func = capture_func;
+  if (FAILED (ICoreWebView2_CapturePreview (
+          self->core,
+          COREWEBVIEW2_CAPTURE_PREVIEW_IMAGE_FORMAT_PNG,
+          self->capture_stream,
+          (ICoreWebView2CapturePreviewCompletedHandler *)
+          handler_new (self, &capture_completed_vtbl))))
+    {
+      IStream_Release (self->capture_stream);
+      self->capture_stream = NULL;
+    }
+}
+
+
 /* -- Public API ------------------------------------------------------ */
 
 ConveyWebView2 *
@@ -843,6 +942,8 @@ convey_webview2_destroy (ConveyWebView2 *self)
       ICoreWebView2Controller_Close (self->controller);
       ICoreWebView2Controller_Release (self->controller);
     }
+  if (self->capture_stream != NULL)
+    IStream_Release (self->capture_stream);
   if (self->host != NULL)
     DestroyWindow (self->host);
   g_ptr_array_unref (self->scripts);
@@ -881,6 +982,45 @@ convey_webview2_set_visible (ConveyWebView2 *self,
     ICoreWebView2Controller_put_IsVisible (self->controller, visible);
   if (self->host != NULL)
     ShowWindow (self->host, visible ? SW_SHOWNA : SW_HIDE);
+}
+
+void
+convey_webview2_set_dark_scheme (ConveyWebView2 *self,
+                                 gboolean dark)
+{
+  ICoreWebView2_13 *core13 = NULL;
+  ICoreWebView2Profile *profile = NULL;
+
+  self->dark_scheme = dark;
+  if (self->core == NULL)
+    return;
+
+  /*
+   * What the page's prefers-color-scheme reports. A message is shown in
+   * its own colours, which are written for a light background, unless
+   * the user has asked for those colours to be overridden, in which
+   * case the page's own dark handling needs to see a dark preference.
+   * Nothing in a document can set this: it describes the browser.
+   */
+  if (FAILED (ICoreWebView2_QueryInterface (
+          self->core, &ConveyIID_ICoreWebView2_13, (void **) &core13)) ||
+      core13 == NULL)
+    {
+      g_debug ("WebView2 runtime has no profile to set a colour scheme on");
+      return;
+    }
+  if (SUCCEEDED (ICoreWebView2_13_get_Profile (core13, &profile)) &&
+      profile != NULL)
+    {
+      ICoreWebView2Profile_put_PreferredColorScheme (
+          profile,
+          dark
+          ? COREWEBVIEW2_PREFERRED_COLOR_SCHEME_DARK
+          : COREWEBVIEW2_PREFERRED_COLOR_SCHEME_LIGHT
+      );
+      ICoreWebView2Profile_Release (profile);
+    }
+  ICoreWebView2_13_Release (core13);
 }
 
 void

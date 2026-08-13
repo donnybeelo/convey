@@ -45,6 +45,9 @@ private extern void webview2_set_geometry(void* view,
 [CCode (cname = "convey_webview2_set_visible")]
 private extern void webview2_set_visible(void* view, bool visible);
 
+[CCode (cname = "convey_webview2_set_dark_scheme")]
+private extern void webview2_set_dark_scheme(void* view, bool dark);
+
 [CCode (cname = "convey_webview2_set_scale")]
 private extern void webview2_set_scale(void* view, double scale);
 
@@ -66,6 +69,14 @@ private extern void webview2_execute_script(void* view, string script);
 [CCode (cname = "convey_webview2_set_load_remote")]
 private extern void webview2_set_load_remote(void* view, bool load_remote);
 
+[CCode (cname = "ConveyWebView2CaptureFunc", has_target = false)]
+private delegate void WebView2CaptureFunc(uint8* data,
+                                          size_t length,
+                                          void* user_data);
+
+[CCode (cname = "convey_webview2_capture")]
+private extern void webview2_capture(void* view, WebView2CaptureFunc func);
+
 [CCode (cname = "convey_webview2_stop")]
 private extern void webview2_stop(void* view);
 
@@ -82,13 +93,21 @@ private extern void* webview2_surface_hwnd(Gdk.Surface surface);
  * implements, and src/client/meson.build for how one implementation is
  * chosen per host system.
  *
- * The control is a child window of the toplevel's own window, since GTK4
- * has no native child-widget support. It is positioned from
- * size_allocate and shown or hidden with this widget, but composites
- * above everything GTK draws, so an ancestor cannot clip it: a view
- * scrolled half out of its viewport still paints in full. That is why
- * the conversation viewer wants a single document per thread here rather
- * than one view per message.
+ * The control is a window rather than part of what GTK draws, since GTK4
+ * has no native child-widget support, and that shapes most of what this
+ * class does beyond the API itself:
+ *
+ *  * Its geometry is followed every frame rather than from
+ *    size_allocate, which GTK skips when a widget keeps its size and
+ *    only moves, as it does when scrolled or pushed down by an info bar.
+ *  * The shim's host window is sized to the part of the view on screen,
+ *    which is what clips it; the control keeps the whole message inside
+ *    that.
+ *  * Nothing can order it among the widgets GTK draws, so while anything
+ *    is drawn over it the control is hidden and an image captured of the
+ *    page is drawn in its place. See update_visibility.
+ *  * GTK sees no pointer events over it, so the page hands its wheel
+ *    events back for the surrounding scrolled window to act on.
  *
  * Where WebKitGTK splits work between the UI process and a web process
  * extension, WebView2 has no in-renderer hook, so the page-side half of
@@ -184,6 +203,7 @@ public class Components.NativeWebView : Gtk.Widget {
     // Reported by the bootstrap, not by the page's own scripts.
     private const string PAGE_ERROR = "__page_error__";
     private const string PAGE_WHEEL = "__wheel__";
+    private const string PAGE_READY = "__page_ready__";
 
     // Keep in sync with Components.WebView, whose Ctrl+scroll zoom
     // controller never sees an event over the control.
@@ -236,6 +256,19 @@ public class Components.NativeWebView : Gtk.Widget {
 
     private static void on_native_link(string uri, void* user_data) {
         ((NativeWebView) user_data).link_clicked(uri);
+    }
+
+    private static void on_native_capture(uint8* data,
+                                          size_t length,
+                                          void* user_data) {
+        unowned uint8[] png = ((uint8[]) data)[0:(int) length];
+        var view = (NativeWebView) user_data;
+        try {
+            view.captured = Gdk.Texture.from_bytes(new GLib.Bytes(png));
+            view.queue_draw();
+        } catch (GLib.Error err) {
+            debug("Could not keep an image of the page: %s", err.message);
+        }
     }
 
     private static void on_native_blocked(void* user_data) {
@@ -307,6 +340,17 @@ public class Components.NativeWebView : Gtk.Widget {
 
     private string? body_html = null;
 
+    // An image of the page, drawn in the control's place while
+    // something is over it. See update_visibility.
+    private Gdk.Texture? captured = null;
+    private bool is_hidden_by_cover = false;
+
+    // Whether the page has loaded far enough to answer, and what is
+    // waiting to be sent to it until then.
+    private bool page_ready = false;
+    private GLib.GenericArray<string> unsent_messages =
+        new GLib.GenericArray<string>();
+
     // Whether remote resources may be loaded, as asked for before the
     // control existed. See send_page_message.
     private bool load_remote_enabled = false;
@@ -325,7 +369,6 @@ public class Components.NativeWebView : Gtk.Widget {
     private double last_scale = 0;
 
     private ulong frame_handler = 0;
-    private ulong dialog_handler = 0;
 
 
     private class PendingCall {
@@ -407,6 +450,10 @@ public class Components.NativeWebView : Gtk.Widget {
     /** Loads the given HTML into the view. */
     public void load_html(string? body, string? base_uri = null) {
         this.body_html = body;
+        this.page_ready = false;
+        // Of the document being replaced, so a view covered before the
+        // new page can be captured does not show the old message.
+        this.captured = null;
         if (this.native != null) {
             webview2_load_html(this.native, to_document(body));
         }
@@ -476,17 +523,18 @@ public class Components.NativeWebView : Gtk.Widget {
             this.load_remote_enabled = true;
         }
 
-        if (this.native == null) {
-            // No control and so no page to talk to yet. Not an error:
-            // callers ask for state changes before the view is
-            // realised, and the WebKit implementation queues those in
-            // its engine rather than refusing them.
-            debug("No web view yet to send %s to", name);
-            return null;
+        if (this.native != null && name == MESSAGE_ENABLE_REMOTE_LOAD) {
+            webview2_set_load_remote(this.native, true);
         }
 
-        if (name == MESSAGE_ENABLE_REMOTE_LOAD) {
-            webview2_set_load_remote(this.native, true);
+        if (!this.page_ready && this.body_html == null) {
+            // Nothing has been asked to load, so there is no page to
+            // answer and no prospect of one until something is. Callers
+            // set a view's state before giving it content and wait for
+            // the answer, so holding on here would hold up the load
+            // that would have made the page exist: remote resources are
+            // permitted this way before the body is loaded.
+            return null;
         }
 
         int64 id = this.next_call_id++;
@@ -515,7 +563,12 @@ public class Components.NativeWebView : Gtk.Widget {
                 return GLib.Source.REMOVE;
             });
 
-        webview2_post_message(this.native, to_call_json(id, name, parameters));
+        // Held back until the page can answer. A message posted before
+        // the document exists is dropped rather than queued by the
+        // control, and callers routinely make calls before the view is
+        // realised or while it is still loading, so posting eagerly
+        // would silently lose them.
+        post_to_page(to_call_json(id, name, parameters));
 
         yield;
 
@@ -614,8 +667,7 @@ public class Components.NativeWebView : Gtk.Widget {
             warning("Web view realised with no surface to host it");
             return;
         }
-        debug("Creating %s on window %p",
-              get_type().name(), webview2_surface_hwnd(surface));
+        debug("Creating %s", get_type().name());
 
         this.native = webview2_new(
             webview2_surface_hwnd(surface),
@@ -636,6 +688,7 @@ public class Components.NativeWebView : Gtk.Widget {
             webview2_add_user_script(this.native, this.scripts[i]);
         }
         webview2_set_zoom(this.native, this.zoom_level);
+        update_color_scheme();
         if (this.load_remote_enabled) {
             webview2_set_load_remote(this.native, true);
         }
@@ -647,6 +700,10 @@ public class Components.NativeWebView : Gtk.Widget {
     }
 
     public override void unrealize() {
+        // The page goes with the control, so anything still unsent
+        // waits for the next one rather than being posted into nothing.
+        this.page_ready = false;
+        this.captured = null;
         if (this.native != null) {
             webview2_destroy(this.native);
             this.native = null;
@@ -665,25 +722,10 @@ public class Components.NativeWebView : Gtk.Widget {
         // move it, and it would sit over whatever took its old place.
         Gdk.FrameClock? clock = get_frame_clock();
         if (clock != null) {
-            this.frame_handler = clock.after_paint.connect(() => update_bounds());
-        }
-
-        // A dialog is drawn inside the window rather than in one of its
-        // own, so the control would sit on top of it. Nothing can put a
-        // window of another process's making behind what GTK draws, so
-        // take the control away while a dialog is up.
-        Adw.Window? window = get_root() as Adw.Window;
-        Adw.ApplicationWindow? app_window = (
-            get_root() as Adw.ApplicationWindow
-        );
-        if (window != null) {
-            this.dialog_handler = window.notify["visible-dialog"].connect(
-                () => update_visibility()
-            );
-        } else if (app_window != null) {
-            this.dialog_handler = app_window.notify["visible-dialog"].connect(
-                () => update_visibility()
-            );
+            this.frame_handler = clock.after_paint.connect(() => {
+                    update_bounds();
+                    update_visibility();
+                });
         }
 
         if (this.native != null) {
@@ -692,29 +734,95 @@ public class Components.NativeWebView : Gtk.Widget {
         }
     }
 
-    /** Shows the control, unless something is drawn over where it is. */
+    /**
+     * Shows the control, unless something is drawn over where it is.
+     *
+     * The view does not go blank when it gives way: what was captured of
+     * the page is drawn in its place, which GTK can put under a dialog
+     * as it would any other widget. That image cannot be interacted
+     * with, but neither can a message under a modal.
+     */
     private void update_visibility() {
         if (this.native == null) {
             return;
         }
-        Gtk.Root? root = get_root();
-        var window = root as Adw.Window;
-        var app_window = root as Adw.ApplicationWindow;
-        bool dialog_shown = (
-            (window != null && window.visible_dialog != null) ||
-            (app_window != null && app_window.visible_dialog != null)
-        );
-        webview2_set_visible(this.native, get_mapped() && !dialog_shown);
+        bool covered = is_covered();
+        if (covered != this.is_hidden_by_cover) {
+            this.is_hidden_by_cover = covered;
+            queue_draw();
+            if (covered) {
+                // Refresh it for next time: what was captured last may
+                // predate a zoom or an image finishing loading.
+                capture_page();
+            }
+        }
+        webview2_set_visible(this.native, get_mapped() && !covered);
+    }
+
+    /** Keeps an image of the page for drawing in the control's place. */
+    private void capture_page() {
+        if (this.native != null) {
+            webview2_capture(this.native, on_native_capture);
+        }
+    }
+
+    public override void snapshot(Gtk.Snapshot snapshot) {
+        if (this.is_hidden_by_cover && this.captured != null) {
+            snapshot.append_scaled_texture(
+                this.captured,
+                Gsk.ScalingFilter.TRILINEAR,
+                Graphene.Rect().init(0, 0, get_width(), get_height())
+            );
+        }
+        base.snapshot(snapshot);
+    }
+
+    /**
+     * Determines whether GTK draws anything over this view.
+     *
+     * The control is a window rather than part of what GTK paints, so it
+     * is always on top of its own rectangle: a dialog, a toast, or an
+     * overlaid sidebar would be hidden behind a message body instead of
+     * over it. Nothing can reorder them, so the view takes itself away
+     * while that is the case.
+     *
+     * Asks what GTK would paint topmost at a few points spread over the
+     * visible part of the view, rather than looking for the particular
+     * widgets that might overlap it, so that this needs no upkeep as the
+     * interface grows new ones. The points are inset, since the scrolled
+     * window's own overlay scrollbar sits over the edge and would
+     * otherwise count as covering every message.
+     */
+    private bool is_covered() {
+        Gtk.Widget? root = get_root() as Gtk.Widget;
+        if (root == null) {
+            return false;
+        }
+
+        Graphene.Rect bounds = {};
+        if (!compute_bounds(root, out bounds) ||
+            bounds.size.width <= 0 || bounds.size.height <= 0) {
+            return false;
+        }
+
+        const double[] SAMPLES_X = { 0.5, 0.25, 0.75, 0.25, 0.75 };
+        const double[] SAMPLES_Y = { 0.5, 0.25, 0.25, 0.75, 0.75 };
+        for (int i = 0; i < SAMPLES_X.length; i++) {
+            Gtk.Widget? topmost = root.pick(
+                bounds.origin.x + bounds.size.width * SAMPLES_X[i],
+                bounds.origin.y + bounds.size.height * SAMPLES_Y[i],
+                Gtk.PickFlags.NON_TARGETABLE
+            );
+            if (topmost != null &&
+                topmost != this &&
+                !topmost.is_ancestor(this)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public override void unmap() {
-        if (this.dialog_handler != 0) {
-            Gtk.Root? root = get_root();
-            if (root != null) {
-                GLib.SignalHandler.disconnect(root, this.dialog_handler);
-            }
-            this.dialog_handler = 0;
-        }
         if (this.frame_handler != 0) {
             Gdk.FrameClock? clock = get_frame_clock();
             if (clock != null) {
@@ -743,6 +851,12 @@ public class Components.NativeWebView : Gtk.Widget {
         // this class's size_allocate and the measure that
         // Components.WebView's subclasses use to size themselves from
         // their content, leaving the control nothing to paint in.
+        Application.Configuration? config = NativeWebView.platform_config;
+        if (config != null) {
+            config.settings.changed[
+                Application.Configuration.UNSET_HTML_COLORS
+            ].connect(() => update_color_scheme());
+        }
         notify["zoom-level"].connect(() => {
                 if (this.native != null) {
                     webview2_set_zoom(this.native, this.zoom_level);
@@ -885,6 +999,44 @@ public class Components.NativeWebView : Gtk.Widget {
         );
     }
 
+    /**
+     * Sends a message to the page, or keeps it until the page is there.
+     *
+     * @see flush_page_messages
+     */
+    private void post_to_page(string json) {
+        if (this.native != null && this.page_ready) {
+            webview2_post_message(this.native, json);
+        } else {
+            this.unsent_messages.add(json);
+        }
+    }
+
+    /** Sends everything held back while the page was not ready. */
+    private void flush_page_messages() {
+        if (this.native == null || !this.page_ready) {
+            return;
+        }
+        var unsent = this.unsent_messages;
+        this.unsent_messages = new GLib.GenericArray<string>();
+        for (int i = 0; i < unsent.length; i++) {
+            webview2_post_message(this.native, unsent[i]);
+        }
+    }
+
+    /**
+     * Tells the page whether to prefer dark colours.
+     *
+     * A message keeps its own colours, which assume a light background,
+     * unless the user has asked for them to be overridden.
+     */
+    private void update_color_scheme() {
+        Application.Configuration? config = NativeWebView.platform_config;
+        if (this.native != null && config != null) {
+            webview2_set_dark_scheme(this.native, config.unset_html_colors);
+        }
+    }
+
     private void execute_script(string script) {
         if (this.native != null) {
             webview2_execute_script(this.native, script);
@@ -917,6 +1069,10 @@ public class Components.NativeWebView : Gtk.Widget {
         try {
             if (message.has_member("id")) {
                 handle_call_reply(message);
+            } else if (message.get_string_member("name") == PAGE_READY) {
+                this.page_ready = true;
+                flush_page_messages();
+                capture_page();
             } else if (message.get_string_member("name") == PAGE_WHEEL) {
                 Json.Array args = message.get_array_member("args");
                 handle_wheel(
