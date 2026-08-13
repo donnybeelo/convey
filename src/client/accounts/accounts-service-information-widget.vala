@@ -18,7 +18,16 @@ internal class Accounts.ServiceInformationWidget : Adw.PreferencesGroup {
             this._service = value;
             this.service_mutable = new Convey.ServiceInformation.copy(value);
             update_details();
-            value.notify.connect((obj, pspec) => { update_details(); });
+            // Take a fresh copy when the original changes, not just a
+            // fresh look at the old one: the details shown and later
+            // validated come from the copy, so autoconfig writing
+            // servers into the original would otherwise be discarded,
+            // leaving the account with no host to connect to.
+            value.notify.connect((obj, pspec) => {
+                    this.service_mutable =
+                        new Convey.ServiceInformation.copy(this._service);
+                    update_details();
+                });
         }
     }
     private Convey.ServiceInformation _service;
