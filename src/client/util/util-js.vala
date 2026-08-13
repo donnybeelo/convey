@@ -365,6 +365,209 @@ namespace Util.JS {
     }
 
     /**
+     * Converts a GLib variant to a JSON node.
+     *
+     * This is the JSON counterpart of {@link variant_to_value}, for
+     * engines that exchange JSON with their page rather than handing
+     * over engine value types, and produces the same shapes: numbers of
+     * every width become JSON numbers, arrays and tuples become JSON
+     * arrays, and dictionaries with string keys become JSON objects.
+     * Null and empty maybe values become JSON null.
+     *
+     * Throws a type error if the given variant's type is not supported.
+     */
+    internal Json.Node variant_to_json(GLib.Variant variant)
+        throws Error.TYPE {
+        Json.Node? node = null;
+        GLib.Variant.Class type = variant.classify();
+        if (type == MAYBE) {
+            GLib.Variant? maybe = variant.get_maybe();
+            node = (
+                maybe != null
+                ? variant_to_json(maybe)
+                : new Json.Node(Json.NodeType.NULL)
+            );
+        } else if (type == VARIANT) {
+            node = variant_to_json(variant.get_variant());
+        } else if (type == STRING) {
+            node = new Json.Node(Json.NodeType.VALUE);
+            node.set_string(variant.get_string());
+        } else if (type == BOOLEAN) {
+            node = new Json.Node(Json.NodeType.VALUE);
+            node.set_boolean(variant.get_boolean());
+        } else if (type == DOUBLE ||
+                   type == INT64 ||
+                   type == INT32 ||
+                   type == INT16 ||
+                   type == UINT64 ||
+                   type == UINT32 ||
+                   type == UINT16 ||
+                   type == BYTE) {
+            node = new Json.Node(Json.NodeType.VALUE);
+            node.set_double(to_number(variant, type));
+        } else if (type == ARRAY ||
+                   type == TUPLE) {
+            size_t len = variant.n_children();
+            // Ask the type, not the first child, so that an empty
+            // dictionary is still written as an object.
+            bool is_dict = (
+                (type == ARRAY && variant.get_type().element().is_dict_entry())
+                || (len > 0 &&
+                    variant.get_child_value(0).classify() == DICT_ENTRY)
+            );
+            if (is_dict) {
+                var object = new Json.Object();
+                for (size_t i = 0; i < len; i++) {
+                    var entry = variant.get_child_value(i);
+                    if (entry.classify() != DICT_ENTRY) {
+                        throw new Error.TYPE(
+                            "Variant mixes dict entries with others: %s",
+                            variant.print(true)
+                        );
+                    }
+                    var key = entry.get_child_value(0);
+                    if (key.classify() != STRING) {
+                        throw new Error.TYPE(
+                            "Dict entry key is not a string: %s",
+                            entry.print(true)
+                        );
+                    }
+                    object.set_member(
+                        key.get_string(),
+                        variant_to_json(entry.get_child_value(1))
+                    );
+                }
+                node = new Json.Node(Json.NodeType.OBJECT);
+                node.set_object(object);
+            } else {
+                var array = new Json.Array.sized((uint) len);
+                for (size_t i = 0; i < len; i++) {
+                    array.add_element(
+                        variant_to_json(variant.get_child_value(i))
+                    );
+                }
+                node = new Json.Node(Json.NodeType.ARRAY);
+                node.set_array(array);
+            }
+        }
+        if (node == null) {
+            throw new Error.TYPE(
+                "Unsupported variant type %s", variant.print(true)
+            );
+        }
+        return node;
+    }
+
+    /**
+     * Converts a JSON node to a GLib variant.
+     *
+     * This is the JSON counterpart of {@link value_to_variant}, and
+     * produces the same variants that it does for the equivalent JS
+     * values, which is what {@link Components.WebView} and its
+     * subclasses expect of anything arriving from their page: JSON
+     * numbers become doubles whether or not they are integral, arrays
+     * of a single variant type become variant arrays and mixed arrays
+     * become tuples, empty arrays become the unit tuple, objects become
+     * vardicts, and null becomes an empty maybe.
+     *
+     * Throws a type error if the node holds a value JSON has no
+     * business holding, which in practice means a boxed GObject type.
+     */
+    internal GLib.Variant json_to_variant(Json.Node node)
+        throws Error.TYPE {
+        GLib.Variant? variant = null;
+        switch (node.get_node_type()) {
+        case NULL:
+            variant = new GLib.Variant.maybe(GLib.VariantType.VARIANT, null);
+            break;
+
+        case VALUE:
+            GLib.Type value_type = node.get_value_type();
+            if (value_type == typeof(string)) {
+                variant = new GLib.Variant.string(node.get_string());
+            } else if (value_type == typeof(bool)) {
+                variant = new GLib.Variant.boolean(node.get_boolean());
+            } else if (value_type == typeof(int64) ||
+                       value_type == typeof(double)) {
+                // JS has a single number type, so callers only ever
+                // check for a double. json-glib parses an integral
+                // literal as an int64, hence the widening here.
+                variant = new GLib.Variant.double(node.get_double());
+            } else {
+                throw new Error.TYPE(
+                    "Unsupported JSON value type: %s", value_type.name()
+                );
+            }
+            break;
+
+        case ARRAY:
+            Json.Array array = node.get_array();
+            uint len = array.get_length();
+            if (len == 0) {
+                variant = new GLib.Variant.tuple({});
+            } else {
+                var values = new GLib.Variant[len];
+                var all_same_type = true;
+                for (uint i = 0; i < len; i++) {
+                    values[i] = json_to_variant(array.get_element(i));
+                    // Compare variant types rather than JSON node
+                    // types, unlike value_to_variant: two arrays are
+                    // both JSON arrays but may still convert to
+                    // variants of different types, which GLib.Variant
+                    // refuses to put in one array.
+                    all_same_type &= values[i].get_type().equal(
+                        values[0].get_type()
+                    );
+                }
+                variant = (
+                    all_same_type
+                    ? new GLib.Variant.array(values[0].get_type(), values)
+                    : new GLib.Variant.tuple(values)
+                );
+            }
+            break;
+
+        case OBJECT:
+            var dict = new GLib.VariantDict();
+            Json.Object object = node.get_object();
+            foreach (string name in object.get_members()) {
+                dict.insert_value(
+                    name, json_to_variant(object.get_member(name))
+                );
+            }
+            variant = dict.end();
+            break;
+        }
+        if (variant == null) {
+            throw new Error.TYPE("Unsupported JSON node");
+        }
+        return variant;
+    }
+
+    private inline double to_number(GLib.Variant variant,
+                                    GLib.Variant.Class type) {
+        double number = 0;
+        if (type == DOUBLE) {
+            number = variant.get_double();
+        } else if (type == INT64) {
+            number = (double) variant.get_int64();
+        } else if (type == INT32) {
+            number = (double) variant.get_int32();
+        } else if (type == INT16) {
+            number = (double) variant.get_int16();
+        } else if (type == UINT64) {
+            number = (double) variant.get_uint64();
+        } else if (type == UINT32) {
+            number = (double) variant.get_uint32();
+        } else if (type == UINT16) {
+            number = (double) variant.get_uint16();
+        } else if (type == BYTE) {
+            number = (double) variant.get_byte();
+        }
+        return number;
+    }
+
+    /**
      * Convenience method for returning a new Callable instance.
      */
     public Callable callable(string base_name) {

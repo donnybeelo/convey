@@ -102,6 +102,10 @@ web_process = library('convey-web-process',
     engine_dep,
     gee,
     gmime,
+    # Only for Util.JS, which the extension shares with the client and
+    # which converts between variants and JSON for engines that talk to
+    # their page that way.
+    json_glib,
     webkitgtk_web_extension,
   ],
   vala_args: convey_vala_args,
