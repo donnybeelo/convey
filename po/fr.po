@@ -30,7 +30,7 @@ msgstr ""
 "Project-Id-Version: convey-master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-22 12:04+0100\n"
-"PO-Revision-Date: 2023-07-10 21:18+0200\n"
+"PO-Revision-Date: 2026-10-22 18:23+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -38,7 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.9\n"
 "X-DL-Team: fr\n"
 "X-DL-Module: convey\n"
 "X-DL-Branch: main\n"
@@ -54,22 +54,18 @@ msgid "Send files using Convey"
 msgstr "Envoyer des fichiers avec Convey"
 
 #. Translators: The application name
-#: desktop/convey-autostart.desktop.in.in:2
-#: desktop/net.donnybeelo.Convey.desktop.in.in:2
+#: desktop/convey-autostart.desktop.in.in:2 desktop/net.donnybeelo.Convey.desktop.in.in:2
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:11
-#: src/client/application/application-main-window.vala:598
-#: ui/accounts_editor_servers_pane.ui:56
+#: src/client/application/application-main-window.vala:598 ui/accounts_editor_servers_pane.ui:56
 msgid "Convey"
 msgstr "Convey"
 
-#: desktop/convey-autostart.desktop.in.in:3
-#: desktop/net.donnybeelo.Convey.desktop.in.in:3
+#: desktop/convey-autostart.desktop.in.in:3 desktop/net.donnybeelo.Convey.desktop.in.in:3
 msgid "Email"
 msgstr "Courriel"
 
 #. Translators: The application's summary / tagline
-#: desktop/convey-autostart.desktop.in.in:4
-#: desktop/net.donnybeelo.Convey.desktop.in.in:4
+#: desktop/convey-autostart.desktop.in.in:4 desktop/net.donnybeelo.Convey.desktop.in.in:4
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:17
 #: src/client/application/application-client.vala:18
 msgid "Send and receive email"
@@ -83,8 +79,7 @@ msgstr "Email;E-mail;Messagerie;Courriels;"
 #. Translators: These are desktop search terms. Do not translate semicolons, end line with a semicolon.
 #: desktop/net.donnybeelo.Convey.desktop.in.in:6
 msgid "Mail;E-mail;email;IMAP;GMail;Yahoo;Hotmail;Outlook;"
-msgstr ""
-"Messagerie;Mail;Courriel;email;E-mail;IMAP;GMail;Yahoo;Hotmail;Outlook;"
+msgstr "Messagerie;Mail;Courriel;email;E-mail;IMAP;GMail;Yahoo;Hotmail;Outlook;"
 
 #: desktop/net.donnybeelo.Convey.desktop.in.in:23
 msgid "Compose Message"
@@ -124,8 +119,7 @@ msgstr "Afficher/masquer la barre d’outils de mise en forme"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:27
 msgid "True if the formatting toolbar in the composer is shown."
-msgstr ""
-"Vrai si la barre d’outils de mise en forme dans l’éditeur est affichée."
+msgstr "Vrai si la barre d’outils de mise en forme dans l’éditeur est affichée."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:32
 msgid "Autoselect next message"
@@ -133,8 +127,7 @@ msgstr "Sélectionner automatiquement le message suivant"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:33
 msgid "True if we should autoselect the next available conversation."
-msgstr ""
-"Vrai si la conversation suivante doit être sélectionnée automatiquement."
+msgstr "Vrai si la conversation suivante doit être sélectionnée automatiquement."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:38
 msgid "Display message previews"
@@ -145,52 +138,43 @@ msgid "True if we should display a short preview of each message."
 msgstr "Vrai si un court aperçu de chaque message doit être affiché."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:44
-#, fuzzy
 msgid "Display conversation participants"
-msgstr "A_fficher l’aperçu de la conversation"
+msgstr "Afficher les participants de la conversation"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:45
-#, fuzzy
-msgid ""
-"True if we should display the participants of each conversation in the "
-"conversation list."
+msgid "True if we should display the participants of each conversation in the conversation list."
 msgstr ""
-"Vrai si la conversation suivante doit être sélectionnée automatiquement."
+"Vrai si les participants de chaque conversation doivent être affichés dans la liste des "
+"conversations."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:50
-#, fuzzy
 msgid "Display conversation subjects"
-msgstr "A_fficher l’aperçu de la conversation"
+msgstr "Afficher les objets des conversations"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:51
-#, fuzzy
-msgid ""
-"True if we should display the subject of each conversation in the "
-"conversation list."
-msgstr ""
-"Vrai si la conversation suivante doit être sélectionnée automatiquement."
+msgid "True if we should display the subject of each conversation in the conversation list."
+msgstr "Vrai si l’objet de chaque conversation doit être affiché dans la liste des conversations."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:56
-#, fuzzy
 msgid "Conversation list line order"
-msgstr "Conversation restaurée vers %s"
+msgstr "Ordre des lignes de la liste des conversations"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:57
 msgid ""
-"The order of the participants, subject and preview lines of each "
-"conversation in the conversation list."
+"The order of the participants, subject and preview lines of each conversation in the conversation "
+"list."
 msgstr ""
+"L’ordre des lignes des participants, de l’objet et de l’aperçu de chaque conversation dans la "
+"liste des conversations."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:63
 msgid "Override colors in HTML emails"
-msgstr ""
+msgstr "Remplacer les couleurs des courriels HTML"
 
-#: desktop/net.donnybeelo.Convey.gschema.xml:64
-#: ui/components-preferences-dialog.ui:93
-msgid ""
-"Overrides the original colors in HTML messages to integrate better with the "
-"app theme."
+#: desktop/net.donnybeelo.Convey.gschema.xml:64 ui/components-preferences-dialog.ui:93
+msgid "Overrides the original colors in HTML messages to integrate better with the app theme."
 msgstr ""
+"Remplace les couleurs d’origine des messages HTML pour mieux s’intégrer au thème de l’application."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:69
 msgid "Move messages by default"
@@ -198,9 +182,7 @@ msgstr "Déplacer les messages par défaut"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:70
 msgid "When tagging a message, move it to destination folder."
-msgstr ""
-"Lors de l’étiquetage d’un message, le déplacer vers le dossier de "
-"destination."
+msgstr "Lors de l’étiquetage d’un message, le déplacer vers le dossier de destination."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:75
 msgid "Use single key shortcuts"
@@ -208,11 +190,11 @@ msgstr "Utiliser les raccourcis clavier d’une seule touche"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:76
 msgid ""
-"Enables shortcuts for email actions that do not require pressing <Ctrl> to "
-"emulate those used by Gmail."
+"Enables shortcuts for email actions that do not require pressing <Ctrl> to emulate those used by "
+"Gmail."
 msgstr ""
-"Active les raccourcis pour les actions courriels ne nécessitant pas "
-"l’utilisation de <Ctrl> pour émuler ceux utilisés par Gmail."
+"Active les raccourcis pour les actions courriels ne nécessitant pas l’utilisation de <Ctrl> pour "
+"émuler ceux utilisés par Gmail."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:83
 msgid "Languages that shall be used in the spell checker"
@@ -220,30 +202,25 @@ msgstr "Langues à utiliser pour le vérificateur orthographique"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:84
 msgid ""
-"A list of POSIX locales, with the empty list disabling spell checking and "
-"the null list using desktop languages by default."
+"A list of POSIX locales, with the empty list disabling spell checking and the null list using "
+"desktop languages by default."
 msgstr ""
-"Liste des langues POSIX ; la liste vide désactive la correction automatique "
-"et la liste nulle permet d’utiliser les langues par défaut du bureau."
+"Liste des langues POSIX ; la liste vide désactive la correction automatique et la liste nulle "
+"permet d’utiliser les langues par défaut du bureau."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:91
 msgid "Languages that are displayed in the spell checker popover"
-msgstr ""
-"Langues à afficher dans la fenêtre contextuelle du vérificateur "
-"orthographique"
+msgstr "Langues à afficher dans la fenêtre contextuelle du vérificateur orthographique"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:92
-msgid ""
-"List of languages that are always displayed in the popover of the spell "
-"checker."
+msgid "List of languages that are always displayed in the popover of the spell checker."
 msgstr ""
-"Liste des langues qui sont toujours affichées dans la fenêtre contextuelle "
-"du vérificateur orthographique."
+"Liste des langues qui sont toujours affichées dans la fenêtre contextuelle du vérificateur "
+"orthographique."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:97
 msgid "Run application in background on logon and when closed"
-msgstr ""
-"Exécuter l’application en arrière-plan à l’ouverture et après la fermeture"
+msgstr "Exécuter l’application en arrière-plan à l’ouverture et après la fermeture"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:98
 msgid "True to run application in background."
@@ -270,11 +247,10 @@ msgid "Advisory strategy for full-text searching"
 msgstr "Stratégie consultative pour la recherche de texte intégral"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:116
-msgid ""
-"Acceptable values are “exact”, “conservative”, “aggressive”, and “horizon”."
+msgid "Acceptable values are “exact”, “conservative”, “aggressive”, and “horizon”."
 msgstr ""
-"Les valeurs acceptables sont \"exact\" (« exacte »), \"conservative\" "
-"(« conservatrice »), \"aggressive\" et \"horizon\"."
+"Les valeurs acceptables sont \"exact\" (« exacte »), \"conservative\" (« conservatrice »), "
+"\"aggressive\" et \"horizon\"."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:121
 msgid "Zoom of conversation viewer"
@@ -286,20 +262,21 @@ msgstr "Le zoom à appliquer sur la vue de conversation."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:127
 msgid "Sidebar width fraction"
-msgstr ""
+msgstr "Fraction de largeur de la barre latérale"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:128
-msgid ""
-"Fraction of the window width used by the sidebar, or 0 for the default width."
+msgid "Fraction of the window width used by the sidebar, or 0 for the default width."
 msgstr ""
+"Fraction de la largeur de la fenêtre occupée par la barre latérale, ou 0 pour la largeur par "
+"défaut."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:133
 msgid "Folder list width"
-msgstr ""
+msgstr "Largeur de la liste des dossiers"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:134
 msgid "Width of the folder list in pixels, or 0 for the default width."
-msgstr ""
+msgstr "Largeur de la liste des dossiers en pixels, ou 0 pour la largeur par défaut."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:139
 msgid "Size of detached composer window"
@@ -310,65 +287,63 @@ msgid "The last recorded size of the detached composer window."
 msgstr "La dernière taille enregistrée de la fenêtre d’édition détachée."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:145
-#, fuzzy
 msgid "Collapsed parts of the folder list"
-msgstr "Orientation du panneau de la liste des dossiers"
+msgstr "Parties repliées de la liste des dossiers"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:146
 msgid ""
-"Accounts and folder groups left collapsed in the folder list, so they stay "
-"that way between launches"
+"Accounts and folder groups left collapsed in the folder list, so they stay that way between "
+"launches"
 msgstr ""
+"Comptes et groupes de dossiers laissés repliés dans la liste des dossiers, afin qu’ils le restent "
+"d’un lancement à l’autre"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:152
 msgid "Reopen the inbox last viewed"
-msgstr ""
+msgstr "Rouvrir la dernière boîte de réception consultée"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:153
-msgid ""
-"Open whichever inbox was last viewed when Convey starts, rather than a fixed "
-"one"
+msgid "Open whichever inbox was last viewed when Convey starts, rather than a fixed one"
 msgstr ""
+"Ouvrir au démarrage de Convey la dernière boîte de réception consultée, plutôt qu’une boîte fixe"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:159
 msgid "Inbox to open at launch"
-msgstr ""
+msgstr "Boîte de réception à ouvrir au lancement"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:160
 msgid ""
-"Identifier of the account whose inbox was last opened, or \"all\" for the "
-"combined view of every inbox"
+"Identifier of the account whose inbox was last opened, or \"all\" for the combined view of every "
+"inbox"
 msgstr ""
+"Identifiant du compte dont la boîte de réception a été ouverte en dernier, ou « tous » pour la "
+"vue combinée de toutes les boîtes de réception"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:166
-#, fuzzy
 msgid "Always Show Starred Folder"
-msgstr "Toujours afficher pour cet expéditeur"
+msgstr "Toujours afficher le dossier Favoris"
 
-#: desktop/net.donnybeelo.Convey.gschema.xml:167
-#: ui/components-preferences-dialog.ui:42
-msgid ""
-"Show a local Starred folder for accounts whose server does not provide one"
-msgstr ""
+#: desktop/net.donnybeelo.Convey.gschema.xml:167 ui/components-preferences-dialog.ui:42
+msgid "Show a local Starred folder for accounts whose server does not provide one"
+msgstr "Afficher un dossier Favoris local pour les comptes dont le serveur n’en fournit pas"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:173
 msgid "Use Custom Proxy"
-msgstr ""
+msgstr "Utiliser un mandataire personnalisé"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:174
-msgid ""
-"Route all connections through a custom proxy instead of the system proxy "
-"settings"
+msgid "Route all connections through a custom proxy instead of the system proxy settings"
 msgstr ""
+"Faire passer toutes les connexions par un mandataire personnalisé au lieu des paramètres de "
+"mandataire du système"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:180
-#, fuzzy
 msgid "Proxy Address"
-msgstr "Copier l’adresse électronique"
+msgstr "Adresse du mandataire"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:181
 msgid "URI of the proxy to use"
-msgstr ""
+msgstr "URI du mandataire à utiliser"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:186
 msgid "Allow images for these domains"
@@ -380,37 +355,33 @@ msgstr "Les images depuis ces domaines seront acceptées"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:192
 msgid "Load images from unverified senders"
-msgstr ""
+msgstr "Charger les images des expéditeurs non vérifiés"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:193
 msgid ""
-"Also load images when all images are trusted but the sender could not be "
-"verified with DKIM or DMARC"
+"Also load images when all images are trusted but the sender could not be verified with DKIM or "
+"DMARC"
 msgstr ""
+"Charger aussi les images lorsque toutes les images sont approuvées mais que l’expéditeur n’a pas "
+"pu être vérifié avec DKIM ou DMARC"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:199
 msgid "Undo sending email delay"
 msgstr "Annuler le délai d’envoi"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:200
-msgid ""
-"The number of seconds to wait before sending an email. Set to zero or less "
-"to disable."
+msgid "The number of seconds to wait before sending an email. Set to zero or less to disable."
 msgstr ""
-"Le nombre de secondes à attendre avant d’envoyer un courriel. Mettre à zéro "
-"ou moins pour désactiver."
+"Le nombre de secondes à attendre avant d’envoyer un courriel. Mettre à zéro ou moins pour "
+"désactiver."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:206
 msgid "Brief notification display time"
 msgstr "Temps d’affichage des notifications courtes"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:207
-msgid ""
-"The length of time in seconds for which brief notifications should be "
-"displayed."
-msgstr ""
-"Durée en secondes pendant laquelle les notifications courtes doivent être "
-"affichées."
+msgid "The length of time in seconds for which brief notifications should be displayed."
+msgstr "Durée en secondes pendant laquelle les notifications courtes doivent être affichées."
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:213
 msgid "List of optional plugins"
@@ -425,40 +396,37 @@ msgid "Whether we migrated the old settings"
 msgstr "Indique si les anciens paramètres ont été migrés"
 
 #: desktop/net.donnybeelo.Convey.gschema.xml:220
-msgid ""
-"False to check for the old “org.yorba.convey”-schema and copy its values."
-msgstr ""
-"Faux pour chercher le vieux schéma « org.yorba.convey » et copier ses "
-"valeurs."
+msgid "False to check for the old “org.yorba.convey”-schema and copy its values."
+msgstr "Faux pour chercher le vieux schéma « org.yorba.convey » et copier ses valeurs."
 
 #. Translators: The developer's name
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:14
 msgid "Daniel Elia"
-msgstr ""
+msgstr "Daniel Elia"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:19
 msgid ""
-"Convey is an email application built around conversations, for the GNOME "
-"desktop. It allows you to read, find and send email with a straightforward, "
-"modern interface."
+"Convey is an email application built around conversations, for the GNOME desktop. It allows you "
+"to read, find and send email with a straightforward, modern interface."
 msgstr ""
-"Convey est une application de messagerie construite autour de conversations, "
-"pour le bureau GNOME. Elle permet de lire, rechercher et envoyer des "
-"courriels de façon simple, avec une interface élégante."
+"Convey est une application de messagerie construite autour de conversations, pour le bureau "
+"GNOME. Elle permet de lire, rechercher et envoyer des courriels de façon simple, avec une "
+"interface élégante."
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:24
 msgid ""
-"Conversations allow you to read a complete discussion without having to find "
-"and click from message to message."
+"Conversations allow you to read a complete discussion without having to find and click from "
+"message to message."
 msgstr ""
-"Les conversations permettent de lire les échanges sans avoir à naviguer d’un "
-"message à un autre."
+"Les conversations permettent de lire les échanges sans avoir à naviguer d’un message à un autre."
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:28
 msgid ""
-"Convey is a fork of Geary, originally developed by the Geary Development "
-"Team and the Software Freedom Conservancy."
+"Convey is a fork of Geary, originally developed by the Geary Development Team and the Software "
+"Freedom Conservancy."
 msgstr ""
+"Convey est un fork de Geary, développé à l’origine par l’équipe de développement de Geary et la "
+"Software Freedom Conservancy."
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:32
 msgid "Convey’s features include:"
@@ -486,13 +454,11 @@ msgstr "Notification de nouveaux messages"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:39
 msgid "Compatible with GMail, Yahoo! Mail, Outlook.com and other IMAP servers"
-msgstr ""
-"Compatible avec GMail, Yahoo! Mail, Outlook.com et autres serveurs IMAP"
+msgstr "Compatible avec GMail, Yahoo! Mail, Outlook.com et autres serveurs IMAP"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:52
-#, fuzzy
 msgid "Convey showing an inbox of conversations"
-msgstr "Convey affichant une conversation"
+msgstr "Convey affichant une boîte de réception de conversations"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:56
 msgid "Convey displaying a conversation"
@@ -504,120 +470,125 @@ msgstr "Convey montrant l’éditeur de texte enrichi"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:82
 msgid "Show nested folders on Microsoft accounts"
-msgstr ""
+msgstr "Afficher les dossiers imbriqués sur les comptes Microsoft"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:83
 msgid "Create subfolders from the folder list context menu within the app"
 msgstr ""
+"Créer des sous-dossiers depuis le menu contextuel de la liste des dossiers dans l’application"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:84
 msgid "Open GNOME Online Accounts directly when adding an account"
-msgstr ""
+msgstr "Ouvrir directement les Comptes en ligne GNOME lors de l’ajout d’un compte"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:91
 msgid "Refreshed application icons, screenshots and branding colours"
-msgstr ""
+msgstr "Icônes de l’application, captures d’écran et couleurs de marque actualisées"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:92
 msgid "Add a combined \"All Inboxes\" view spanning every account"
-msgstr ""
+msgstr "Ajout d’une vue combinée « Toutes les boîtes de réception » couvrant tous les comptes"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:93
 msgid "Reopen the inbox last viewed at launch, or a fixed one of your choosing"
 msgstr ""
+"Rouvrir au lancement la dernière boîte de réception consultée, ou une boîte fixe de votre choix"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:94
 msgid "Remember which parts of the folder list were left collapsed"
-msgstr ""
+msgstr "Mémorisation des parties de la liste des dossiers laissées repliées"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:95
 msgid "Add a Starred folder for Microsoft accounts, showing its total count"
-msgstr ""
+msgstr "Ajout d’un dossier Favoris pour les comptes Microsoft, affichant son nombre total"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:96
 msgid "Page through large folders on Graph accounts"
-msgstr ""
+msgstr "Pagination des dossiers volumineux sur les comptes Graph"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:103
 msgid "Persist folders from Graph accounts so they load offline"
-msgstr ""
+msgstr "Conservation des dossiers des comptes Graph pour les charger hors ligne"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:104
 msgid "Fix unpredictable folder keyboard navigation"
-msgstr ""
+msgstr "Correction de la navigation imprévisible au clavier dans les dossiers"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:105
 msgid "Deselect conversations on Escape, disable autoselect in Trash and Junk"
 msgstr ""
+"Désélection des conversations avec Échap, désactivation de la sélection automatique dans la "
+"Corbeille et les Indésirables"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:106
 msgid "Fix dark mode rendering in certain emails"
-msgstr ""
+msgstr "Correction de l’affichage en mode sombre dans certains courriels"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:107
 msgid "Fix context menu positioning in the message body"
-msgstr ""
+msgstr "Correction du positionnement du menu contextuel dans le corps du message"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:108
 msgid "Replace libcanberra and gsound with GStreamer for notification sounds"
-msgstr ""
+msgstr "Remplacement de libcanberra et gsound par GStreamer pour les sons de notification"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:109
 msgid "Drop the unused libspelling dependency"
-msgstr ""
+msgstr "Suppression de la dépendance inutilisée à libspelling"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:110
 msgid "Numerous user interface and styling fixes"
-msgstr ""
+msgstr "De nombreuses corrections de l’interface et du style"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:116
 msgid "The first Convey release, forked from Geary 46.0."
-msgstr ""
+msgstr "La première version de Convey, issue d’un fork de Geary 46.0."
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:117
 msgid "Enhancements included in this release:"
-msgstr ""
+msgstr "Améliorations incluses dans cette version :"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:119
 msgid "Ported the interface to GTK4 and libadwaita"
-msgstr ""
+msgstr "Portage de l’interface vers GTK4 et libadwaita"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:120
 msgid "Added a Microsoft Graph backend for Outlook and Microsoft 365 accounts"
-msgstr ""
+msgstr "Ajout d’un moteur Microsoft Graph pour les comptes Outlook et Microsoft 365"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:121
 msgid "Rebranded as Convey, with new application icons"
-msgstr ""
+msgstr "Changement de marque en Convey, avec de nouvelles icônes d’application"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:122
 msgid "Create, rename and delete folders from the sidebar"
-msgstr ""
+msgstr "Création, renommage et suppression de dossiers depuis la barre latérale"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:123
 msgid "Reworked conversation list with keyboard navigation between panes"
-msgstr ""
+msgstr "Liste des conversations remaniée avec navigation au clavier entre les panneaux"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:124
-msgid ""
-"Message colours now follow the system light and dark preference immediately"
+msgid "Message colours now follow the system light and dark preference immediately"
 msgstr ""
+"Les couleurs des messages suivent désormais immédiatement la préférence claire ou sombre du "
+"système"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:125
 msgid "Redrawn notification avatars, rendered at the display's pixel density"
-msgstr ""
+msgstr "Avatars de notification redessinés, rendus à la densité de pixels de l’écran"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:126
 msgid "Reworked address completion as a navigable dropdown"
-msgstr ""
+msgstr "Complétion des adresses remaniée sous forme de liste déroulante navigable"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:127
 msgid "Ported plugins to libpeas-2 and migrated to gcr-4 and gck-2"
-msgstr ""
+msgstr "Portage des greffons vers libpeas-2 et migration vers gcr-4 et gck-2"
 
 #: desktop/net.donnybeelo.Convey.metainfo.xml.in.in:128
 msgid "Numerous bug fixes and user interface improvements"
-msgstr ""
+msgstr "De nombreuses corrections de bogues et améliorations de l’interface"
 
 #. Translators: In-app notification label, when
 #. the app had a problem pinning an otherwise
@@ -677,8 +648,8 @@ msgstr "Un problème inattendu s’est produit"
 msgid "Account not created: %s"
 msgstr "Le compte n’a pas été créé : %s"
 
-#: src/client/accounts/accounts-editor-add-pane.vala:283
-#: ui/accounts_editor_add_pane.ui:16 ui/find_bar.glade:97
+#: src/client/accounts/accounts-editor-add-pane.vala:283 ui/accounts_editor_add_pane.ui:16
+#: ui/find_bar.glade:97
 msgid "_Next"
 msgstr "_Suivant"
 
@@ -706,16 +677,15 @@ msgstr "Changer la période de téléchargement pour : %s"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:209
 msgid "Undo archive instead of moving to Trash"
-msgstr ""
+msgstr "Annuler l’archivage au lieu de déplacer vers la Corbeille"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:210
 msgid "Undo move to Trash instead of archiving"
-msgstr ""
+msgstr "Annuler le déplacement vers la Corbeille au lieu d’archiver"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:249
 #: src/client/accounts/accounts-editor-list-pane.vala:204
-#: src/client/application/application-main-window.vala:3111
-#: ui/accounts_editor_edit_pane.ui:18
+#: src/client/application/application-main-window.vala:3111 ui/accounts_editor_edit_pane.ui:18
 msgid "Undo"
 msgstr "Annuler"
 
@@ -726,12 +696,11 @@ msgstr "Supprimer le compte : %s"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:291
 msgid ""
-"This will remove it from Convey and delete locally cached email data from "
-"your computer. Nothing will be deleted from your service provider."
+"This will remove it from Convey and delete locally cached email data from your computer. Nothing "
+"will be deleted from your service provider."
 msgstr ""
-"Cette action enlèvera le compte de Convey et enlèvera les courriels "
-"enregistrés localement sur votre ordinateur. Rien ne sera supprimé de votre "
-"fournisseur de service."
+"Cette action enlèvera le compte de Convey et enlèvera les courriels enregistrés localement sur "
+"votre ordinateur. Rien ne sera supprimé de votre fournisseur de service."
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:295
 #: src/client/application/application-attachment-manager.vala:246
@@ -741,19 +710,16 @@ msgstr ""
 #: src/client/application/application-main-window.vala:2112
 #: src/client/application/application-main-window.vala:2131
 #: src/client/application/application-main-window.vala:3697
-#: src/client/components/components-attachment-pane.vala:320
-#: src/client/components/stock.vala:19
-#: src/client/composer/composer-widget.vala:910
-#: src/client/composer/composer-widget.vala:932
-#: src/client/composer/composer-widget.vala:1552
-#: ui/accounts-mailbox-editor-dialog.ui:15 ui/password-dialog.ui:7
+#: src/client/components/components-attachment-pane.vala:320 src/client/components/stock.vala:19
+#: src/client/composer/composer-widget.vala:910 src/client/composer/composer-widget.vala:932
+#: src/client/composer/composer-widget.vala:1552 ui/accounts-mailbox-editor-dialog.ui:15
+#: ui/password-dialog.ui:7
 msgid "_Cancel"
 msgstr "A_nnuler"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
-msgstr "Supprimer le compte"
+msgstr "_Supprimer le compte"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:353
 msgid "2 weeks back"
@@ -844,9 +810,8 @@ msgstr "Rétablir"
 #. panel could not be shown
 #: src/client/accounts/accounts-editor-list-pane.vala:243
 #: src/client/accounts/accounts-editor-servers-pane.vala:121
-#, fuzzy
 msgid "Unable to open GNOME Online Accounts"
-msgstr "Comptes en ligne de GNOME"
+msgstr "Impossible d’ouvrir les Comptes en ligne GNOME"
 
 #: src/client/accounts/accounts-editor-list-pane.vala:326
 #: src/client/accounts/accounts-editor-servers-pane.vala:140
@@ -898,30 +863,26 @@ msgid "Account not updated: %s"
 msgstr "Compte non mis à jour : %s"
 
 #. Cange "Apply" to "Add" in this case, since that matches better
-#: src/client/accounts/accounts-mailbox-editor-dialog.vala:74
-#: src/client/components/stock.vala:22 ui/accounts_editor_edit_pane.ui:54
-#: ui/accounts_editor_list_pane.ui:16
+#: src/client/accounts/accounts-mailbox-editor-dialog.vala:74 src/client/components/stock.vala:22
+#: ui/accounts_editor_edit_pane.ui:54 ui/accounts_editor_list_pane.ui:16
 msgid "_Add"
 msgstr "_Ajouter"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "Serveur IMAP"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "Serveur SMTP"
 
 #: src/client/accounts/accounts-service-information-widget.vala:116
-#, fuzzy
 msgid "Unknown Protocol"
-msgstr "Inconnu"
+msgstr "Protocole inconnu"
 
 #. Translators: Label used when no auth scheme is used
 #. by an account's IMAP or SMTP service.
@@ -964,11 +925,8 @@ msgstr "Un fichier nommé « %s » existe déjà. Voulez-vous le remplacer ?"
 #. / folder's name.
 #: src/client/application/application-attachment-manager.vala:240
 #, c-format
-msgid ""
-"The file already exists in “%s”.  Replacing it will overwrite its contents."
-msgstr ""
-"Le fichier existe déjà dans « %s ». En le remplaçant, vous perdrez son "
-"contenu."
+msgid "The file already exists in “%s”.  Replacing it will overwrite its contents."
+msgstr "Le fichier existe déjà dans « %s ». En le remplaçant, vous perdrez son contenu."
 
 #: src/client/application/application-attachment-manager.vala:245
 msgid "_Replace"
@@ -984,7 +942,7 @@ msgstr "Copyright © 2016-2021 L’équipe de développement de Convey."
 
 #: src/client/application/application-client.vala:21
 msgid "Copyright © 2026 Daniel Elia (donnybeelo)"
-msgstr ""
+msgstr "Copyright © 2026 Daniel Elia (donnybeelo)"
 
 #. / Command line option
 #: src/client/application/application-client.vala:79
@@ -1032,8 +990,7 @@ msgstr "Journaliser l’activité SMTP du réseau"
 #. / Command line option
 #: src/client/application/application-client.vala:106
 msgid "Log database queries (generates lots of messages)"
-msgstr ""
-"Journaliser les requêtes de la base de données (génère beaucoup de messages)"
+msgstr "Journaliser les requêtes de la base de données (génère beaucoup de messages)"
 
 #. / Command line option
 #: src/client/application/application-client.vala:109
@@ -1104,9 +1061,8 @@ msgid "Installation prefix"
 msgstr "Préfixe d’installation"
 
 #: src/client/application/application-client.vala:544
-#, fuzzy
 msgid "Visit the Convey repository"
-msgstr "Visiter le site Web de Convey"
+msgstr "Visiter le dépôt de Convey"
 
 #: src/client/application/application-client.vala:545
 #, c-format
@@ -1143,32 +1099,31 @@ msgstr "Argument « %s » inconnu"
 
 #: src/client/application/application-client.vala:1169
 msgid "OpenPGP keys"
-msgstr ""
+msgstr "Clés OpenPGP"
 
 #: src/client/application/application-client.vala:1177
 #: src/client/application/application-client.vala:1197
 msgid "Import OpenPGP Key"
-msgstr ""
+msgstr "Importer une clé OpenPGP"
 
 #: src/client/application/application-client.vala:1190
 #, c-format
 msgid "Imported %d key"
 msgid_plural "Imported %d keys"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d clé importée"
+msgstr[1] "%d clés importées"
 
 #: src/client/application/application-client.vala:1191
 msgid "Import finished. No new public keys were added"
-msgstr ""
+msgstr "Importation terminée. Aucune nouvelle clé publique n’a été ajoutée"
 
 #: src/client/application/application-client.vala:1195
 #: src/client/conversation-viewer/conversation-message.vala:1144
 #, c-format
 msgid "Unable to import key: %s"
-msgstr ""
+msgstr "Impossible d’importer la clé : %s"
 
-#: src/client/application/application-client.vala:1198
-#: src/client/components/stock.vala:23
+#: src/client/application/application-client.vala:1198 src/client/components/stock.vala:23
 #: src/client/composer/composer-widget.vala:1515
 msgid "_Close"
 msgstr "_Fermer"
@@ -1287,28 +1242,26 @@ msgstr "Ouverture de la base de données de %s impossible"
 #: src/client/application/application-controller.vala:1347
 #, c-format
 msgid ""
-"There was an error opening the local mail database for this account. This is "
-"possibly due to corruption of the database file in this directory:\n"
+"There was an error opening the local mail database for this account. This is possibly due to "
+"corruption of the database file in this directory:\n"
 "\n"
 "%s\n"
 "\n"
 "Convey can rebuild the database and re-synchronize with the server or exit.\n"
 "\n"
-"Rebuilding the database will destroy all local email and its attachments. "
-"<b>The mail on the your server will not be affected.</b>"
+"Rebuilding the database will destroy all local email and its attachments. <b>The mail on the your "
+"server will not be affected.</b>"
 msgstr ""
-"Une erreur est survenue lors de l’ouverture de la base de données locale "
-"pour ce compte. Il est possible que le fichier associé, situé dans le "
-"répertoire suivant, soit corrompu :\n"
+"Une erreur est survenue lors de l’ouverture de la base de données locale pour ce compte. Il est "
+"possible que le fichier associé, situé dans le répertoire suivant, soit corrompu :\n"
 "\n"
 "%s\n"
 "\n"
-"Convey peut soit reconstruire la base de données et la resynchroniser avec "
-"le serveur, soit se fermer.\n"
+"Convey peut soit reconstruire la base de données et la resynchroniser avec le serveur, soit se "
+"fermer.\n"
 "\n"
-"Reconstruire la base de données détruira tous les messages locaux et pièces "
-"jointes associées. <b>Les courriels présents sur le serveur ne seront pas "
-"affectés.</b>"
+"Reconstruire la base de données détruira tous les messages locaux et pièces jointes associées. "
+"<b>Les courriels présents sur le serveur ne seront pas affectés.</b>"
 
 #: src/client/application/application-controller.vala:1349
 msgid "E_xit"
@@ -1339,9 +1292,8 @@ msgstr ""
 #: src/client/application/application-controller.vala:1540
 #: src/client/application/application-controller.vala:2563
 #: src/client/application/application-controller.vala:2568
-#, fuzzy
 msgid "Email sent"
-msgstr "Courriel envoyé à %s"
+msgstr "Courriel envoyé"
 
 #. / Translators: The label for an in-app notification. The
 #. / string substitution is a list of recipients of the email.
@@ -1352,9 +1304,8 @@ msgstr "Courriel pour %s placé dans la boîte d’envoi"
 
 #. / Translators: The label for an in-app notification.
 #: src/client/application/application-controller.vala:2652
-#, fuzzy
 msgid "Email saved as draft"
-msgstr "Adresse courriel"
+msgstr "Courriel enregistré comme brouillon"
 
 #. / Translators: A label for an in-app notification.
 #: src/client/application/application-controller.vala:2666
@@ -1365,9 +1316,8 @@ msgstr "L’éditeur n’a pas pu être restauré"
 #. / Translators: The label for an in-app notification. The
 #. / string substitution is a list of recipients of the email.
 #: src/client/application/application-controller.vala:2707
-#, fuzzy
 msgid "Email discarded"
-msgstr "Courriel pour %s supprimé"
+msgstr "Courriel supprimé"
 
 #. / Translators: Label for account database upgrade dialog
 #: src/client/application/application-database-manager.vala:69
@@ -1388,9 +1338,7 @@ msgstr "Travail hors ligne"
 #. Translators: An info bar description label
 #: src/client/application/application-main-window.vala:529
 msgid "You will not be able to send or receive email until re-connected."
-msgstr ""
-"Vous ne pourrez pas envoyer ou recevoir de courriels jusqu’à ce que vous "
-"soyez reconnecté."
+msgstr "Vous ne pourrez pas envoyer ou recevoir de courriels jusqu’à ce que vous soyez reconnecté."
 
 #. Translators: An info bar status label
 #: src/client/application/application-main-window.vala:536
@@ -1412,9 +1360,7 @@ msgstr "Identifiant"
 #. Translators: An info bar button tool-tip
 #: src/client/application/application-main-window.vala:545
 msgid "Retry login, you will be prompted for your password"
-msgstr ""
-"Effectuez une nouvelle tentative de connexion, le mot de passe vous sera "
-"demandé"
+msgstr "Effectuez une nouvelle tentative de connexion, le mot de passe vous sera demandé"
 
 #. Translators: An info bar status label
 #: src/client/application/application-main-window.vala:552
@@ -1441,9 +1387,8 @@ msgstr "Vérifier les détails de sécurité pour la connexion"
 #: src/client/application/application-main-window.vala:587
 #: src/client/components/components-preferences-dialog.vala:312
 #: src/client/folder-list/folder-list-all-inboxes-branch.vala:67
-#, fuzzy
 msgid "All Inboxes"
-msgstr "Boîtes de réception"
+msgstr "Toutes les boîtes de réception"
 
 #. / Translators: Main window title, first string
 #. / substitution being the currently selected folder name,
@@ -1463,69 +1408,63 @@ msgstr "Étiquettes"
 #. Translators: Folder list context menu item opening the
 #. accounts editor
 #: src/client/application/application-main-window.vala:1755
-#, fuzzy
 msgid "_Manage Accounts…"
-msgstr "_Comptes"
+msgstr "_Gérer les comptes…"
 
 #. Translators: Folder list context menu item for creating
 #. a new folder, and the label equivalent
 #: src/client/application/application-main-window.vala:1773
 msgid "_New Label…"
-msgstr ""
+msgstr "_Nouvelle étiquette…"
 
 #: src/client/application/application-main-window.vala:1773
-#, fuzzy
 msgid "_New Folder…"
-msgstr "_Nouvelle conversation…"
+msgstr "_Nouveau dossier…"
 
 #. Translators: Folder list context menu item for
 #. creating a folder inside the folder that was
 #. right-clicked, and the label equivalent
 #: src/client/application/application-main-window.vala:1781
 msgid "_New Sublabel…"
-msgstr ""
+msgstr "_Nouvelle sous-étiquette…"
 
 #: src/client/application/application-main-window.vala:1781
 msgid "_New Subfolder…"
-msgstr ""
+msgstr "_Nouveau sous-dossier…"
 
 #. Translators: Folder list context menu item for renaming
 #. a folder, and the label equivalent
 #: src/client/application/application-main-window.vala:1788
 msgid "_Rename Label…"
-msgstr ""
+msgstr "_Renommer l’étiquette…"
 
 #: src/client/application/application-main-window.vala:1788
 msgid "_Rename Folder…"
-msgstr ""
+msgstr "_Renommer le dossier…"
 
 #. Translators: Folder list context menu item for deleting
 #. a folder, and the label equivalent
 #: src/client/application/application-main-window.vala:1794
-#, fuzzy
 msgid "_Delete Label"
-msgstr "_Supprimer le message…"
+msgstr "_Supprimer l’étiquette"
 
 #: src/client/application/application-main-window.vala:1794
-#, fuzzy
 msgid "_Delete Folder"
-msgstr "_Supprimer la conversation"
+msgstr "_Supprimer le dossier"
 
 #. Translators: Title of the new folder dialog, and the
 #. label equivalent
 #: src/client/application/application-main-window.vala:1893
-#, fuzzy
 msgid "New Label"
-msgstr "Étiquettes"
+msgstr "Nouvelle étiquette"
 
 #: src/client/application/application-main-window.vala:1894
 msgid "New Subfolder"
-msgstr ""
+msgstr "Nouveau sous-dossier"
 
 #: src/client/application/application-main-window.vala:1894
-#, fuzzy
 msgid "New Folder"
-msgstr "Dossiers"
+msgstr "Nouveau dossier"
 
 #. Translators: Toast shown once a folder has been
 #. created on the server, and the label equivalent.
@@ -1533,50 +1472,49 @@ msgstr "Dossiers"
 #: src/client/application/application-main-window.vala:1921
 #, c-format
 msgid "Created label “%s”"
-msgstr ""
+msgstr "Étiquette « %s » créée"
 
 #: src/client/application/application-main-window.vala:1922
-#, fuzzy, c-format
+#, c-format
 msgid "Created folder “%s”"
-msgstr "Supprimer « %s »"
+msgstr "Dossier « %s » créé"
 
 #. Translators: Toast shown once a folder has been
 #. renamed on the server, and the label equivalent.
 #. Substitutions are the old and new names.
 #: src/client/application/application-main-window.vala:1944
-#, fuzzy, c-format
+#, c-format
 msgid "Renamed label “%s” to “%s”"
-msgstr "Annuler les changements appliqués à « %s »"
+msgstr "Étiquette « %s » renommée en « %s »"
 
 #: src/client/application/application-main-window.vala:1945
 #, c-format
 msgid "Renamed folder “%s” to “%s”"
-msgstr ""
+msgstr "Dossier « %s » renommé en « %s »"
 
 #. Translators: Title of the delete folder confirmation and
 #. the label equivalent, substitution is the folder name
 #: src/client/application/application-main-window.vala:1962
 #, c-format
 msgid "Delete label “%s”?"
-msgstr ""
+msgstr "Supprimer l’étiquette « %s » ?"
 
 #: src/client/application/application-main-window.vala:1963
-#, fuzzy, c-format
+#, c-format
 msgid "Delete folder “%s”?"
-msgstr "Supprimer « %s »"
+msgstr "Supprimer le dossier « %s » ?"
 
 #: src/client/application/application-main-window.vala:1965
-#, fuzzy
-msgid ""
-"This removes the label and all email in it from Convey and your email server."
-msgstr "Supprime le courriel de Convey et du serveur de messagerie."
+msgid "This removes the label and all email in it from Convey and your email server."
+msgstr ""
+"Cela supprime l’étiquette et tous les courriels qu’elle contient de Convey et de votre serveur de "
+"messagerie."
 
 #: src/client/application/application-main-window.vala:1966
-#, fuzzy
-msgid ""
-"This removes the folder and all email in it from Convey and your email "
-"server."
-msgstr "Supprime le courriel de Convey et du serveur de messagerie."
+msgid "This removes the folder and all email in it from Convey and your email server."
+msgstr ""
+"Cela supprime le dossier et tous les courriels qu’il contient de Convey et de votre serveur de "
+"messagerie."
 
 #: src/client/application/application-main-window.vala:1967
 #: src/client/application/application-main-window.vala:2005
@@ -1587,9 +1525,8 @@ msgstr "L’action ne peut être annulée."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
-msgstr "Supprimer"
+msgstr "_Supprimer"
 
 #. Translators: Toast shown once a folder has been
 #. deleted from the server, and the label equivalent.
@@ -1597,12 +1534,12 @@ msgstr "Supprimer"
 #: src/client/application/application-main-window.vala:1990
 #, c-format
 msgid "Deleted label “%s”"
-msgstr ""
+msgstr "Étiquette « %s » supprimée"
 
 #: src/client/application/application-main-window.vala:1991
-#, fuzzy, c-format
+#, c-format
 msgid "Deleted folder “%s”"
-msgstr "Supprimer « %s »"
+msgstr "Dossier « %s » supprimé"
 
 #: src/client/application/application-main-window.vala:2003
 #, c-format
@@ -1635,50 +1572,49 @@ msgstr[1] "Voulez-vous supprimer définitivement ces messages ?"
 #. Translators: Toast shown when checking for new mail
 #. while the mail server cannot be reached.
 #: src/client/application/application-main-window.vala:2422
-#, fuzzy
 msgid "Can’t check for new mail while offline"
-msgstr "_Vérifier s’il y a de nouveaux messages après la fermeture"
+msgstr "Impossible de vérifier les nouveaux courriels hors ligne"
 
 #: src/client/application/application-main-window.vala:3687
 msgid "this mailing list"
-msgstr ""
+msgstr "cette liste de diffusion"
 
 #. Translators: Title of the unsubscribe confirmation,
 #. substitution is the sender's name
 #: src/client/application/application-main-window.vala:3692
 #, c-format
 msgid "Unsubscribe from %s?"
-msgstr ""
+msgstr "Se désabonner de %s ?"
 
 #: src/client/application/application-main-window.vala:3694
 msgid "Convey will ask the sender to stop sending you emails."
-msgstr ""
+msgstr "Convey demandera à l’expéditeur de cesser de vous envoyer des courriels."
 
 #: src/client/application/application-main-window.vala:3695
 msgid "To unsubscribe, go to the sender’s website."
-msgstr ""
+msgstr "Pour vous désabonner, rendez-vous sur le site Web de l’expéditeur."
 
 #: src/client/application/application-main-window.vala:3699
 msgid "_Unsubscribe"
-msgstr ""
+msgstr "_Se désabonner"
 
 #: src/client/application/application-main-window.vala:3699
 msgid "_Go to Website"
-msgstr ""
+msgstr "_Aller au site Web"
 
 #. Translators: Toast shown after unsubscribing,
 #. substitution is the sender's name
 #: src/client/application/application-main-window.vala:3715
 #, c-format
 msgid "Unsubscribed from %s"
-msgstr ""
+msgstr "Désabonné de %s"
 
 #. Translators: Toast shown after sending an unsubscribe
 #. email, substitution is the sender's name
 #: src/client/application/application-main-window.vala:3721
 #, c-format
 msgid "Unsubscribe request sent to %s"
-msgstr ""
+msgstr "Demande de désabonnement envoyée à %s"
 
 #: src/client/application/application-startup-manager.vala:78
 msgid "Convey wants to run in background"
@@ -1700,16 +1636,13 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Voulez-vous vraiment ouvrir ces pièces jointes ?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
-msgid ""
-"Attachments may cause damage to your system if opened. Only open files from "
-"trusted sources."
+msgid "Attachments may cause damage to your system if opened. Only open files from trusted sources."
 msgstr ""
-"L’ouverture de certaines pièces jointes peut endommager votre système. "
-"Veillez à n’ouvrir que les fichiers provenant de sources fiables."
+"L’ouverture de pièces jointes peut endommager votre système. N’ouvrez que des fichiers provenant "
+"de sources fiables."
 
-#: src/client/components/components-attachment-pane.vala:321
-#: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
+#: src/client/components/components-attachment-pane.vala:321 src/client/components/stock.vala:26
+#: ui/components-attachment-pane-menus.ui:7
 msgid "_Open"
 msgstr "_Ouvrir"
 
@@ -1724,27 +1657,24 @@ msgstr[0] "Marquer la conversation"
 msgstr[1] "Marquer les conversations"
 
 #: src/client/components/components-conversation-actions.vala:229
-#, fuzzy
 msgid "Copy conversation to a folder"
 msgid_plural "Copy conversations to a folder"
-msgstr[0] "Copier la conversation"
-msgstr[1] "Copier les conversations"
+msgstr[0] "Copier la conversation vers un dossier"
+msgstr[1] "Copier les conversations vers un dossier"
 
 #: src/client/components/components-conversation-actions.vala:235
-#, fuzzy
 msgid "Move conversation to a folder"
 msgid_plural "Move conversations to a folder"
-msgstr[0] "Mettre la conversation à la corbeille"
-msgstr[1] "Mettre les conversations à la corbeille"
+msgstr[0] "Déplacer la conversation vers un dossier"
+msgstr[1] "Déplacer les conversations vers un dossier"
 
 #: src/client/components/components-conversation-actions.vala:243
 msgid "_Archive"
 msgstr "_Archiver"
 
 #: src/client/components/components-conversation-actions.vala:250
-#, fuzzy
 msgid "Move to _Trash"
-msgstr "Déplacer le message vers la _Corbeille"
+msgstr "Déplacer vers la _Corbeille"
 
 #: src/client/components/components-conversation-actions.vala:268
 msgid "Archive conversation"
@@ -1753,11 +1683,10 @@ msgstr[0] "Archiver la conversation"
 msgstr[1] "Archiver les conversations"
 
 #: src/client/components/components-conversation-actions.vala:279
-#, fuzzy
 msgid "Archive or move conversation to Trash"
 msgid_plural "Archive or move conversations to Trash"
-msgstr[0] "Mettre la conversation à la corbeille"
-msgstr[1] "Mettre les conversations à la corbeille"
+msgstr[0] "Archiver ou mettre la conversation à la corbeille"
+msgstr[1] "Archiver ou mettre les conversations à la corbeille"
 
 #: src/client/components/components-conversation-actions.vala:290
 msgid "Move conversation to Trash"
@@ -1812,20 +1741,18 @@ msgstr "Système"
 #: src/client/components/components-inspector.vala:216
 #: src/client/components/components-inspector.vala:217
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
-#: src/client/dialogs/dialogs-problem-details-dialog.vala:209
-#: ui/problem-details-dialog.ui:38
+#: src/client/dialogs/dialogs-problem-details-dialog.vala:209 ui/problem-details-dialog.ui:38
 msgid "Save As"
 msgstr "Enregistrer sous"
 
 #: src/client/components/components-preferences-dialog.vala:56
-#, fuzzy, c-format
+#, c-format
 msgid "Configure %s"
-msgstr "Confirmation de la suppression : %s"
+msgstr "Configurer %s"
 
 #: src/client/components/components-preferences-dialog.vala:146
-#, fuzzy
 msgid "Could not open plugin preferences"
-msgstr "Impossible de trouver le nom du serveur"
+msgstr "Impossible d’ouvrir les préférences du greffon"
 
 #. Translators: Info bar title for a generic account
 #. problem.
@@ -1898,15 +1825,13 @@ msgstr "_Réessayer"
 
 #. / Translators: Search entry placeholder text
 #: src/client/components/components-search-bar.vala:12
-#: src/client/folder-list/folder-list-search-branch.vala:53
-#: src/client/util/util-i18n.vala:405
+#: src/client/folder-list/folder-list-search-branch.vala:53 src/client/util/util-i18n.vala:405
 msgid "Search"
 msgstr "Recherche"
 
 #: src/client/components/components-search-bar.vala:25
-#, fuzzy
 msgid "Unread"
-msgstr "non-lu"
+msgstr "Non lus"
 
 #. / Translators: Search entry tooltip
 #: src/client/components/components-search-bar.vala:55
@@ -1914,14 +1839,12 @@ msgid "Search all mail in account for keywords"
 msgstr "Rechercher les mots-clés dans tous les courriels du compte"
 
 #: src/client/components/components-search-bar.vala:65
-#, fuzzy
 msgid "Show only unread conversations"
-msgstr "Montrer les conversations"
+msgstr "Afficher uniquement les conversations non lues"
 
 #: src/client/components/components-search-bar.vala:107
-#, fuzzy
 msgid "Search all accounts"
-msgstr "Recherche dans le compte %s"
+msgstr "Rechercher dans tous les comptes"
 
 #. / Translators: Search entry placeholder, string
 #. / replacement is the name of an account
@@ -1934,7 +1857,7 @@ msgstr "Recherche dans le compte %s"
 #: src/client/components/components-validator.vala:337
 #: src/client/components/components-validator.vala:380
 msgid "Validating"
-msgstr ""
+msgstr "Validation"
 
 #. Translators: Tooltip used when an editable requires a valid
 #. email address to be entered, but one is not provided.
@@ -1962,8 +1885,7 @@ msgstr "Un nom de serveur est nécessaire"
 msgid "Could not look up server name"
 msgstr "Impossible de trouver le nom du serveur"
 
-#: src/client/components/stock.vala:18
-#: src/client/composer/composer-widget.vala:1553
+#: src/client/components/stock.vala:18 src/client/composer/composer-widget.vala:1553
 #: src/client/composer/composer-widget.vala:2012
 msgid "_OK"
 msgstr "_Valider"
@@ -1972,8 +1894,7 @@ msgstr "_Valider"
 msgid "_About"
 msgstr "À _propos"
 
-#: src/client/components/stock.vala:24
-#: src/client/composer/composer-widget.vala:912
+#: src/client/components/stock.vala:24 src/client/composer/composer-widget.vala:912
 #: src/client/composer/composer-widget.vala:933
 msgid "_Discard"
 msgstr "A_bandonner"
@@ -1999,26 +1920,23 @@ msgstr "_Quitter"
 msgid "_Remove"
 msgstr "_Supprimer"
 
-#: src/client/components/stock.vala:31
-#: ui/components-attachment-pane-menus.ui:11
+#: src/client/components/stock.vala:31 ui/components-attachment-pane-menus.ui:11
 msgid "_Save"
 msgstr "_Enregistrer"
 
-#: src/client/components/stock.vala:32
-#: src/client/composer/composer-widget.vala:911
+#: src/client/components/stock.vala:32 src/client/composer/composer-widget.vala:911
 msgid "_Keep"
 msgstr "_Conserver"
 
 #. Translators: This is the name of the file chooser filter
 #. when inserting an image in the composer.
-#: src/client/composer/composer-editor.vala:318
-#: src/client/composer/composer-widget.vala:2165
+#: src/client/composer/composer-editor.vala:318 src/client/composer/composer-widget.vala:2165
 msgid "Images"
 msgstr "Images"
 
 #: src/client/composer/composer-editor.vala:350
 msgid "Image is too large for a signature (1 MB maximum)"
-msgstr ""
+msgstr "L’image est trop grande pour une signature (1 Mo maximum)"
 
 #: src/client/composer/composer-editor.vala:795
 msgid "Select Color"
@@ -2026,9 +1944,7 @@ msgstr "Sélectionner une couleur"
 
 #: src/client/composer/composer-link-popover.vala:138
 msgid "Link URL is not correctly formatted, e.g. http://example.com"
-msgstr ""
-"L’URL du lien n’est pas mise en forme correctement, par ex. http://"
-"exemple.com"
+msgstr "L’URL du lien n’est pas mise en forme correctement, par ex. http://exemple.com"
 
 #: src/client/composer/composer-link-popover.vala:145
 msgid "Invalid link URL"
@@ -2069,7 +1985,7 @@ msgstr "Erreur d’enregistrement"
 #. cannot store drafts at all, so none will be saved.
 #: src/client/composer/composer-widget.vala:204
 msgid "Drafts not supported"
-msgstr ""
+msgstr "Brouillons non pris en charge"
 
 #: src/client/composer/composer-widget.vala:205
 msgid "Press Backspace to delete quote"
@@ -2082,11 +1998,11 @@ msgstr "Appuyez sur Retour arrière pour supprimer la citation"
 #. locale and English versions included automatically.
 #: src/client/composer/composer-widget.vala:221
 msgid ""
-"attach|attaching|attaches|attachment|attachments|attached|enclose|enclosed|"
-"enclosing|encloses|enclosure|enclosures"
+"attach|attaching|attaches|attachment|attachments|attached|enclose|enclosed|enclosing|encloses|"
+"enclosure|enclosures"
 msgstr ""
-"pièce|pièces|joint|jointe|joindre|joints|jointes|attaché|attachés|attachées|"
-"attachement|attachements|fichier|fichiers"
+"pièce|pièces|joint|jointe|joindre|joints|jointes|attaché|attachés|attachées|attachement|"
+"attachements|fichier|fichiers"
 
 #. Translators: This dialog text is displayed to the
 #. user when closing a composer where the options are
@@ -2104,7 +2020,7 @@ msgstr "Voulez-vous abandonner ce brouillon ?"
 
 #: src/client/composer/composer-widget.vala:1512
 msgid "No OpenPGP key found"
-msgstr ""
+msgstr "Aucune clé OpenPGP trouvée"
 
 #: src/client/composer/composer-widget.vala:1534
 msgid "Send message with an empty subject and body?"
@@ -2127,8 +2043,7 @@ msgstr "Envoyer le message sans pièce jointe ?"
 msgid "“%s” already attached for delivery."
 msgstr "« %s » a déjà été joint au message."
 
-#: src/client/composer/composer-widget.vala:1940
-#: src/client/composer/composer-widget.vala:1990
+#: src/client/composer/composer-widget.vala:1940 src/client/composer/composer-widget.vala:1990
 #, c-format
 msgid "“%s” is an empty file."
 msgstr "« %s » est un fichier vide."
@@ -2154,22 +2069,21 @@ msgstr "Impossible d’ajouter la pièce jointe"
 
 #. Translators: Human-readable version of the RFC 822 To header
 #: src/client/composer/composer-widget.vala:2237
-#: src/client/conversation-viewer/conversation-email.vala:554
-#: src/client/util/util-email.vala:267 ui/conversation-message.ui:201
+#: src/client/conversation-viewer/conversation-email.vala:554 src/client/util/util-email.vala:267
+#: ui/conversation-message.ui:201
 msgid "To:"
 msgstr "À :"
 
 #. Translators: Human-readable version of the RFC 822 CC header
 #: src/client/composer/composer-widget.vala:2243
-#: src/client/conversation-viewer/conversation-email.vala:559
-#: src/client/util/util-email.vala:272 ui/conversation-message.ui:227
+#: src/client/conversation-viewer/conversation-email.vala:559 src/client/util/util-email.vala:272
+#: ui/conversation-message.ui:227
 msgid "Cc:"
 msgstr "Cc :"
 
 #. Translators: Human-readable version of the RFC 822 BCC header
 #: src/client/composer/composer-widget.vala:2249
-#: src/client/conversation-viewer/conversation-email.vala:564
-#: ui/conversation-message.ui:253
+#: src/client/conversation-viewer/conversation-email.vala:564 ui/conversation-message.ui:253
 msgid "Bcc:"
 msgstr "Cci :"
 
@@ -2180,11 +2094,11 @@ msgstr "Répondre à : "
 
 #: src/client/composer/composer-widget.vala:2384 ui/composer-widget.ui:97
 msgid "Encrypt with OpenPGP"
-msgstr ""
+msgstr "Chiffrer avec OpenPGP"
 
 #: src/client/composer/composer-widget.vala:2386
 msgid "Will be encrypted with OpenPGP"
-msgstr ""
+msgstr "Sera chiffré avec OpenPGP"
 
 #: src/client/composer/composer-widget.vala:2389
 #, c-format
@@ -2192,11 +2106,12 @@ msgid ""
 "No OpenPGP key for:\n"
 "%s"
 msgstr ""
+"Aucune clé OpenPGP pour :\n"
+"%s"
 
 #: src/client/composer/spell-check-popover.vala:140
-#, fuzzy
 msgid "Download this language"
-msgstr "Télécharger les messages"
+msgstr "Télécharger cette langue"
 
 #: src/client/composer/spell-check-popover.vala:144
 msgid "Remove this language from the preferred list"
@@ -2207,9 +2122,9 @@ msgid "Add this language to the preferred list"
 msgstr "Ajouter cette langue à la liste des favorites"
 
 #: src/client/composer/spell-check-popover.vala:229
-#, fuzzy, c-format
+#, c-format
 msgid "Download failed: %s"
-msgstr "Télécharger les messages"
+msgstr "Échec du téléchargement : %s"
 
 #: src/client/composer/spell-check-popover.vala:312
 msgid "Search for more languages"
@@ -2217,13 +2132,12 @@ msgstr "Rechercher des langues supplémentaires"
 
 #: src/client/conversation-list/conversation-list-row.vala:172
 msgid "Encrypted with inline PGP"
-msgstr ""
+msgstr "Chiffré avec PGP intégré"
 
 #: src/client/conversation-list/conversation-list-row.vala:177
 #: src/client/conversation-viewer/conversation-message.vala:574
-#, fuzzy
 msgid "Encrypted message"
-msgstr "%d message"
+msgstr "Message chiffré"
 
 #. / Translators: Context menu item
 #: src/client/conversation-list/conversation-list-view.vala:424
@@ -2239,8 +2153,7 @@ msgid_plural "_Delete conversations"
 msgstr[0] "_Supprimer la conversation"
 msgstr[1] "_Supprimer les conversations"
 
-#: src/client/conversation-list/conversation-list-view.vala:449
-#: ui/components-menu-conversation.ui:5
+#: src/client/conversation-list/conversation-list-view.vala:449 ui/components-menu-conversation.ui:5
 msgid "Mark as _Read"
 msgstr "Marquer comme _lu"
 
@@ -2266,8 +2179,7 @@ msgstr[0] "_Archiver la conversation"
 msgstr[1] "_Archiver les conversations"
 
 #. Translators: Menu item to reply to a specific message.
-#: src/client/conversation-list/conversation-list-view.vala:497
-#: ui/conversation-email-menus.ui:9
+#: src/client/conversation-list/conversation-list-view.vala:497 ui/conversation-email-menus.ui:9
 msgid "_Reply"
 msgstr "_Répondre"
 
@@ -2276,26 +2188,22 @@ msgid "R_eply All"
 msgstr "Ré_pondre à tous"
 
 #. Translators: Menu item to forward a specific message.
-#: src/client/conversation-list/conversation-list-view.vala:509
-#: ui/conversation-email-menus.ui:27
+#: src/client/conversation-list/conversation-list-view.vala:509 ui/conversation-email-menus.ui:27
 msgid "_Forward"
 msgstr "_Transférer"
 
 #. Translators: Human-readable version of the RFC 822 From header
-#: src/client/conversation-viewer/conversation-email.vala:549
-#: src/client/util/util-email.vala:258
+#: src/client/conversation-viewer/conversation-email.vala:549 src/client/util/util-email.vala:258
 msgid "From:"
 msgstr "De :"
 
 #. Translators: Human-readable version of the RFC 822 Date header
-#: src/client/conversation-viewer/conversation-email.vala:569
-#: src/client/util/util-email.vala:263
+#: src/client/conversation-viewer/conversation-email.vala:569 src/client/util/util-email.vala:263
 msgid "Date:"
 msgstr "Date :"
 
 #. Translators: Human-readable version of the RFC 822 Subject header
-#: src/client/conversation-viewer/conversation-email.vala:579
-#: src/client/util/util-email.vala:261
+#: src/client/conversation-viewer/conversation-email.vala:579 src/client/util/util-email.vala:261
 msgid "Subject:"
 msgstr "Objet :"
 
@@ -2331,41 +2239,40 @@ msgstr "Aucun expéditeur"
 
 #: src/client/conversation-viewer/conversation-message.vala:747
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Se désabonner"
 
 #: src/client/conversation-viewer/conversation-message.vala:749
 msgid "Stop receiving emails from this mailing list"
-msgstr ""
+msgstr "Ne plus recevoir de courriels de cette liste de diffusion"
 
 #: src/client/conversation-viewer/conversation-message.vala:1027
 msgid "This message was encrypted with inline PGP"
-msgstr ""
+msgstr "Ce message a été chiffré avec PGP intégré"
 
 #. Translators: Info bar status message. Substitution is
 #. the sender's email address.
 #: src/client/conversation-viewer/conversation-message.vala:1114
 #, c-format
 msgid "%s included an OpenPGP key"
-msgstr ""
+msgstr "%s a inclus une clé OpenPGP"
 
 #. Translators: Info bar description
 #: src/client/conversation-viewer/conversation-message.vala:1116
 msgid "Import it to send encrypted email to this sender"
-msgstr ""
+msgstr "Importez-la pour envoyer des courriels chiffrés à cet expéditeur"
 
 #. Translators: Info bar button label
 #: src/client/conversation-viewer/conversation-message.vala:1121
-#, fuzzy
 msgid "Import Key"
-msgstr "Importants"
+msgstr "Importer la clé"
 
 #: src/client/conversation-viewer/conversation-message.vala:1141
 msgid "Imported OpenPGP key"
-msgstr ""
+msgstr "Clé OpenPGP importée"
 
 #: src/client/conversation-viewer/conversation-message.vala:1142
 msgid "No new OpenPGP key was imported"
-msgstr ""
+msgstr "Aucune nouvelle clé OpenPGP n’a été importée"
 
 #. Translators: This separates multiple 'from'
 #. addresses in the compact header for a message.
@@ -2388,18 +2295,17 @@ msgstr "(inconnu)"
 #. Translators: Info bar status message
 #: src/client/conversation-viewer/conversation-message.vala:1662
 msgid "Message too long to show in full"
-msgstr ""
+msgstr "Message trop long pour être affiché en entier"
 
 #. Translators: Info bar description
 #: src/client/conversation-viewer/conversation-message.vala:1664
 msgid "Open it in a separate window to read the rest of the message"
-msgstr ""
+msgstr "Ouvrez-le dans une fenêtre séparée pour lire la suite du message"
 
 #. Translators: Info bar button label
 #: src/client/conversation-viewer/conversation-message.vala:1668
-#, fuzzy
 msgid "Open in Window"
-msgstr "Ouvrir une nouvelle fenêtre"
+msgstr "Ouvrir dans une fenêtre"
 
 #. Translators: Info bar status message
 #: src/client/conversation-viewer/conversation-message.vala:1724
@@ -2410,9 +2316,8 @@ msgstr "Images distantes non affichées"
 #. Translators: Info bar description
 #: src/client/conversation-viewer/conversation-message.vala:1726
 #: ui/components-preferences-dialog.ui:77
-#, fuzzy
 msgid "Showing remote images allows the sender to track you"
-msgstr "N’afficher les images distantes que pour les expéditeurs de confiance."
+msgstr "L’affichage des images distantes permet à l’expéditeur de vous suivre à la trace"
 
 #. Translators: Info bar description
 #: src/client/conversation-viewer/conversation-message.vala:1741
@@ -2432,45 +2337,37 @@ msgstr "Connexion non certifiée : %s"
 #: src/client/dialogs/certificate-warning-dialog.vala:30
 #, c-format
 msgid "The identity of the %s mail server at %s:%u could not be verified."
-msgstr ""
-"L’identité du serveur de courriel %s à %s:%u ne peut pas être vérifiée."
+msgstr "L’identité du serveur de courriel %s à %s:%u ne peut pas être vérifiée."
 
 #: src/client/dialogs/certificate-warning-dialog.vala:40
 msgid ""
-"Selecting “Trust This Server” or “Always Trust This Server” may cause your "
-"username and password to be transmitted insecurely."
+"Selecting “Trust This Server” or “Always Trust This Server” may cause your username and password "
+"to be transmitted insecurely."
 msgstr ""
-"Sélectionner « Faire confiance à ce serveur » ou « Toujours faire confiance "
-"à ce serveur » peut conduire à la transmission de vos nom d’utilisateur et "
-"mot de passe de manière non sécurisée."
+"Sélectionner « Faire confiance à ce serveur » ou « Toujours faire confiance à ce serveur » peut "
+"conduire à la transmission de vos nom d’utilisateur et mot de passe de manière non sécurisée."
 
 #: src/client/dialogs/certificate-warning-dialog.vala:48
-msgid ""
-"Selecting “Don’t Trust This Server” will cause Convey not to access this "
-"server."
+msgid "Selecting “Don’t Trust This Server” will cause Convey not to access this server."
 msgstr ""
-"Sélectionner « Ne pas faire confiance à ce serveur » empêchera Convey "
-"d’accéder à ce serveur."
+"Sélectionner « Ne pas faire confiance à ce serveur » empêchera Convey d’accéder à ce serveur."
 
 #: src/client/dialogs/certificate-warning-dialog.vala:50
 msgid "Convey will not add or update this email account."
 msgstr "Convey n’ajoutera pas ni ne mettra à jour ce compte de messagerie."
 
 #: src/client/dialogs/certificate-warning-dialog.vala:55
-msgid ""
-"Selecting “Don’t Trust This Server” will cause Convey to stop accessing this "
-"account."
+msgid "Selecting “Don’t Trust This Server” will cause Convey to stop accessing this account."
 msgstr ""
-"Sélectionner « Ne pas faire confiance à ce serveur » va empêcher l’accès de "
-"Convey à ce compte."
+"Sélectionner « Ne pas faire confiance à ce serveur » va empêcher l’accès de Convey à ce compte."
 
 #: src/client/dialogs/certificate-warning-dialog.vala:61
 msgid ""
-"Contact your system administrator or email service provider if you have any "
-"question about these issues."
+"Contact your system administrator or email service provider if you have any question about these "
+"issues."
 msgstr ""
-"Contactez votre administrateur système ou votre fournisseur de messagerie si "
-"vous avez des questions concernant ces problèmes."
+"Contactez votre administrateur système ou votre fournisseur de messagerie si vous avez des "
+"questions concernant ces problèmes."
 
 #: src/client/dialogs/certificate-warning-dialog.vala:68
 msgid "The server’s certificate is not signed by a known authority"
@@ -2478,8 +2375,7 @@ msgstr "Le certificat du serveur n’est pas signé par une autorité reconnue"
 
 #: src/client/dialogs/certificate-warning-dialog.vala:71
 msgid "The server’s identity does not match the identity in the certificate"
-msgstr ""
-"L’identité du serveur ne correspond pas à celle renseignée par le certificat"
+msgstr "L’identité du serveur ne correspond pas à celle renseignée par le certificat"
 
 #: src/client/dialogs/certificate-warning-dialog.vala:74
 msgid "The server’s certificate has expired"
@@ -2499,14 +2395,12 @@ msgstr "Le certificat du serveur est considéré comme non sécurisé"
 
 #: src/client/dialogs/certificate-warning-dialog.vala:86
 msgid "An error has occurred processing the server’s certificate"
-msgstr ""
-"Une erreur est survenue pendant l’échange de certificat avec le serveur"
+msgstr "Une erreur est survenue pendant l’échange de certificat avec le serveur"
 
 #. / Translators: Title for problem report dialog error
 #. / information pane
 #. Dialog title for displaying technical details of a problem. Same as the button that invokes it.
-#: src/client/dialogs/dialogs-problem-details-dialog.vala:84
-#: ui/problem-details-dialog.ui:4
+#: src/client/dialogs/dialogs-problem-details-dialog.vala:84 ui/problem-details-dialog.ui:4
 msgid "Details"
 msgstr "Détails"
 
@@ -2557,11 +2451,11 @@ msgstr "Boîtes de réception"
 #. the label equivalent
 #: src/client/folder-list/folder-list-pending-folder-entry.vala:30
 msgid "Creating label…"
-msgstr ""
+msgstr "Création de l’étiquette…"
 
 #: src/client/folder-list/folder-list-pending-folder-entry.vala:30
 msgid "Creating folder…"
-msgstr ""
+msgstr "Création du dossier…"
 
 #: src/client/folder-list/folder-list-search-branch.vala:59
 #, c-format
@@ -2617,9 +2511,7 @@ msgstr "Créer des modèles réutilisables pour envoyer des courriels"
 #: src/client/plugin/email-templates/email-templates.vala:29
 #: src/client/plugin/mail-merge/mail-merge.vala:29
 msgid "Templates | Template Mail | Template Email | Template E-Mail"
-msgstr ""
-"Modèles | Modèle de courrier | Modèle de courriel | Modèle de courrier "
-"électronique"
+msgstr "Modèles | Modèle de courrier | Modèle de courriel | Modèle de courrier électronique"
 
 #. Translators: The name of the folder used to
 #. store email templates
@@ -2660,8 +2552,7 @@ msgstr "Éditer"
 #. Translators: The name of the folder used to
 #. display merged email
 #: src/client/plugin/mail-merge/mail-merge.plugin.desktop.in:4
-#: src/client/plugin/mail-merge/mail-merge.vala:288
-#: src/client/plugin/mail-merge/mail-merge.vala:394
+#: src/client/plugin/mail-merge/mail-merge.vala:288 src/client/plugin/mail-merge/mail-merge.vala:394
 #: src/client/plugin/mail-merge/mail-merge.vala:488
 msgid "Mail Merge"
 msgstr "Publipostage"
@@ -2721,9 +2612,7 @@ msgstr "Menu de messagerie"
 
 #: src/client/plugin/messaging-menu/messaging-menu.plugin.desktop.in:4
 msgid "Displays Unity Messaging Menu notifications for new email"
-msgstr ""
-"Afficher les notifications du menu de messagerie de Unity pour les nouveaux "
-"messages"
+msgstr "Afficher les notifications du menu de messagerie de Unity pour les nouveaux messages"
 
 #: src/client/plugin/messaging-menu/messaging-menu.vala:79
 #, c-format
@@ -2765,8 +2654,7 @@ msgstr "Message non enregistré"
 #. unsaved email
 #: src/client/plugin/special-folders/special-folders.vala:201
 msgid "This message was sent, but has not been saved to your account."
-msgstr ""
-"Ce message a été envoyé, mais n’a pas été enregistré dans votre compte."
+msgstr "Ce message a été envoyé, mais n’a pas été enregistré dans votre compte."
 
 #. / Datetime format for 12-hour time, i.e. 8:31 am
 #. / See https://docs.gtk.org/glib/method.DateTime.format.html
@@ -3200,9 +3088,7 @@ msgstr "Éléments envoyés"
 #. and put the most common localized name to the front for
 #. the default. English names do not need to be included.
 #: src/engine/imap-engine/imap-engine-generic-account.vala:1176
-msgid ""
-"Junk | Spam | Junk Mail | Junk Email | Junk E-Mail | Bulk Mail | Bulk Email "
-"| Bulk E-Mail"
+msgid "Junk | Spam | Junk Mail | Junk Email | Junk E-Mail | Bulk Mail | Bulk Email | Bulk E-Mail"
 msgstr "Pourriel | Pourriels | Indésirables | Messages indésirables"
 
 #. List of general possible folder names to match for the
@@ -3243,9 +3129,8 @@ msgid "(no subject)"
 msgstr "(aucun objet)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
-msgstr "Appliquer"
+msgstr "_Appliquer"
 
 #. Translators: Label used for the display name part of an email address when editing a user's sender address preferences for an account
 #: ui/accounts-mailbox-editor-dialog.ui:42
@@ -3255,7 +3140,6 @@ msgstr "Identifiant pour l’envoi"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "Adresse courriel"
 
@@ -3265,7 +3149,7 @@ msgstr "Signature"
 
 #: ui/accounts-mailbox-editor-dialog.ui:63
 msgid "Used instead of the account signature when sending from this address"
-msgstr ""
+msgstr "Utilisée à la place de la signature du compte lors d’un envoi depuis cette adresse"
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
 msgid "Remove"
@@ -3273,9 +3157,8 @@ msgstr "Supprimer"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
-msgstr "Identifiant"
+msgstr "Identifiant de connexion"
 
 #. Translators: Label for the user's password for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:36
@@ -3284,18 +3167,15 @@ msgstr "Mot de passe"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "Sécurité de la connexion"
 
 #: ui/accounts_editor_add_pane.ui:4
-#, fuzzy
 msgid "Add Account"
 msgstr "Ajouter un compte"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Votre nom"
 
@@ -3317,9 +3197,8 @@ msgid "Account Name"
 msgstr "Nom du compte"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
-msgstr "Adresse électronique"
+msgstr "Adresses courriel"
 
 #. Translators: Tooltip for adding a new email sender/from address's address to an account
 #: ui/accounts_editor_edit_pane.ui:59
@@ -3332,14 +3211,13 @@ msgstr "Paramètres"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
-msgstr "Télécharger les messages"
+msgstr "Télécharger les courriels"
 
 #. Translators: This label describes an account preference
 #: ui/accounts_editor_edit_pane.ui:98
 msgid "Archive Instead of Moving to Trash"
-msgstr ""
+msgstr "Archiver au lieu de mettre à la corbeille"
 
 #: ui/accounts_editor_edit_pane.ui:110
 msgid "Remove this account from Convey"
@@ -3363,9 +3241,8 @@ msgid "Welcome to Convey"
 msgstr "Bienvenue dans Convey"
 
 #: ui/accounts_editor_list_pane.ui:82
-#, fuzzy
 msgid "To get started, add an email provider above."
-msgstr "Pour commencer, sélectionnez un fournisseur courriel ci-dessous."
+msgstr "Pour commencer, ajoutez un fournisseur de messagerie ci-dessus."
 
 #: ui/accounts_editor_servers_pane.ui:16
 msgid "Apply"
@@ -3373,12 +3250,10 @@ msgstr "Appliquer"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
-msgstr "Source de comptes"
+msgstr "Source du compte"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "Fournisseur de service"
 
@@ -3397,14 +3272,12 @@ msgid "Mail"
 msgstr "Courriels"
 
 #: ui/application-main-window.ui:212
-#, fuzzy
 msgid "Check for new mail"
-msgstr "Afficher les _notifications de nouveaux messages"
+msgstr "Vérifier les nouveaux courriels"
 
 #: ui/application-main-window.ui:287
-#, fuzzy
 msgid "Show folders"
-msgstr "Afficher moins"
+msgstr "Afficher les dossiers"
 
 #: ui/application-main-window.ui:295
 msgctxt "tooltip"
@@ -3425,7 +3298,7 @@ msgstr "_Comptes"
 
 #: ui/application-main-window.ui:456
 msgid "_Import OpenPGP Key…"
-msgstr ""
+msgstr "_Importer une clé OpenPGP…"
 
 #: ui/application-main-window.ui:464
 msgid "_Keyboard Shortcuts"
@@ -3448,9 +3321,8 @@ msgid "_Trust This Server"
 msgstr "Faire _confiance à ce serveur"
 
 #: ui/certificate-warning-dialog.ui:11
-#, fuzzy
 msgid "_Don't Trust This Server"
-msgstr "Ne _pas faire confiance à ce serveur"
+msgstr "_Ne pas faire confiance à ce serveur"
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
@@ -3458,17 +3330,16 @@ msgid "Preferences"
 msgstr "Préférences"
 
 #: ui/components-preferences-dialog.ui:15
-#, fuzzy
 msgid "_Reopen last inbox"
-msgstr "Rétablir la dernière action"
+msgstr "_Rouvrir la dernière boîte de réception"
 
 #: ui/components-preferences-dialog.ui:16
 msgid "Open whichever inbox was viewed last"
-msgstr ""
+msgstr "Ouvrir la dernière boîte de réception consultée"
 
 #: ui/components-preferences-dialog.ui:22
 msgid "Inbox at _startup"
-msgstr ""
+msgstr "Boîte de réception au _démarrage"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:29
@@ -3477,24 +3348,20 @@ msgstr "_Vérifier s’il y a de nouveaux messages après la fermeture"
 
 #: ui/components-preferences-dialog.ui:30
 msgid "Convey will keep running after all windows are closed"
-msgstr ""
-"Convey continuera de fonctionner après la fermeture de toutes les fenêtres"
+msgstr "Convey continuera de fonctionner après la fermeture de toutes les fenêtres"
 
 #: ui/components-preferences-dialog.ui:41
-#, fuzzy
 msgid "_Always show Starred folder"
-msgstr "Toujours afficher pour cet expéditeur"
+msgstr "_Toujours afficher le dossier Favoris"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:49
-#, fuzzy
 msgid "_Conversation list order"
-msgstr "Conversation restaurée vers %s"
+msgstr "_Ordre de la liste des conversations"
 
-#: ui/components-preferences-dialog.ui:50
-#: ui/components-preferences-dialog.ui:169
+#: ui/components-preferences-dialog.ui:50 ui/components-preferences-dialog.ui:169
 msgid "Choose which lines each conversation shows, and in what order"
-msgstr ""
+msgstr "Choisissez les lignes affichées pour chaque conversation et leur ordre"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:64
@@ -3504,21 +3371,21 @@ msgstr "Sélectionner _automatiquement le message suivant"
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:76
 msgid "_Load images from verified senders"
-msgstr ""
+msgstr "_Charger les images des expéditeurs vérifiés"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:84
 msgid "Also load images from _unverified senders"
-msgstr ""
+msgstr "Charger aussi les images des expéditeurs _non vérifiés"
 
 #: ui/components-preferences-dialog.ui:85
 msgid "Messages that can't be verified are often spam or phishing"
-msgstr ""
+msgstr "Les messages qui ne peuvent pas être vérifiés sont souvent du spam ou de l’hameçonnage"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:92
 msgid "_Override the original colors in HTML emails"
-msgstr ""
+msgstr "_Remplacer les couleurs d’origine dans les courriels HTML"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:105
@@ -3526,26 +3393,24 @@ msgid "Use _single key email shortcuts"
 msgstr "Utiliser les raccourcis clavier d’une _seule touche pour le courriel"
 
 #: ui/components-preferences-dialog.ui:106
-msgid ""
-"Enable keyboard shortcuts for email actions that do not require pressing "
-"<Ctrl>"
+msgid "Enable keyboard shortcuts for email actions that do not require pressing <Ctrl>"
 msgstr ""
-"Activer les raccourcis clavier pour les actions de messagerie qui ne "
-"nécessitent pas d’appuyer sur <Ctrl>"
+"Activer les raccourcis clavier pour les actions de messagerie qui ne nécessitent pas d’appuyer "
+"sur <Ctrl>"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:118
 msgid "Use _custom proxy"
-msgstr ""
+msgstr "Utiliser un mandataire _personnalisé"
 
 #: ui/components-preferences-dialog.ui:119
 msgid "Set a proxy for Convey to use for all network requests"
-msgstr ""
+msgstr "Définir un mandataire que Convey utilisera pour toutes les requêtes réseau"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:126
 msgid "Proxy Address (e.g. socks5://127.0.0.1:9050)"
-msgstr ""
+msgstr "Adresse du mandataire (p. ex. socks5://127.0.0.1:9050)"
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:138
@@ -3554,31 +3419,28 @@ msgstr "Greffons"
 
 #. Translators: Button that restores the default conversation list line order
 #: ui/components-preferences-dialog.ui:161
-#, fuzzy
 msgid "_Reset"
-msgstr "Réinitialiser le zoom"
+msgstr "_Réinitialiser"
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:168
-#, fuzzy
 msgid "Conversation list order"
-msgstr "Conversation restaurée vers %s"
+msgstr "Ordre de la liste des conversations"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:173
 msgid "_Participants"
-msgstr ""
+msgstr "_Participants"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
-msgstr "Objet"
+msgstr "Ob_jet"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
 msgid "Pr_eview"
-msgstr ""
+msgstr "_Aperçu"
 
 #: ui/composer-editor.ui:63
 msgid "Bold text"
@@ -3720,8 +3582,7 @@ msgstr "_Rétablir"
 msgid "Cu_t"
 msgstr "Co_uper"
 
-#: ui/composer-editor-menus.ui:22 ui/composer-editor-menus.ui:40
-#: ui/conversation-message-menus.ui:37
+#: ui/composer-editor-menus.ui:22 ui/composer-editor-menus.ui:40 ui/conversation-message-menus.ui:37
 msgid "_Copy"
 msgstr "_Copier"
 
@@ -3791,7 +3652,7 @@ msgstr "De"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
-msgstr ""
+msgstr "Choisir une adresse d’expédition"
 
 #. Translators: Label for composer To address entry
 #: ui/composer-widget.ui:91
@@ -3814,7 +3675,6 @@ msgstr "Cc_i"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Répondre à"
 
@@ -3856,14 +3716,12 @@ msgid "Reply All"
 msgstr "Répondre à tous"
 
 #: ui/components-conversation-actions.ui:35
-#, fuzzy
 msgid "Reply to List"
-msgstr "_Répondre à"
+msgstr "Répondre à la liste"
 
 #: ui/components-conversation-actions.ui:46
-#, fuzzy
 msgid "More Reply Options"
-msgstr "Plus d’options"
+msgstr "Plus d’options de réponse"
 
 #: ui/components-conversation-actions.ui:64
 msgid "Forward"
@@ -3871,25 +3729,20 @@ msgstr "Transférer"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
-msgstr "Répondre à tous"
+msgstr "Répondre à _tous"
 
 #: ui/components-headerbar-conversation.ui:20
 msgid "Toggle find bar"
 msgstr "Afficher la barre de recherche"
 
 #: ui/components-inspector-error-view.ui:21
-#, fuzzy
 msgid ""
-"If the problem is serious or persists, please save these details and attach "
-"it to a <a href=\"https://gitlab.gnome.org/donnybeelo/convey/-/work_items/"
-"new\">new bug report</a>."
+"If the problem is serious or persists, please save these details and attach it to a <a "
+"href=\"https://gitlab.gnome.org/donnybeelo/convey/-/work_items/new\">new bug report</a>."
 msgstr ""
-"Si le problème est grave ou persiste, copiez et envoyez ces détails à la <a "
-"href=\"https://wiki.gnome.org/Apps/Geary/Contact\">liste de diffusion</a> ou "
-"ajoutez-les à un <a href=\"https://wiki.gnome.org/Apps/Geary/"
-"ReportingABug\">nouveau rapport d’anomalie</a>."
+"Si le problème est grave ou persiste, enregistrez ces détails et joignez-les à un <a "
+"href=\"https://gitlab.gnome.org/donnybeelo/convey/-/work_items/new\">nouveau rapport de bogue</a>."
 
 #: ui/components-inspector-error-view.ui:31
 msgid "Details:"
@@ -3934,12 +3787,11 @@ msgstr "Marquer comme _pourriel"
 
 #: ui/components-menu-conversation.ui:29
 msgid "_Copy to Folder…"
-msgstr ""
+msgstr "_Copier vers un dossier…"
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
-msgstr "Rechercher dans la conversation"
+msgstr "_Rechercher dans la conversation"
 
 #: ui/conversation-contact-popover.ui:94
 msgid "New Conversation…"
@@ -4006,9 +3858,8 @@ msgstr "Répondre à _tous"
 
 #. Translators: Menu item to reply to the mailing list a specific message was sent to.
 #: ui/conversation-email-menus.ui:21
-#, fuzzy
 msgid "Reply to _List"
-msgstr "Répondre à _tous"
+msgstr "Répondre à la _liste"
 
 #. Translators: Menu item to mark a specific message as
 #. read.
@@ -4057,13 +3908,11 @@ msgstr "Lien trompeur découvert"
 #: ui/conversation-message-link-popover.ui:103
 msgid "The email sender may be leading you to the wrong web site."
 msgstr ""
-"Il est possible que l’expéditeur du message essaye de vous diriger vers le "
-"mauvais site Web."
+"Il est possible que l’expéditeur du message essaye de vous diriger vers le mauvais site Web."
 
 #: ui/conversation-message-link-popover.ui:114
 msgid "If unsure, contact the sender and ask before continuing."
-msgstr ""
-"Si vous avez un doute, contactez l’expéditeur et demandez avant de continuer."
+msgstr "Si vous avez un doute, contactez l’expéditeur et demandez avant de continuer."
 
 #: ui/conversation-message-menus.ui:7
 msgid "_Open Link"
@@ -4130,9 +3979,8 @@ msgid "Subject"
 msgstr "Objet"
 
 #: ui/conversation-message.ui:193
-#, fuzzy
 msgid "This message was encrypted"
-msgstr "Ce message n’est pas digne de confiance."
+msgstr "Ce message a été chiffré"
 
 #. Translators: Title label for placeholder when no conversations have been selected.
 #: ui/conversation-viewer.ui:39
@@ -4142,8 +3990,7 @@ msgstr "Aucune conversation sélectionnée"
 #. Translators: Sub-title label for placeholder when no conversations have been selected
 #: ui/conversation-viewer.ui:41
 msgid "Selecting a conversation from the list will display it here."
-msgstr ""
-"Lors de la sélection d’une conversation dans la liste, elle s’affichera ici."
+msgstr "Lors de la sélection d’une conversation dans la liste, elle s’affichera ici."
 
 #: ui/conversation-viewer.ui:65
 msgid "Find in conversation"
@@ -4165,8 +4012,7 @@ msgstr "Plusieurs conversations sélectionnées"
 #. Translators: Sub-title label for placeholder when multiple conversations have been selected
 #: ui/conversation-viewer.ui:133
 msgid "Choosing an action will apply to all selected conversations."
-msgstr ""
-"L’action choisie s’appliquera à l’ensemble des conversations sélectionnées."
+msgstr "L’action choisie s’appliquera à l’ensemble des conversations sélectionnées."
 
 #. Translators: Title label for placeholder when no conversations exist in a folder
 #. Translators: Title label for placeholder when no conversations were found in a search
@@ -4182,8 +4028,7 @@ msgstr "Ce dossier ne contient aucune conversation."
 #. Translators: Sub-title label for placeholder when no conversations were found in a search
 #: ui/conversation-viewer.ui:167
 msgid "Your search returned no results, try refining your search terms."
-msgstr ""
-"La recherche n’a donné aucun résultat, essayez d’affiner les termes utilisés."
+msgstr "La recherche n’a donné aucun résultat, essayez d’affiner les termes utilisés."
 
 #: ui/find_bar.glade:58
 msgid "Find:"
@@ -4256,10 +4101,9 @@ msgid "Label conversations"
 msgstr "Étiqueter les conversations"
 
 #: ui/gtk/help-overlay.ui:79
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Archive or trash conversations"
-msgstr "Archiver les conversations"
+msgstr "Archiver ou mettre des conversations à la corbeille"
 
 #: ui/gtk/help-overlay.ui:86 ui/gtk/help-overlay.ui:509
 msgctxt "shortcut window"
@@ -4498,7 +4342,7 @@ msgstr "Raccourcis clavier d’une seule touche (si activé)"
 #: ui/gtk/help-overlay.ui:443
 msgctxt "shortcut window"
 msgid "Reply to sender "
-msgstr "Répondre à l’expéditeur"
+msgstr "Répondre à l’expéditeur "
 
 #: ui/gtk/help-overlay.ui:530
 msgctxt "shortcut window"
@@ -4514,17 +4358,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Convey a besoin de votre mot de passe de messagerie pour continuer"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
-msgstr "Identifiant"
+msgstr "_Identifiant"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
-msgstr "Mot de passe"
+msgstr "_Mot de passe"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Se souvenir du mot de passe"
 
@@ -4617,8 +4458,7 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgstr "Notification des nouveaux messages au démarrage"
 
 #~ msgid "True to notify of new mail at startup."
-#~ msgstr ""
-#~ "Vrai pour recevoir une notification des nouveaux messages au démarrage."
+#~ msgstr "Vrai pour recevoir une notification des nouveaux messages au démarrage."
 
 #~ msgid "All others"
 #~ msgstr "Tous les autres"
@@ -4632,8 +4472,7 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgid "Start with the main window hidden (deprecated)"
 #~ msgstr "Démarrer Convey en mode caché (obsolète)"
 
-#~ msgid ""
-#~ "The `--hidden` option is deprecated and will be removed in the future."
+#~ msgid "The `--hidden` option is deprecated and will be removed in the future."
 #~ msgstr "L’option « --hidden » est obsolète et sera supprimée dans le futur."
 
 #~ msgid "Me"
@@ -4650,26 +4489,18 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgstr "Position du panneau de la liste des dossiers en horizontal"
 
 # Paned Grabber ?
-#~ msgid ""
-#~ "Position of the folder list Paned grabber in the horizontal orientation."
-#~ msgstr ""
-#~ "Position de l’attache du panneau de la liste des dossiers en orientation "
-#~ "horizontale."
+#~ msgid "Position of the folder list Paned grabber in the horizontal orientation."
+#~ msgstr "Position de l’attache du panneau de la liste des dossiers en orientation horizontale."
 
 #~ msgid "Position of folder list pane when vertical"
 #~ msgstr "Position du panneau de la liste des dossiers en vertical"
 
 # Paned Grabber ?
-#~ msgid ""
-#~ "Position of the folder list Paned grabber in the vertical orientation."
-#~ msgstr ""
-#~ "Position de l’attache du panneau de la liste des dossiers en orientation "
-#~ "verticale."
+#~ msgid "Position of the folder list Paned grabber in the vertical orientation."
+#~ msgstr "Position de l’attache du panneau de la liste des dossiers en orientation verticale."
 
 #~ msgid "True if the folder list Paned is in the horizontal orientation."
-#~ msgstr ""
-#~ "Vrai si le panneau de la liste des dossiers est en orientation "
-#~ "horizontale."
+#~ msgstr "Vrai si le panneau de la liste des dossiers est en orientation horizontale."
 
 #~ msgid "Position of message list pane"
 #~ msgstr "Position du panneau de la liste des messages"
@@ -4710,8 +4541,7 @@ msgstr "_Se souvenir du mot de passe"
 #~ "You will not be able to send or receive email until it is re-connected."
 #~ msgstr ""
 #~ "Votre ordinateur ne semble pas être connecté à Internet.\n"
-#~ "Vous ne pourrez pas envoyer ou recevoir de courriel jusqu’à ce que vous "
-#~ "soyez reconnecté."
+#~ "Vous ne pourrez pas envoyer ou recevoir de courriel jusqu’à ce que vous soyez reconnecté."
 
 #~ msgid ""
 #~ "An account has reported an untrusted server.\n"
@@ -4889,9 +4719,7 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgstr "Autoriser l’inspection WebView"
 
 #~ msgid "Please report comments, suggestions and bugs to:"
-#~ msgstr ""
-#~ "N’hésitez pas à envoyer vos commentaires, suggestions et rapports "
-#~ "d’anomalies à :"
+#~ msgstr "N’hésitez pas à envoyer vos commentaires, suggestions et rapports d’anomalies à :"
 
 #~ msgid "Failed to parse command line options: %s\n"
 #~ msgstr "Impossible d’analyser les options de ligne de commande : %s\n"
@@ -4934,12 +4762,10 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgid "Problem connecting to incoming server for %s"
 #~ msgstr "Problème de connexion au serveur entrant pour %s"
 
-#~ msgid ""
-#~ "Could not connect to %s, check your Internet access and the server name "
-#~ "and try again"
+#~ msgid "Could not connect to %s, check your Internet access and the server name and try again"
 #~ msgstr ""
-#~ "Impossible de se connecter à %s, vérifiez votre connexion internet et le "
-#~ "nom du serveur et réessayez"
+#~ "Impossible de se connecter à %s, vérifiez votre connexion internet et le nom du serveur et "
+#~ "réessayez"
 
 #~ msgid "Retry connecting now"
 #~ msgstr "Réessayer de se connecter"
@@ -4953,11 +4779,10 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgid "Problem with connection to incoming server for %s"
 #~ msgstr "Problème avec la connexion au serveur entrant pour %s"
 
-#~ msgid ""
-#~ "Network error talking to %s, check your Internet access and try again"
+#~ msgid "Network error talking to %s, check your Internet access and try again"
 #~ msgstr ""
-#~ "Erreur de réseau lors de la communication avec %s, vérifiez votre "
-#~ "connexion internet et réessayez"
+#~ "Erreur de réseau lors de la communication avec %s, vérifiez votre connexion internet et "
+#~ "réessayez"
 
 #~ msgid "Problem with connection to outgoing server for %s"
 #~ msgstr "Problème avec la connexion au serveur sortant pour %s"
@@ -4965,22 +4790,18 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgid "Problem communicating with incoming server for %s"
 #~ msgstr "Problème de communication avec le serveur entrant pour %s"
 
-#~ msgid ""
-#~ "Convey did not understand a message from %s or vice versa, please file a "
-#~ "bug report"
+#~ msgid "Convey did not understand a message from %s or vice versa, please file a bug report"
 #~ msgstr ""
-#~ "Convey n’a pas compris un message de %s ou vice versa, veuillez nous "
-#~ "faire parvenir un rapport d’anomalie"
+#~ "Convey n’a pas compris un message de %s ou vice versa, veuillez nous faire parvenir un rapport "
+#~ "d’anomalie"
 
 #~ msgid "Problem communicating with outgoing mail server"
 #~ msgstr "Problème de communication avec le serveur sortant"
 
-#~ msgid ""
-#~ "Could not communicate with %s for %s, check the server name and try again "
-#~ "in a moment"
+#~ msgid "Could not communicate with %s for %s, check the server name and try again in a moment"
 #~ msgstr ""
-#~ "Impossible de communiquer avec %s pour %s, vérifiez le nom du serveur et "
-#~ "réessayez dans quelques instants"
+#~ "Impossible de communiquer avec %s pour %s, vérifiez le nom du serveur et réessayez dans "
+#~ "quelques instants"
 
 #~ msgid "Incoming mail server password required for %s"
 #~ msgstr "Mot de passe requis pour le serveur entrant de %s"
@@ -4990,20 +4811,19 @@ msgstr "_Se souvenir du mot de passe"
 
 #~ msgid "Retry receiving email, you will be prompted for a password"
 #~ msgstr ""
-#~ "Effectuez une nouvelle tentative de récupération des courriels, le mot de "
-#~ "passe vous sera demandé"
+#~ "Effectuez une nouvelle tentative de récupération des courriels, le mot de passe vous sera "
+#~ "demandé"
 
 #~ msgid "Outgoing mail server password required for %s"
 #~ msgstr "Mot de passe requis pour le serveur sortant de %s"
 
 #~ msgid "Messages cannot be sent without the correct password."
-#~ msgstr ""
-#~ "Les messages ne peuvent être envoyés sans le mot de passe approprié."
+#~ msgstr "Les messages ne peuvent être envoyés sans le mot de passe approprié."
 
 #~ msgid "Retry sending queued messages, you will be prompted for a password"
 #~ msgstr ""
-#~ "Effectuez une nouvelle tentative d’envoi des courriels en attente, le mot "
-#~ "de passe vous sera demandé"
+#~ "Effectuez une nouvelle tentative d’envoi des courriels en attente, le mot de passe vous sera "
+#~ "demandé"
 
 #, fuzzy
 #~| msgid "Incoming mail server password required for %s"
@@ -5018,18 +4838,15 @@ msgstr "_Se souvenir du mot de passe"
 #, fuzzy
 #~| msgid "Messages cannot be sent without the correct password."
 #~ msgid "Messages cannot be sent until checked."
-#~ msgstr ""
-#~ "Les messages ne peuvent être envoyés sans le mot de passe approprié."
+#~ msgstr "Les messages ne peuvent être envoyés sans le mot de passe approprié."
 
 #~ msgid "A problem occurred checking mail for %s"
-#~ msgstr ""
-#~ "Un problème est apparu lors de la vérification des courriels pour %s"
+#~ msgstr "Un problème est apparu lors de la vérification des courriels pour %s"
 
-#~ msgid ""
-#~ "Something went wrong, please file a bug report if the problem persists"
+#~ msgid "Something went wrong, please file a bug report if the problem persists"
 #~ msgstr ""
-#~ "Une erreur est survenue, veuillez nous faire parvenir un rapport "
-#~ "d’anomalie si le problème apparait à nouveau"
+#~ "Une erreur est survenue, veuillez nous faire parvenir un rapport d’anomalie si le problème "
+#~ "apparait à nouveau"
 
 #~ msgid "A database problem has occurred"
 #~ msgstr "Un problème de base de données est s’est produit"
@@ -5130,20 +4947,15 @@ msgstr "_Se souvenir du mot de passe"
 #~ msgstr "Réessayer"
 
 #, fuzzy
-#~| msgid ""
-#~| "Could not connect to %s, check your Internet access and the server name "
-#~| "and try again"
+#~| msgid "Could not connect to %s, check your Internet access and the server name and try again"
 #~ msgid ""
 #~ "Convey encountered a problem connecting to an account.\n"
-#~ "Please check your Internet connection, the server configuration and try "
-#~ "again."
+#~ "Please check your Internet connection, the server configuration and try again."
 #~ msgstr ""
-#~ "Impossible de se connecter à %s, vérifiez votre connexion internet et le "
-#~ "nom du serveur et réessayez"
+#~ "Impossible de se connecter à %s, vérifiez votre connexion internet et le nom du serveur et "
+#~ "réessayez"
 
-#~ msgid ""
-#~ "Copy technical details to clipboard for pasting into an email or bug "
-#~ "report"
+#~ msgid "Copy technical details to clipboard for pasting into an email or bug report"
 #~ msgstr ""
-#~ "Copier les détails technique vers le presse-papiers pour les coller dans "
-#~ "un courriel ou un rapport d’anomalie"
+#~ "Copier les détails technique vers le presse-papiers pour les coller dans un courriel ou un "
+#~ "rapport d’anomalie"
