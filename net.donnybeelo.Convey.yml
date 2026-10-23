@@ -15,7 +15,7 @@ finish-args:
   - --talk-name=org.gnome.Contacts
   - --talk-name=org.gnome.OnlineAccounts
   - --talk-name=org.gnome.Settings
-  - --filesystem=home
+  - --filesystem=xdg-desktop
 
   # Folks contact and avatar support (via EDS)
   - --talk-name=org.gnome.evolution.dataserver.*

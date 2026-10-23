@@ -25,7 +25,7 @@
         "--metadata=X-DConf=migrate-path=/net/donnybeelo/Convey/",
         "--filesystem=~/.config/convey:ro",
         "--filesystem=~/.var/app/net.donnybeelo.Convey/config/convey:ro",
-        "--filesystem=home",
+        "--filesystem=xdg-desktop",
         "--filesystem=/tmp"
     ],
     "cleanup": [
