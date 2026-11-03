@@ -496,6 +496,22 @@ public class Composer.Widget : Adw.Bin, Convey.BaseInterface {
         paste_key_controller.key_pressed.connect(on_editor_capture_key_pressed);
         this.editor.body.add_controller(paste_key_controller);
 
+        for (var child = this.editor.body.get_first_child();
+             child != null;
+             child = child.get_next_sibling()) {
+            if (child is Gtk.TextView) {
+                var emoji_shortcut = new Gtk.ShortcutController();
+                emoji_shortcut.set_propagation_phase(Gtk.PropagationPhase.CAPTURE);
+                emoji_shortcut.add_shortcut(new Gtk.Shortcut(
+                    Gtk.ShortcutTrigger.parse_string(
+                        "<Control>period|<Control>semicolon"
+                    ),
+                    new Gtk.SignalAction("insert-emoji")
+                ));
+                child.add_controller(emoji_shortcut);
+            }
+        }
+
         this.editor_bin.child = this.editor;
 
         // WebKitGTK does not forward OS file drags to the page's DOM, so
@@ -2441,21 +2457,6 @@ public class Composer.Widget : Adw.Bin, Convey.BaseInterface {
         }
         if (ctrl && !shift && (keyval == Gdk.Key.y || keyval == Gdk.Key.Y)) {
             this.editor.body.redo();
-            return Gdk.EVENT_STOP;
-        }
-
-        if (ctrl && !shift &&
-            (keyval == Gdk.Key.period || keyval == Gdk.Key.semicolon)) {
-            var chooser = new Gtk.EmojiChooser();
-            chooser.set_parent(this.editor.body);
-            chooser.emoji_picked.connect((emoji) => {
-                this.editor.body.insert_text(emoji);
-            });
-            chooser.closed.connect(() => {
-                chooser.unparent();
-                this.editor.body.grab_focus();
-            });
-            chooser.popup();
             return Gdk.EVENT_STOP;
         }
 
