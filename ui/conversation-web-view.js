@@ -50,6 +50,8 @@ ConversationPageState.prototype = {
                 return;
             }
         }
+        this._hTarget = document.scrollingElement;
+        this.scrollElement(this._hTarget, "scrollLeft", dx);
     },
     flingHorizontally: function(vx) {
         this.fling("_hFling", this._hTarget, "scrollLeft", vx);
