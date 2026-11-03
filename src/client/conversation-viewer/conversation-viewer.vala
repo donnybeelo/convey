@@ -36,6 +36,7 @@ public class ConversationViewer : Adw.Bin, Convey.BaseInterface {
     private Application.DecryptedSubjects decrypted_subjects;
 
     private Gee.Set<Convey.App.Conversation>? selection_while_composing = null;
+    private Gtk.Widget? page_before_composing = null;
     private GLib.Cancellable? find_cancellable = null;
 
     [GtkChild] public unowned Components.ConversationHeaderBar headerbar;
@@ -122,6 +123,7 @@ public class ConversationViewer : Adw.Bin, Convey.BaseInterface {
 
             box.vanished.connect(on_composer_closed);
             this.composer_page.child = box;
+            this.page_before_composing = get_visible_child();
             set_visible_child(this.composer_page);
             composer.update_window_title();
         }
@@ -447,7 +449,7 @@ public class ConversationViewer : Adw.Bin, Convey.BaseInterface {
     private void on_composer_closed() {
         this.current_composer = null;
         if (get_visible_child() == this.composer_page) {
-            set_visible_child(this.conversation_page);
+            set_visible_child(this.page_before_composing ?? this.conversation_page);
 
             // Restore the old selection
             var main_window = get_root() as Application.MainWindow;
