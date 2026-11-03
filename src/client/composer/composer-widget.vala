@@ -2444,6 +2444,21 @@ public class Composer.Widget : Adw.Bin, Convey.BaseInterface {
             return Gdk.EVENT_STOP;
         }
 
+        if (ctrl && !shift &&
+            (keyval == Gdk.Key.period || keyval == Gdk.Key.semicolon)) {
+            var chooser = new Gtk.EmojiChooser();
+            chooser.set_parent(this.editor.body);
+            chooser.emoji_picked.connect((emoji) => {
+                this.editor.body.insert_text(emoji);
+            });
+            chooser.closed.connect(() => {
+                chooser.unparent();
+                this.editor.body.grab_focus();
+            });
+            chooser.popup();
+            return Gdk.EVENT_STOP;
+        }
+
         bool is_ctrl_v =
             (keyval == Gdk.Key.v || keyval == Gdk.Key.V) &&
             ctrl && !shift;
