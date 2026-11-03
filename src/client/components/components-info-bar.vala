@@ -94,6 +94,7 @@ public class Components.InfoBar : Gtk.Box {
             this.description.valign = START;
             this.description.xalign = 0;
             this.description.wrap = true;
+            this.description.wrap_mode = Pango.WrapMode.WORD_CHAR;
             this.description.tooltip_text = description;
         }
 
