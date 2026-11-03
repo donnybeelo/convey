@@ -352,8 +352,6 @@ public class Application.Client : Adw.Application {
         // Calls Gtk.init(), amongst other things
         base.startup();
 
-        Convey.RFC822.Utils.init_pgp(get_home_data_directory().get_child("gnupg"));
-
         this.engine = new Convey.Engine(get_resource_directory());
         this.config = new Configuration(SCHEMA_ID);
         this.decrypted_subjects = new DecryptedSubjects(

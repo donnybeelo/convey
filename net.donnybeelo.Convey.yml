@@ -16,6 +16,8 @@ finish-args:
   - --talk-name=org.gnome.OnlineAccounts
   - --talk-name=org.gnome.Settings
   - --filesystem=xdg-desktop
+  - --filesystem=~/.gnupg
+  - --socket=gpg-agent
 
   # Folks contact and avatar support (via EDS)
   - --talk-name=org.gnome.evolution.dataserver.*

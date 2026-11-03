@@ -26,6 +26,8 @@
         "--filesystem=~/.config/convey:ro",
         "--filesystem=~/.var/app/net.donnybeelo.Convey/config/convey:ro",
         "--filesystem=xdg-desktop",
+        "--filesystem=~/.gnupg",
+        "--socket=gpg-agent",
         "--filesystem=/tmp"
     ],
     "cleanup": [

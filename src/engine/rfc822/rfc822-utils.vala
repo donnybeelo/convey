@@ -384,11 +384,6 @@ namespace Convey.RFC822.Utils {
         return ret;
     }
 
-    public void init_pgp(GLib.File home) {
-        GLib.DirUtils.create_with_parents(home.get_path(), 0700);
-        GLib.Environment.set_variable("GNUPGHOME", home.get_path(), true);
-    }
-
     public int import_pgp_keys(uint8[] data) throws GLib.Error {
         return new GMime.GpgContext().import_keys(new GMime.StreamMem.with_buffer(data));
     }
