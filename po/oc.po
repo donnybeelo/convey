@@ -667,9 +667,8 @@ msgstr ""
 #: src/client/accounts/accounts-editor-list-pane.vala:204
 #: src/client/application/application-main-window.vala:3111
 #: ui/accounts_editor_edit_pane.ui:18
-#, fuzzy
 msgid "Undo"
-msgstr "Restablir"
+msgstr "Anullar"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:290
 #, fuzzy, c-format
@@ -781,9 +780,8 @@ msgstr ""
 
 #: src/client/accounts/accounts-editor-list-pane.vala:215
 #: src/client/application/application-main-window.vala:3100
-#, fuzzy
 msgid "Redo"
-msgstr "Refar"
+msgstr "Restablir"
 
 #. Translators: In-app notification
 #. label, when the GNOME Online
@@ -856,14 +854,12 @@ msgstr "_Apondre"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "servidor IMAP"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "Servidor SMTP"
 
@@ -1528,7 +1524,6 @@ msgstr "L'accion pòt pas èsser anullada."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Suprimir"
 
@@ -1643,7 +1638,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Sètz segur que volètz dobrir « %s » ?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -3140,9 +3134,8 @@ msgid "Use a different login"
 msgstr ""
 
 #: src/engine/api/convey-service-information.vala:87
-#, fuzzy
 msgid "StartTLS"
-msgstr "Ma_rquer d'una estela"
+msgstr "STARTTLS"
 
 #: src/engine/api/convey-service-information.vala:89
 msgid "TLS"
@@ -3223,7 +3216,6 @@ msgid "(no subject)"
 msgstr "(pas d'objècte)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "Aplicar"
 
@@ -3235,7 +3227,6 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "Adreça de corrièl"
 
@@ -3248,7 +3239,6 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
 msgstr "Suprimir"
 
@@ -3276,7 +3266,6 @@ msgstr "Apondre un compte"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Vòstre nom"
 
@@ -3301,7 +3290,6 @@ msgid "Account Name"
 msgstr "Nom del compte"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "Adreças email"
 
@@ -3317,7 +3305,6 @@ msgstr "Paramètres"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "Telecargar lo messatge"
 
@@ -3558,7 +3545,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Objècte"
 
@@ -3808,9 +3794,8 @@ msgstr "_Cci :"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
-msgstr "_Respondre"
+msgstr "_Respondre a"
 
 #. Translators: Label for composer Subject line entry
 #: ui/composer-widget.ui:139
@@ -3846,14 +3831,12 @@ msgid "Save _All"
 msgstr "_Tot enregistrar"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
 msgstr "Respondre"
 
 #: ui/components-conversation-actions.ui:25
-#, fuzzy
 msgid "Reply All"
-msgstr "R_espondre a tous"
+msgstr "Respondre a tous"
 
 #: ui/components-conversation-actions.ui:35
 #, fuzzy
@@ -3866,13 +3849,11 @@ msgid "More Reply Options"
 msgstr "Mai d'opcions"
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "Seguent"
+msgstr "Transferir"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "R_espondre a tous"
 
@@ -3890,7 +3871,7 @@ msgstr ""
 
 #: ui/components-inspector-error-view.ui:31
 msgid "Details:"
-msgstr ""
+msgstr "Detalhs"
 
 #. Tooltip for inspector button
 #. Tooltip for problem report button
@@ -4093,9 +4074,8 @@ msgid "Save _Image As…"
 msgstr "_Enregistrar l'imatge jos…"
 
 #: ui/conversation-message-menus.ui:33
-#, fuzzy
 msgid "_Select All"
-msgstr "_Tot seleccionar"
+msgstr "T_ot seleccionar"
 
 #: ui/conversation-message-menus.ui:50
 #, fuzzy
@@ -4131,7 +4111,6 @@ msgid "Sent by:"
 msgstr ""
 
 #: ui/conversation-message.ui:144
-#, fuzzy
 msgid "Reply to:"
 msgstr "Respondre a :"
 
@@ -4546,7 +4525,6 @@ msgid "_Password"
 msgstr "Se_nhal"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Se remembrar del senhal"
 

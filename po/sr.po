@@ -21,8 +21,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
 "n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Project-Style: gnome\n"
 "X-Generator: Poedit 3.9\n"
+"X-Project-Style: gnome\n"
 
 #: desktop/convey-attach.contract.desktop.in:2
 msgid "Send by email"
@@ -716,7 +716,6 @@ msgid "_Cancel"
 msgstr "От_кажи"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Уклони налог"
 
@@ -872,14 +871,12 @@ msgstr "_Додај"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "ИМАП сервер"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "СМТП сервер"
 
@@ -1553,7 +1550,6 @@ msgstr "Не можете да опозовете ову радњу."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Обриши"
 
@@ -1670,7 +1666,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Да ли сигурнo желите да отворите ове прилоге?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1714,7 +1709,6 @@ msgstr[2] "Премести преписке у смеће"
 msgstr[3] "Премести преписку у смеће"
 
 #: src/client/components/components-conversation-actions.vala:243
-#, fuzzy
 msgid "_Archive"
 msgstr "Архива"
 
@@ -3241,7 +3235,6 @@ msgid "(no subject)"
 msgstr "(без наслова)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "Примени"
 
@@ -3253,7 +3246,6 @@ msgstr "Име пошиљаоца"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "Адресе е-поште"
 
@@ -3271,7 +3263,6 @@ msgstr "Уклони"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "Име пријављивања"
 
@@ -3282,7 +3273,6 @@ msgstr "Лозинка"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "Безбедност везе"
 
@@ -3293,7 +3283,6 @@ msgstr "Додајте налог"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Ваше име"
 
@@ -3315,7 +3304,6 @@ msgid "Account Name"
 msgstr "Име налога"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "Адресе е‑поште"
 
@@ -3330,7 +3318,6 @@ msgstr "Поставке"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "Преузми пошту"
 
@@ -3370,12 +3357,10 @@ msgstr "Примени"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "Извор налога"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "Достављач услуге"
 
@@ -3565,7 +3550,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Наслов"
 
@@ -3780,9 +3764,8 @@ msgstr "Обришите ову везу"
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "_Шаље"
+msgstr "Шаље"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3809,7 +3792,6 @@ msgstr "_Бцц"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Одговори"
 
@@ -3866,7 +3848,6 @@ msgstr "Проследи"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Одговори свима"
 
@@ -3933,7 +3914,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "Нађи у преписци"
 
@@ -4504,17 +4484,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Гери захтева лозинку ваше е-поште да би наставио"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
 msgstr "Корисник"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
 msgstr "Лозинка"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Запамти лозинку"
 

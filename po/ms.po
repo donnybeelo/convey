@@ -668,9 +668,8 @@ msgstr ""
 #: src/client/accounts/accounts-editor-list-pane.vala:204
 #: src/client/application/application-main-window.vala:3111
 #: ui/accounts_editor_edit_pane.ui:18
-#, fuzzy
 msgid "Undo"
-msgstr "Buat _Asal"
+msgstr "Buat Asal"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:290
 #, fuzzy, c-format
@@ -701,7 +700,6 @@ msgid "_Cancel"
 msgstr "_Batal"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Buang akaun"
 
@@ -784,9 +782,8 @@ msgstr ""
 
 #: src/client/accounts/accounts-editor-list-pane.vala:215
 #: src/client/application/application-main-window.vala:3100
-#, fuzzy
 msgid "Redo"
-msgstr "Buat _Semula"
+msgstr "Buat Semula"
 
 #. Translators: In-app notification
 #. label, when the GNOME Online
@@ -1624,7 +1621,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Anda pasti ingin buka \"%s\"?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1736,9 +1732,8 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:209
 #: ui/problem-details-dialog.ui:38
-#, fuzzy
 msgid "Save As"
-msgstr "_Simpan Sebagai..."
+msgstr "Simpan Sebagai"
 
 #: src/client/components/components-preferences-dialog.vala:56
 #, c-format
@@ -1913,7 +1908,6 @@ msgstr "_Keutamaan"
 
 #. Translators: Menu item to print a single, specific message
 #: src/client/components/stock.vala:28 ui/conversation-email-menus.ui:70
-#, fuzzy
 msgid "_Print…"
 msgstr "_Cetak"
 
@@ -2421,9 +2415,8 @@ msgstr ""
 #. Dialog title for displaying technical details of a problem. Same as the button that invokes it.
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:84
 #: ui/problem-details-dialog.ui:4
-#, fuzzy
 msgid "Details"
-msgstr "Pe_rincian"
+msgstr "Perincian"
 
 #: src/client/dialogs/password-dialog.vala:30
 msgid "SMTP Credentials"
@@ -2551,9 +2544,8 @@ msgstr ""
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "_Hantar"
+msgstr "Hantar"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -2755,7 +2747,6 @@ msgstr "%A"
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(tiada subjek)"
 
@@ -3083,9 +3074,8 @@ msgid "Use a different login"
 msgstr ""
 
 #: src/engine/api/convey-service-information.vala:87
-#, fuzzy
 msgid "StartTLS"
-msgstr "B_intang"
+msgstr "STARTLS"
 
 #: src/engine/api/convey-service-information.vala:89
 msgid "TLS"
@@ -3175,9 +3165,8 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
-msgstr "Alamat emel:"
+msgstr "Alamat emel"
 
 #: ui/accounts-mailbox-editor-dialog.ui:62 ui/accounts_editor_edit_pane.ui:70
 msgid "Signature"
@@ -3188,9 +3177,8 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
-msgstr "_Buang"
+msgstr "Buang"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
@@ -3208,7 +3196,6 @@ msgid "Connection Security"
 msgstr ""
 
 #: ui/accounts_editor_add_pane.ui:4
-#, fuzzy
 msgid "Add Account"
 msgstr "Tambah akaun"
 
@@ -3222,12 +3209,10 @@ msgid "Receiving"
 msgstr ""
 
 #: ui/accounts_editor_add_pane.ui:82 ui/accounts_editor_servers_pane.ui:91
-#, fuzzy
 msgid "Sending"
-msgstr "Menghantar..."
+msgstr "Menghantar"
 
 #: ui/accounts_editor_edit_pane.ui:4
-#, fuzzy
 msgid "Edit Account"
 msgstr "Sunting akaun"
 
@@ -3254,9 +3239,8 @@ msgstr "Tetapan SMTP"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
-msgstr "_Muat turun mel:"
+msgstr "Muat turun mel"
 
 #. Translators: This label describes an account preference
 #: ui/accounts_editor_edit_pane.ui:98
@@ -3348,7 +3332,6 @@ msgid "Select conversations"
 msgstr "Alih perbualan"
 
 #: ui/application-main-window.ui:452
-#, fuzzy
 msgid "_Accounts"
 msgstr "Akaun"
 
@@ -3383,9 +3366,8 @@ msgstr ""
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
-#, fuzzy
 msgid "Preferences"
-msgstr "_Keutamaan"
+msgstr "Keutamaan"
 
 #: ui/components-preferences-dialog.ui:15
 msgid "_Reopen last inbox"
@@ -3496,9 +3478,8 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
-msgstr "Subjek:"
+msgstr "Subjek"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
@@ -3674,7 +3655,6 @@ msgid "Select _All"
 msgstr "Pilih Semu_a"
 
 #: ui/composer-editor-menus.ui:57 ui/conversation-message-menus.ui:43
-#, fuzzy
 msgid "_Inspect…"
 msgstr "Per_iksa"
 
@@ -3683,9 +3663,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_Batal"
+msgstr "Batal"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3705,9 +3684,8 @@ msgid "Insert the new link with this URL"
 msgstr ""
 
 #: ui/composer-link-popover.ui:28
-#, fuzzy
 msgid "Add"
-msgstr "T_ambah"
+msgstr "Tambah"
 
 #. Note that this button and the Insert button will never be shown at the same time to the user.
 #: ui/composer-link-popover.ui:34
@@ -3724,9 +3702,8 @@ msgstr ""
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "Daripada:"
+msgstr "Daripada"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3734,9 +3711,8 @@ msgstr ""
 
 #. Translators: Label for composer To address entry
 #: ui/composer-widget.ui:91
-#, fuzzy
 msgid "_To"
-msgstr "Kepada:"
+msgstr "Kepada"
 
 #: ui/composer-widget.ui:105
 msgid "Show Cc, Bcc, and Reply-To fields"
@@ -3744,14 +3720,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
-msgstr "Sk:"
+msgstr "Sk"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "Ss"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3761,9 +3736,8 @@ msgstr "_Balas"
 
 #. Translators: Label for composer Subject line entry
 #: ui/composer-widget.ui:139
-#, fuzzy
 msgid "_Subject"
-msgstr "Subjek:"
+msgstr "Subjek"
 
 #: ui/composer-widget.ui:168
 msgid "Drop files here"
@@ -3794,14 +3768,12 @@ msgid "Save _All"
 msgstr "Pilih Semu_a"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_Balas"
+msgstr "Balas"
 
 #: ui/components-conversation-actions.ui:25
-#, fuzzy
 msgid "Reply All"
-msgstr "Ba_las Semua"
+msgstr "Balas Semua"
 
 #: ui/components-conversation-actions.ui:35
 #, fuzzy
@@ -3814,13 +3786,11 @@ msgid "More Reply Options"
 msgstr "Lagi pilihan"
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "_Maju"
+msgstr "Maju"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Ba_las Semua"
 
@@ -3836,9 +3806,8 @@ msgid ""
 msgstr ""
 
 #: ui/components-inspector-error-view.ui:31
-#, fuzzy
 msgid "Details:"
-msgstr "Pe_rincian"
+msgstr "Perincian"
 
 #. Tooltip for inspector button
 #. Tooltip for problem report button
@@ -3892,9 +3861,8 @@ msgid "New Conversation…"
 msgstr "Alih perbualan"
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Salin Alamat _Emel"
+msgstr "Salin Alamat Emel"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -3936,9 +3904,8 @@ msgid "The sender may not be trustworthy"
 msgstr ""
 
 #: ui/conversation-email.ui:22
-#, fuzzy
 msgid "Save all attachments"
-msgstr "Simpan Semua La_mpiran..."
+msgstr "Simpan Semua Lampiran"
 
 #. Note: The application will never show this button at the same time as unstar_button, one will always be hidden.
 #: ui/conversation-email.ui:35
@@ -3997,7 +3964,6 @@ msgid "_View Source"
 msgstr "_Lihat Sumber"
 
 #: ui/conversation-message-link-popover.ui:50
-#, fuzzy
 msgid "But actually goes to:"
 msgstr "tetapi pergi ke"
 
@@ -4034,22 +4000,18 @@ msgid "_New Conversation…"
 msgstr "Alih perbualan"
 
 #: ui/conversation-message-menus.ui:21
-#, fuzzy
 msgid "Copy Email _Address"
 msgstr "Salin Alamat _Emel"
 
 #: ui/conversation-message-menus.ui:27
-#, fuzzy
 msgid "Save _Image As…"
 msgstr "_Simpan Imej Sebagai..."
 
 #: ui/conversation-message-menus.ui:33
-#, fuzzy
 msgid "_Select All"
 msgstr "Pilih Semu_a"
 
 #: ui/conversation-message-menus.ui:50
-#, fuzzy
 msgid "Show images"
 msgstr "Tunjuk Imej"
 
@@ -4088,9 +4050,8 @@ msgid "Reply to:"
 msgstr "Balas kepada Semu_a"
 
 #: ui/conversation-message.ui:173
-#, fuzzy
 msgid "Subject"
-msgstr "Subjek:"
+msgstr "Subjek"
 
 #: ui/conversation-message.ui:193
 #, fuzzy
@@ -4162,7 +4123,6 @@ msgid "_Case sensitive"
 msgstr ""
 
 #: ui/find_bar.glade:132
-#, fuzzy
 msgid "label"
 msgstr "Label"
 
@@ -4507,19 +4467,16 @@ msgid "Convey requires your email password to continue"
 msgstr "Sila masukkan kata laluan emel anda"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
-msgstr "Na_ma Pengguna:"
+msgstr "Na_ma Pengguna"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
-msgstr "Kata _Laluan:"
+msgstr "Kata _Laluan"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
-msgstr "_Ingat kata laluan"
+msgstr "Inga_t kata laluan"
 
 #~ msgid "        &#8226; Connection error.\n"
 #~ msgstr "&#8226; Ralat sambungan.\n"

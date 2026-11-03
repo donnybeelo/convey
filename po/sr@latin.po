@@ -674,9 +674,8 @@ msgstr ""
 #: src/client/accounts/accounts-editor-list-pane.vala:204
 #: src/client/application/application-main-window.vala:3111
 #: ui/accounts_editor_edit_pane.ui:18
-#, fuzzy
 msgid "Undo"
-msgstr "_Opozovi"
+msgstr "Opozovi"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:290
 #, fuzzy, c-format
@@ -707,7 +706,6 @@ msgid "_Cancel"
 msgstr "Ot_kaži"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Ukloni nalog"
 
@@ -789,9 +787,8 @@ msgstr ""
 
 #: src/client/accounts/accounts-editor-list-pane.vala:215
 #: src/client/application/application-main-window.vala:3100
-#, fuzzy
 msgid "Redo"
-msgstr "_Ponovi"
+msgstr "Ponovi"
 
 #. Translators: In-app notification
 #. label, when the GNOME Online
@@ -1675,7 +1672,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Da li sigurno želite da otvorite ove priloge?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -2301,7 +2297,6 @@ msgstr "Datum:"
 #. Translators: Human-readable version of the RFC 822 Subject header
 #: src/client/conversation-viewer/conversation-email.vala:579
 #: src/client/util/util-email.vala:261
-#, fuzzy
 msgid "Subject:"
 msgstr "Naslov"
 
@@ -2664,9 +2659,8 @@ msgstr "Poruka nije sačuvana"
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "Pošaljite"
+msgstr "Pošalji"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -2876,7 +2870,6 @@ msgstr "%A"
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(bez naslova)"
 
@@ -3201,9 +3194,8 @@ msgid "Use a different login"
 msgstr ""
 
 #: src/engine/api/convey-service-information.vala:87
-#, fuzzy
 msgid "StartTLS"
-msgstr "Dodajte zvezdicu"
+msgstr "STARTTLS"
 
 #: src/engine/api/convey-service-information.vala:89
 #, fuzzy
@@ -3292,9 +3284,8 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
-msgstr "Adrese e-pošte:"
+msgstr "Adrese e-pošte"
 
 #: ui/accounts-mailbox-editor-dialog.ui:62 ui/accounts_editor_edit_pane.ui:70
 msgid "Signature"
@@ -3305,9 +3296,8 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
-msgstr "_Ukloni"
+msgstr "Ukloni"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
@@ -3326,7 +3316,6 @@ msgid "Connection Security"
 msgstr "Prečice razgovora"
 
 #: ui/accounts_editor_add_pane.ui:4
-#, fuzzy
 msgid "Add Account"
 msgstr "Dodaj nalog"
 
@@ -3340,12 +3329,10 @@ msgid "Receiving"
 msgstr ""
 
 #: ui/accounts_editor_add_pane.ui:82 ui/accounts_editor_servers_pane.ui:91
-#, fuzzy
 msgid "Sending"
-msgstr "Šaljem…"
+msgstr "Šaljem"
 
 #: ui/accounts_editor_edit_pane.ui:4
-#, fuzzy
 msgid "Edit Account"
 msgstr "Uredi nalog"
 
@@ -3373,9 +3360,8 @@ msgstr "Podešavanja za SMTP"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
-msgstr "_Preuzmi poštu"
+msgstr "Preuzmi poštu"
 
 #. Translators: This label describes an account preference
 #: ui/accounts_editor_edit_pane.ui:98
@@ -3468,7 +3454,6 @@ msgid "Select conversations"
 msgstr "Obriši razgovor"
 
 #: ui/application-main-window.ui:452
-#, fuzzy
 msgid "_Accounts"
 msgstr "Nalozi"
 
@@ -3618,13 +3603,11 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Naslov"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
-#, fuzzy
 msgid "Pr_eview"
 msgstr "Pregled"
 
@@ -3813,9 +3796,8 @@ msgid "Detach the composer from the window"
 msgstr "Otkačite prozor sastavljača"
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "Ot_kaži"
+msgstr "Otkaži"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3835,9 +3817,8 @@ msgid "Insert the new link with this URL"
 msgstr "Umetnite novu vezu sa ovom adresom"
 
 #: ui/composer-link-popover.ui:28
-#, fuzzy
 msgid "Add"
-msgstr "_Dodaj"
+msgstr "Dodaj"
 
 #. Note that this button and the Insert button will never be shown at the same time to the user.
 #: ui/composer-link-popover.ui:34
@@ -3845,9 +3826,8 @@ msgid "Update this link’s URL"
 msgstr "Osvežite ovu adresu veze"
 
 #: ui/composer-link-popover.ui:35
-#, fuzzy
 msgid "Update"
-msgstr "_Ažuriraj"
+msgstr "Ažuriraj"
 
 #: ui/composer-link-popover.ui:41
 msgid "Delete this link"
@@ -3883,7 +3863,6 @@ msgstr "_Bcc"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Odgovori"
 
@@ -3913,19 +3892,16 @@ msgid "Open selected attachments"
 msgstr "Otvorite izabrane priloge"
 
 #: ui/components-attachment-pane-menus.ui:17
-#, fuzzy
 msgid "Save _All"
 msgstr "_Sačuvaj sve"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_Odgovori"
+msgstr "Odgovori"
 
 #: ui/components-conversation-actions.ui:25
-#, fuzzy
 msgid "Reply All"
-msgstr "Odgovori _svima"
+msgstr "Odgovori svima"
 
 #: ui/components-conversation-actions.ui:35
 #, fuzzy
@@ -3938,13 +3914,11 @@ msgid "More Reply Options"
 msgstr "Još mogućnosti"
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
 msgstr "Prosledi"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Odgovori _svima"
 
@@ -4007,7 +3981,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "Nađi u razgovoru"
 
@@ -4017,9 +3990,8 @@ msgid "New Conversation…"
 msgstr "Premesti razgovor"
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Umnoži adresu _e-pošte"
+msgstr "Umnoži adresu e-pošte"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -4168,7 +4140,6 @@ msgid "_Select All"
 msgstr "Izaberi _sve"
 
 #: ui/conversation-message-menus.ui:50
-#, fuzzy
 msgid "Show images"
 msgstr "Prikaži slike"
 
@@ -4217,7 +4188,6 @@ msgstr "Označite ovu poruku započetom"
 
 #. Translators: Title label for placeholder when no conversations have been selected.
 #: ui/conversation-viewer.ui:39
-#, fuzzy
 msgid "No Conversations Selected"
 msgstr "Nije izabran razgovor"
 
@@ -4241,7 +4211,6 @@ msgstr "Nađite sledeće pojavljivanje niske pretrage."
 
 #. Translators: Title label for placeholder when multiple conversations have been selected
 #: ui/conversation-viewer.ui:131
-#, fuzzy
 msgid "Multiple Conversations Selected"
 msgstr "Izabrano je nekoliko razgovora"
 
@@ -4254,7 +4223,6 @@ msgstr "Biranje radnje će se primeniti na sve izabrane razgovore"
 #. Translators: Title label for placeholder when no conversations exist in a folder
 #. Translators: Title label for placeholder when no conversations were found in a search
 #: ui/conversation-viewer.ui:148 ui/conversation-viewer.ui:165
-#, fuzzy
 msgid "No Conversations Found"
 msgstr "Nisam našao razgovor"
 
@@ -4303,10 +4271,9 @@ msgid "New conversation"
 msgstr "Premesti razgovor"
 
 #: ui/gtk/help-overlay.ui:23
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reply to sender"
-msgstr "Odgovorite pošiljaocu "
+msgstr "Odgovorite pošiljaocu"
 
 #: ui/gtk/help-overlay.ui:30 ui/gtk/help-overlay.ui:450
 msgctxt "shortcut window"
@@ -4630,7 +4597,6 @@ msgid "_Password"
 msgstr "_Lozinka"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Zapamti lozinku"
 

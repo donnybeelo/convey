@@ -1618,7 +1618,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Oled sa kindel, et soovid avada kirja \"%s\"?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1629,7 +1628,7 @@ msgstr ""
 #: src/client/components/components-attachment-pane.vala:321
 #: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
 msgid "_Open"
-msgstr ""
+msgstr "Ava"
 
 #: src/client/components/components-attachment-pane.vala:326
 #, fuzzy
@@ -1737,9 +1736,8 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:209
 #: ui/problem-details-dialog.ui:38
-#, fuzzy
 msgid "Save As"
-msgstr "_Salvesta kui..."
+msgstr "Salvesta kui"
 
 #: src/client/components/components-preferences-dialog.vala:56
 #, c-format
@@ -2166,12 +2164,12 @@ msgstr[1] "Liiguta asukohta..."
 #: src/client/conversation-list/conversation-list-view.vala:449
 #: ui/components-menu-conversation.ui:5
 msgid "Mark as _Read"
-msgstr ""
+msgstr "_Loetud"
 
 #: src/client/conversation-list/conversation-list-view.vala:458
 #: ui/components-menu-conversation.ui:10
 msgid "Mark as _Unread"
-msgstr ""
+msgstr "_Lugemata"
 
 #: src/client/conversation-list/conversation-list-view.vala:467
 #: ui/components-menu-conversation.ui:20
@@ -2418,9 +2416,8 @@ msgstr ""
 #. Dialog title for displaying technical details of a problem. Same as the button that invokes it.
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:84
 #: ui/problem-details-dialog.ui:4
-#, fuzzy
 msgid "Details"
-msgstr "_Teave:"
+msgstr "Teave:"
 
 #: src/client/dialogs/password-dialog.vala:30
 msgid "SMTP Credentials"
@@ -2553,9 +2550,8 @@ msgstr ""
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "_Saada"
+msgstr "Saada"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -2758,7 +2754,6 @@ msgstr ""
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(teema puudub)"
 
@@ -3061,7 +3056,7 @@ msgstr "Saadetud"
 
 #: src/client/util/util-i18n.vala:408
 msgid "Archive"
-msgstr ""
+msgstr "Arhiveeri"
 
 #. Translators: ComboBox value for source of SMTP
 #. authentication credentials (none) when adding a new
@@ -3085,9 +3080,8 @@ msgid "Use a different login"
 msgstr ""
 
 #: src/engine/api/convey-service-information.vala:87
-#, fuzzy
 msgid "StartTLS"
-msgstr "_Lemmik"
+msgstr "STARTTLS"
 
 #: src/engine/api/convey-service-information.vala:89
 msgid "TLS"
@@ -3177,9 +3171,8 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
-msgstr "Emaili aadress:"
+msgstr "Emaili aadress"
 
 #: ui/accounts-mailbox-editor-dialog.ui:62 ui/accounts_editor_edit_pane.ui:70
 msgid "Signature"
@@ -3190,9 +3183,8 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
-msgstr "_Eemalda"
+msgstr "Eemalda"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
@@ -3202,7 +3194,7 @@ msgstr ""
 #. Translators: Label for the user's password for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:36
 msgid "Password"
-msgstr ""
+msgstr "Parool"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
@@ -3256,9 +3248,8 @@ msgstr "SMTP eelistused:"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
-msgstr "Kirjade _allalaadimine:"
+msgstr "Kirjade allalaadimine"
 
 #. Translators: This label describes an account preference
 #: ui/accounts_editor_edit_pane.ui:98
@@ -3348,7 +3339,6 @@ msgid "Select conversations"
 msgstr "Liiguta asukohta..."
 
 #: ui/application-main-window.ui:452
-#, fuzzy
 msgid "_Accounts"
 msgstr "Kontod"
 
@@ -3383,9 +3373,8 @@ msgstr ""
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
-#, fuzzy
 msgid "Preferences"
-msgstr "_Eelistused"
+msgstr "Eelistused"
 
 #: ui/components-preferences-dialog.ui:15
 msgid "_Reopen last inbox"
@@ -3495,9 +3484,8 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
-msgstr "Teema:"
+msgstr "Teema"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
@@ -3610,11 +3598,11 @@ msgstr "Õigekirja _kontrollimine"
 
 #: ui/composer-editor.ui:347
 msgid "S_ans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ui/composer-editor.ui:352
 msgid "S_erif"
-msgstr ""
+msgstr "Serif"
 
 #: ui/composer-editor.ui:357
 msgid "_Fixed Width"
@@ -3622,15 +3610,15 @@ msgstr ""
 
 #: ui/composer-editor.ui:367
 msgid "_Small"
-msgstr ""
+msgstr "Väike"
 
 #: ui/composer-editor.ui:372
 msgid "_Medium"
-msgstr ""
+msgstr "Keskmine"
 
 #: ui/composer-editor.ui:377
 msgid "Lar_ge"
-msgstr ""
+msgstr "Suur"
 
 #: ui/composer-editor.ui:387
 msgid "_Rich Text"
@@ -3671,7 +3659,6 @@ msgid "Select _All"
 msgstr "Vali _kõik"
 
 #: ui/composer-editor-menus.ui:57 ui/conversation-message-menus.ui:43
-#, fuzzy
 msgid "_Inspect…"
 msgstr "_Inspekteeri"
 
@@ -3680,9 +3667,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_Loobu"
+msgstr "Loobu"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3702,9 +3688,8 @@ msgid "Insert the new link with this URL"
 msgstr ""
 
 #: ui/composer-link-popover.ui:28
-#, fuzzy
 msgid "Add"
-msgstr "_Lisa"
+msgstr "Lisa"
 
 #. Note that this button and the Insert button will never be shown at the same time to the user.
 #: ui/composer-link-popover.ui:34
@@ -3721,9 +3706,8 @@ msgstr ""
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "Saatja:"
+msgstr "Saatja"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3731,9 +3715,8 @@ msgstr ""
 
 #. Translators: Label for composer To address entry
 #: ui/composer-widget.ui:91
-#, fuzzy
 msgid "_To"
-msgstr "Saaja:"
+msgstr "Saaja"
 
 #: ui/composer-widget.ui:105
 msgid "Show Cc, Bcc, and Reply-To fields"
@@ -3741,14 +3724,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
-msgstr "Cc:"
+msgstr "Cc"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "Bcc"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3758,9 +3740,8 @@ msgstr "_Vasta..."
 
 #. Translators: Label for composer Subject line entry
 #: ui/composer-widget.ui:139
-#, fuzzy
 msgid "_Subject"
-msgstr "Teema:"
+msgstr "Teema"
 
 #: ui/composer-widget.ui:168
 msgid "Drop files here"
@@ -3791,9 +3772,8 @@ msgid "Save _All"
 msgstr "Vali _kõik"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_Vasta..."
+msgstr "Vasta..."
 
 #: ui/components-conversation-actions.ui:25
 #, fuzzy
@@ -3810,9 +3790,8 @@ msgid "More Reply Options"
 msgstr ""
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "_Suuna edasi..."
+msgstr "Suuna edasi..."
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
@@ -3832,9 +3811,8 @@ msgid ""
 msgstr ""
 
 #: ui/components-inspector-error-view.ui:31
-#, fuzzy
 msgid "Details:"
-msgstr "_Teave:"
+msgstr "Teave:"
 
 #. Tooltip for inspector button
 #. Tooltip for problem report button
@@ -3888,9 +3866,8 @@ msgid "New Conversation…"
 msgstr "Liiguta asukohta..."
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Kopeeri _emaili aadress"
+msgstr "Kopeeri emaili aadress"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -3932,9 +3909,8 @@ msgid "The sender may not be trustworthy"
 msgstr ""
 
 #: ui/conversation-email.ui:22
-#, fuzzy
 msgid "Save all attachments"
-msgstr "Save All A_ttachments..."
+msgstr "Save All Attachments"
 
 #. Note: The application will never show this button at the same time as unstar_button, one will always be hidden.
 #: ui/conversation-email.ui:35
@@ -4027,7 +4003,6 @@ msgid "_New Conversation…"
 msgstr "Liiguta asukohta..."
 
 #: ui/conversation-message-menus.ui:21
-#, fuzzy
 msgid "Copy Email _Address"
 msgstr "Kopeeri _emaili aadress"
 
@@ -4036,7 +4011,6 @@ msgid "Save _Image As…"
 msgstr ""
 
 #: ui/conversation-message-menus.ui:33
-#, fuzzy
 msgid "_Select All"
 msgstr "Vali _kõik"
 
@@ -4079,9 +4053,8 @@ msgid "Reply to:"
 msgstr "Vasta _kõigile..."
 
 #: ui/conversation-message.ui:173
-#, fuzzy
 msgid "Subject"
-msgstr "Teema:"
+msgstr "Teema"
 
 #: ui/conversation-message.ui:193
 msgid "This message was encrypted"
@@ -4152,9 +4125,8 @@ msgid "_Case sensitive"
 msgstr ""
 
 #: ui/find_bar.glade:132
-#, fuzzy
 msgid "label"
-msgstr "Sildid"
+msgstr "Silt"
 
 #: ui/gtk/help-overlay.ui:8
 #, fuzzy
@@ -4490,14 +4462,12 @@ msgid "Convey requires your email password to continue"
 msgstr "Palun sisesta oma e-maili parool"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
-msgstr "Kasutajanimi:"
+msgstr "Kasutajanimi"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
-msgstr "_Parool:"
+msgstr "_Parool"
 
 #: ui/password-dialog.ui:43
 #, fuzzy

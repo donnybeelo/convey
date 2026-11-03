@@ -719,7 +719,6 @@ msgid "_Cancel"
 msgstr "_Anule"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Gjave account"
 
@@ -875,14 +874,12 @@ msgstr "_Zonte"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "Servidôr IMAP"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "Servidôr SMTP"
 
@@ -1537,7 +1534,6 @@ msgstr "Di cheste operazion no si pues tornâ indaûr."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Elimine"
 
@@ -1650,7 +1646,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Vierzi pardabon chestis zontis?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -3190,7 +3185,6 @@ msgid "(no subject)"
 msgstr "(nissun ogjet)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "Apliche"
 
@@ -3202,7 +3196,6 @@ msgstr "Non mitent"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "Direzion e-mail"
 
@@ -3220,7 +3213,6 @@ msgstr "Gjave"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "Non utent pal acès"
 
@@ -3231,7 +3223,6 @@ msgstr "Password"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "Sigurece conession"
 
@@ -3242,7 +3233,6 @@ msgstr "Zonte un account"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Il to non"
 
@@ -3264,7 +3254,6 @@ msgid "Account Name"
 msgstr "Non account"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "Direzions e-mail"
 
@@ -3279,7 +3268,6 @@ msgstr "Impostazions"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "Discjarie pueste"
 
@@ -3320,12 +3308,10 @@ msgstr "Apliche"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "Sorzint account"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "Furnidôr dal servizi"
 
@@ -3518,7 +3504,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Ogjet"
 
@@ -3733,9 +3718,8 @@ msgstr "Elimine chest colegament"
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "_Di"
+msgstr "Di"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3762,7 +3746,6 @@ msgstr "_Ccp"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Rispuint a"
 
@@ -3819,7 +3802,6 @@ msgstr "Mande indenant"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Rispuint a ducj"
 
@@ -3885,7 +3867,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "Cjate te conversazion"
 
@@ -4081,7 +4062,6 @@ msgstr "Chest messaç nol è afidabil."
 
 #. Translators: Title label for placeholder when no conversations have been selected.
 #: ui/conversation-viewer.ui:39
-#, fuzzy
 msgid "No Conversations Selected"
 msgstr "Nissune conversazion selezionade"
 
@@ -4105,7 +4085,6 @@ msgstr "Cjate il câs sucessîf de stringhe di ricercje."
 
 #. Translators: Title label for placeholder when multiple conversations have been selected
 #: ui/conversation-viewer.ui:131
-#, fuzzy
 msgid "Multiple Conversations Selected"
 msgstr "Selezionadis plui conversazions"
 
@@ -4120,7 +4099,6 @@ msgstr ""
 #. Translators: Title label for placeholder when no conversations exist in a folder
 #. Translators: Title label for placeholder when no conversations were found in a search
 #: ui/conversation-viewer.ui:148 ui/conversation-viewer.ui:165
-#, fuzzy
 msgid "No Conversations Found"
 msgstr "Nissune conversazion cjatade"
 
@@ -4465,17 +4443,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Convey al è bisugne de password de e-mail par continuâ"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
 msgstr "Non utent"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
 msgstr "Password"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Visâsi password"
 

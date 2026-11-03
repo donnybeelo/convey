@@ -1584,7 +1584,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Bạn có chắc bạn muốn mở \"%s\" không?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1595,7 +1594,7 @@ msgstr ""
 #: src/client/components/components-attachment-pane.vala:321
 #: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
 msgid "_Open"
-msgstr ""
+msgstr "Mở"
 
 #: src/client/components/components-attachment-pane.vala:326
 #, fuzzy
@@ -2687,7 +2686,6 @@ msgstr ""
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(không có tiêu đề)"
 
@@ -3511,7 +3509,7 @@ msgstr ""
 
 #: ui/composer-editor.ui:347
 msgid "S_ans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ui/composer-editor.ui:352
 msgid "S_erif"
@@ -3527,11 +3525,11 @@ msgstr ""
 
 #: ui/composer-editor.ui:372
 msgid "_Medium"
-msgstr ""
+msgstr "Trung bình"
 
 #: ui/composer-editor.ui:377
 msgid "Lar_ge"
-msgstr ""
+msgstr "Lớn"
 
 #: ui/composer-editor.ui:387
 msgid "_Rich Text"
@@ -3619,9 +3617,8 @@ msgstr ""
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "Từ:"
+msgstr "Từ"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3638,14 +3635,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
-msgstr "Đồng gửi:"
+msgstr "Đồng gửi"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "Đồng gửi tới"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3779,9 +3775,8 @@ msgid "New Conversation…"
 msgstr ""
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Sao chép _địa chỉ email"
+msgstr "Sao chép địa chỉ email"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -3914,7 +3909,6 @@ msgid "_New Conversation…"
 msgstr ""
 
 #: ui/conversation-message-menus.ui:21
-#, fuzzy
 msgid "Copy Email _Address"
 msgstr "Sao chép _địa chỉ email"
 

@@ -1606,7 +1606,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Are you sure you want to open '%s'?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1617,7 +1616,7 @@ msgstr ""
 #: src/client/components/components-attachment-pane.vala:321
 #: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
 msgid "_Open"
-msgstr ""
+msgstr "Open"
 
 #: src/client/components/components-attachment-pane.vala:326
 #, fuzzy
@@ -1720,9 +1719,8 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:209
 #: ui/problem-details-dialog.ui:38
-#, fuzzy
 msgid "Save As"
-msgstr "_Save As..."
+msgstr "Save As"
 
 #: src/client/components/components-preferences-dialog.vala:56
 #, c-format
@@ -2145,12 +2143,12 @@ msgstr[1] ""
 #: src/client/conversation-list/conversation-list-view.vala:449
 #: ui/components-menu-conversation.ui:5
 msgid "Mark as _Read"
-msgstr ""
+msgstr "_Mark as Read"
 
 #: src/client/conversation-list/conversation-list-view.vala:458
 #: ui/components-menu-conversation.ui:10
 msgid "Mark as _Unread"
-msgstr ""
+msgstr "_Mark as Unread"
 
 #: src/client/conversation-list/conversation-list-view.vala:467
 #: ui/components-menu-conversation.ui:20
@@ -2395,9 +2393,8 @@ msgstr ""
 #. Dialog title for displaying technical details of a problem. Same as the button that invokes it.
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:84
 #: ui/problem-details-dialog.ui:4
-#, fuzzy
 msgid "Details"
-msgstr "_Details"
+msgstr "Details"
 
 #: src/client/dialogs/password-dialog.vala:30
 msgid "SMTP Credentials"
@@ -2529,9 +2526,8 @@ msgstr ""
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "_Send"
+msgstr "Send"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -2734,7 +2730,6 @@ msgstr ""
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(no subject)"
 
@@ -3037,7 +3032,7 @@ msgstr "Outbox"
 
 #: src/client/util/util-i18n.vala:408
 msgid "Archive"
-msgstr ""
+msgstr "Archive"
 
 #. Translators: ComboBox value for source of SMTP
 #. authentication credentials (none) when adding a new
@@ -3177,7 +3172,7 @@ msgstr ""
 #. Translators: Label for the user's password for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:36
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
@@ -3351,9 +3346,8 @@ msgstr ""
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
-#, fuzzy
 msgid "Preferences"
-msgstr "_Preferences"
+msgstr "Preferences"
 
 #: ui/components-preferences-dialog.ui:15
 msgid "_Reopen last inbox"
@@ -3463,9 +3457,8 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
-msgstr "Subject:"
+msgstr "Subject"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
@@ -3573,11 +3566,11 @@ msgstr "Enable _spell checking"
 
 #: ui/composer-editor.ui:347
 msgid "S_ans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ui/composer-editor.ui:352
 msgid "S_erif"
-msgstr ""
+msgstr "Serif"
 
 #: ui/composer-editor.ui:357
 msgid "_Fixed Width"
@@ -3585,15 +3578,15 @@ msgstr ""
 
 #: ui/composer-editor.ui:367
 msgid "_Small"
-msgstr ""
+msgstr "Small"
 
 #: ui/composer-editor.ui:372
 msgid "_Medium"
-msgstr ""
+msgstr "Medium"
 
 #: ui/composer-editor.ui:377
 msgid "Lar_ge"
-msgstr ""
+msgstr "Large"
 
 #: ui/composer-editor.ui:387
 msgid "_Rich Text"
@@ -3642,9 +3635,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_Cancel"
+msgstr "Cancel"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3682,9 +3674,8 @@ msgstr ""
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "From:"
+msgstr "From"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3692,9 +3683,8 @@ msgstr ""
 
 #. Translators: Label for composer To address entry
 #: ui/composer-widget.ui:91
-#, fuzzy
 msgid "_To"
-msgstr "To:"
+msgstr "To"
 
 #: ui/composer-widget.ui:105
 msgid "Show Cc, Bcc, and Reply-To fields"
@@ -3702,14 +3692,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
-msgstr "Cc:"
+msgstr "Cc"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "Bcc"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3719,9 +3708,8 @@ msgstr "_Reply"
 
 #. Translators: Label for composer Subject line entry
 #: ui/composer-widget.ui:139
-#, fuzzy
 msgid "_Subject"
-msgstr "Subject:"
+msgstr "Subject"
 
 #: ui/composer-widget.ui:168
 msgid "Drop files here"
@@ -3752,9 +3740,8 @@ msgid "Save _All"
 msgstr "Select _All"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_Reply"
+msgstr "Reply"
 
 #: ui/components-conversation-actions.ui:25
 #, fuzzy
@@ -3771,9 +3758,8 @@ msgid "More Reply Options"
 msgstr ""
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "_Forward"
+msgstr "Forward"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
@@ -3793,9 +3779,8 @@ msgid ""
 msgstr ""
 
 #: ui/components-inspector-error-view.ui:31
-#, fuzzy
 msgid "Details:"
-msgstr "_Details"
+msgstr "Details"
 
 #. Tooltip for inspector button
 #. Tooltip for problem report button
@@ -3847,9 +3832,8 @@ msgid "New Conversation…"
 msgstr ""
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Copy _E-mail Address"
+msgstr "Copy E-mail Address"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -3890,9 +3874,8 @@ msgid "The sender may not be trustworthy"
 msgstr ""
 
 #: ui/conversation-email.ui:22
-#, fuzzy
 msgid "Save all attachments"
-msgstr "Save All A_ttachments..."
+msgstr "Save All Attachments"
 
 #. Note: The application will never show this button at the same time as unstar_button, one will always be hidden.
 #: ui/conversation-email.ui:35
@@ -3984,7 +3967,6 @@ msgid "_New Conversation…"
 msgstr ""
 
 #: ui/conversation-message-menus.ui:21
-#, fuzzy
 msgid "Copy Email _Address"
 msgstr "Copy _E-mail Address"
 
@@ -3993,7 +3975,6 @@ msgid "Save _Image As…"
 msgstr ""
 
 #: ui/conversation-message-menus.ui:33
-#, fuzzy
 msgid "_Select All"
 msgstr "Select _All"
 
@@ -4036,9 +4017,8 @@ msgid "Reply to:"
 msgstr "Reply to _All"
 
 #: ui/conversation-message.ui:173
-#, fuzzy
 msgid "Subject"
-msgstr "Subject:"
+msgstr "Subject"
 
 #: ui/conversation-message.ui:193
 msgid "This message was encrypted"
@@ -4108,9 +4088,8 @@ msgid "_Case sensitive"
 msgstr ""
 
 #: ui/find_bar.glade:132
-#, fuzzy
 msgid "label"
-msgstr "Labels"
+msgstr "Label"
 
 #: ui/gtk/help-overlay.ui:8
 msgid "Conversation Shortcuts"
@@ -4438,14 +4417,12 @@ msgid "Convey requires your email password to continue"
 msgstr "Please enter your e-mail password"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
-msgstr "_Username:"
+msgstr "_Username"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
-msgstr "_Password:"
+msgstr "_Password"
 
 #: ui/password-dialog.ui:43
 #, fuzzy

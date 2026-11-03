@@ -676,9 +676,8 @@ msgstr ""
 #: src/client/accounts/accounts-editor-list-pane.vala:204
 #: src/client/application/application-main-window.vala:3111
 #: ui/accounts_editor_edit_pane.ui:18
-#, fuzzy
 msgid "Undo"
-msgstr "_Angre"
+msgstr "Angre"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:290
 #, fuzzy, c-format
@@ -709,7 +708,6 @@ msgid "_Cancel"
 msgstr "_Avbryt"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Fjern konto"
 
@@ -791,9 +789,8 @@ msgstr ""
 
 #: src/client/accounts/accounts-editor-list-pane.vala:215
 #: src/client/application/application-main-window.vala:3100
-#, fuzzy
 msgid "Redo"
-msgstr "_Gjenopprett"
+msgstr "Gjenopprett"
 
 #. Translators: In-app notification
 #. label, when the GNOME Online
@@ -1538,7 +1535,6 @@ msgstr "Denne handlingen kan ikke gjøres om."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Slett"
 
@@ -1651,7 +1647,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Er du sikker på at du vil åpne disse vedleggene?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -2247,9 +2242,8 @@ msgstr "_Videresend"
 #. Translators: Human-readable version of the RFC 822 From header
 #: src/client/conversation-viewer/conversation-email.vala:549
 #: src/client/util/util-email.vala:258
-#, fuzzy
 msgid "From:"
-msgstr "_Fra:"
+msgstr "Fra:"
 
 #. Translators: Human-readable version of the RFC 822 Date header
 #: src/client/conversation-viewer/conversation-email.vala:569
@@ -2261,7 +2255,6 @@ msgstr "Dato: %s\n"
 #. Translators: Human-readable version of the RFC 822 Subject header
 #: src/client/conversation-viewer/conversation-email.vala:579
 #: src/client/util/util-email.vala:261
-#, fuzzy
 msgid "Subject:"
 msgstr "Emne"
 
@@ -2610,7 +2603,6 @@ msgstr "Melding ikke lagret"
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
 msgstr "Send"
 
@@ -2816,7 +2808,6 @@ msgstr "%A"
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(uten emne)"
 
@@ -3139,9 +3130,8 @@ msgid "Use a different login"
 msgstr ""
 
 #: src/engine/api/convey-service-information.vala:87
-#, fuzzy
 msgid "StartTLS"
-msgstr "Gi stjerne"
+msgstr "STARTTLS"
 
 #: src/engine/api/convey-service-information.vala:89
 #, fuzzy
@@ -3232,9 +3222,8 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
-msgstr "E-postadresse:"
+msgstr "E-postadresse"
 
 #: ui/accounts-mailbox-editor-dialog.ui:62 ui/accounts_editor_edit_pane.ui:70
 msgid "Signature"
@@ -3245,9 +3234,8 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
-msgstr "_Fjern"
+msgstr "Fjern"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
@@ -3266,7 +3254,6 @@ msgid "Connection Security"
 msgstr "Samtalesnarveier"
 
 #: ui/accounts_editor_add_pane.ui:4
-#, fuzzy
 msgid "Add Account"
 msgstr "Legg til konto"
 
@@ -3280,12 +3267,10 @@ msgid "Receiving"
 msgstr ""
 
 #: ui/accounts_editor_add_pane.ui:82 ui/accounts_editor_servers_pane.ui:91
-#, fuzzy
 msgid "Sending"
-msgstr "Sender …"
+msgstr "Sender"
 
 #: ui/accounts_editor_edit_pane.ui:4
-#, fuzzy
 msgid "Edit Account"
 msgstr "Rediger konto"
 
@@ -3313,9 +3298,8 @@ msgstr "SMTP innstillinger"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
-msgstr "_Last ned e-post"
+msgstr "Last ned e-post"
 
 #. Translators: This label describes an account preference
 #: ui/accounts_editor_edit_pane.ui:98
@@ -3408,7 +3392,6 @@ msgid "Select conversations"
 msgstr "Slett samtale"
 
 #: ui/application-main-window.ui:452
-#, fuzzy
 msgid "_Accounts"
 msgstr "Kontoer"
 
@@ -3558,13 +3541,11 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Emne"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
-#, fuzzy
 msgid "Pr_eview"
 msgstr "Forhåndsvis"
 
@@ -3618,19 +3599,16 @@ msgid "Change font type"
 msgstr ""
 
 #: ui/composer-editor.ui:160
-#, fuzzy
 msgid "Sans Serif"
-msgstr "S_ans Serif"
+msgstr "Sans Serif"
 
 #: ui/composer-editor.ui:171
-#, fuzzy
 msgid "Serif"
-msgstr "S_erif"
+msgstr "Serif"
 
 #: ui/composer-editor.ui:182
-#, fuzzy
 msgid "Fixed Width"
-msgstr "_Fast bredde"
+msgstr "Fast bredde"
 
 #: ui/composer-editor.ui:202
 msgid "Change font color"
@@ -3757,9 +3735,8 @@ msgid "Detach the composer from the window"
 msgstr "Frigjør skrivevindu"
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_Avbryt"
+msgstr "Avbryt"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3779,9 +3756,8 @@ msgid "Insert the new link with this URL"
 msgstr ""
 
 #: ui/composer-link-popover.ui:28
-#, fuzzy
 msgid "Add"
-msgstr "_Legg til"
+msgstr "Legg til"
 
 #. Note that this button and the Insert button will never be shown at the same time to the user.
 #: ui/composer-link-popover.ui:34
@@ -3789,9 +3765,8 @@ msgid "Update this link’s URL"
 msgstr ""
 
 #: ui/composer-link-popover.ui:35
-#, fuzzy
 msgid "Update"
-msgstr "_Oppdater"
+msgstr "Oppdater"
 
 #: ui/composer-link-popover.ui:41
 msgid "Delete this link"
@@ -3827,7 +3802,6 @@ msgstr "_Blindkopi"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Svar til"
 
@@ -3857,19 +3831,16 @@ msgid "Open selected attachments"
 msgstr "Åpne valgte vedlegg"
 
 #: ui/components-attachment-pane-menus.ui:17
-#, fuzzy
 msgid "Save _All"
 msgstr "_Lagre alle"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_Svar"
+msgstr "Svar"
 
 #: ui/components-conversation-actions.ui:25
-#, fuzzy
 msgid "Reply All"
-msgstr "Sv_ar alle"
+msgstr "Svar alle"
 
 #: ui/components-conversation-actions.ui:35
 #, fuzzy
@@ -3881,13 +3852,11 @@ msgid "More Reply Options"
 msgstr ""
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
 msgstr "Videresend"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Sv_ar alle"
 
@@ -3950,7 +3919,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "Finn i samtale"
 
@@ -3960,9 +3928,8 @@ msgid "New Conversation…"
 msgstr "Flytt samtale"
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Kopier e-post_adresse"
+msgstr "Kopier e-postadresse"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -4109,7 +4076,6 @@ msgid "_Select All"
 msgstr "Velg _alt"
 
 #: ui/conversation-message-menus.ui:50
-#, fuzzy
 msgid "Show images"
 msgstr "Vis bilder"
 
@@ -4158,7 +4124,6 @@ msgstr "Merk denne meldingen med stjerne"
 
 #. Translators: Title label for placeholder when no conversations have been selected.
 #: ui/conversation-viewer.ui:39
-#, fuzzy
 msgid "No Conversations Selected"
 msgstr "Ingen samtaler valgt"
 
@@ -4182,7 +4147,6 @@ msgstr "Finn neste forekomst av søkestreng."
 
 #. Translators: Title label for placeholder when multiple conversations have been selected
 #: ui/conversation-viewer.ui:131
-#, fuzzy
 msgid "Multiple Conversations Selected"
 msgstr "Flere samtaler valgt"
 
@@ -4195,7 +4159,6 @@ msgstr "Handlingen du velger her påvirker alle merkede samtaler"
 #. Translators: Title label for placeholder when no conversations exist in a folder
 #. Translators: Title label for placeholder when no conversations were found in a search
 #: ui/conversation-viewer.ui:148 ui/conversation-viewer.ui:165
-#, fuzzy
 msgid "No Conversations Found"
 msgstr "Fant ingen samtaler"
 
@@ -4243,7 +4206,6 @@ msgid "New conversation"
 msgstr "Flytt samtale"
 
 #: ui/gtk/help-overlay.ui:23
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Reply to sender"
 msgstr "Svar avsender"
@@ -4570,7 +4532,6 @@ msgid "_Password"
 msgstr "_Passord"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Husk passord"
 

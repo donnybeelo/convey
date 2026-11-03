@@ -677,9 +677,8 @@ msgstr ""
 #: src/client/accounts/accounts-editor-list-pane.vala:204
 #: src/client/application/application-main-window.vala:3111
 #: ui/accounts_editor_edit_pane.ui:18
-#, fuzzy
 msgid "Undo"
-msgstr "_Atšaukti"
+msgstr "Atšaukti"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:290
 #, fuzzy, c-format
@@ -710,7 +709,6 @@ msgid "_Cancel"
 msgstr "_Atšaukti"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Ištrinti naudotoją"
 
@@ -791,9 +789,8 @@ msgstr ""
 
 #: src/client/accounts/accounts-editor-list-pane.vala:215
 #: src/client/application/application-main-window.vala:3100
-#, fuzzy
 msgid "Redo"
-msgstr "_Kartoti"
+msgstr "Kartoti"
 
 #. Translators: In-app notification
 #. label, when the GNOME Online
@@ -1658,7 +1655,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Ar tikrai norite atidaryti \"%s\"?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1785,9 +1781,8 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:209
 #: ui/problem-details-dialog.ui:38
-#, fuzzy
 msgid "Save As"
-msgstr "_Išsaugoti kaip..."
+msgstr "Išsaugoti kaip"
 
 #: src/client/components/components-preferences-dialog.vala:56
 #, c-format
@@ -1962,7 +1957,6 @@ msgstr "_Nuostatos"
 
 #. Translators: Menu item to print a single, specific message
 #: src/client/components/stock.vala:28 ui/conversation-email-menus.ui:70
-#, fuzzy
 msgid "_Print…"
 msgstr "_Spausdinti..."
 
@@ -2852,7 +2846,6 @@ msgstr "%A"
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(be temos)"
 
@@ -3176,9 +3169,8 @@ msgid "Use a different login"
 msgstr ""
 
 #: src/engine/api/convey-service-information.vala:87
-#, fuzzy
 msgid "StartTLS"
-msgstr "_Žymėti žvaigždute"
+msgstr "STARTTLS"
 
 #: src/engine/api/convey-service-information.vala:89
 #, fuzzy
@@ -3267,9 +3259,8 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
-msgstr "Pašto adresas:"
+msgstr "El. pašto adresas"
 
 #: ui/accounts-mailbox-editor-dialog.ui:62 ui/accounts_editor_edit_pane.ui:70
 msgid "Signature"
@@ -3280,9 +3271,8 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
-msgstr "_Ištrinti"
+msgstr "Ištrinti"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
@@ -3300,7 +3290,6 @@ msgid "Connection Security"
 msgstr ""
 
 #: ui/accounts_editor_add_pane.ui:4
-#, fuzzy
 msgid "Add Account"
 msgstr "Pridėti naudotoją"
 
@@ -3314,12 +3303,10 @@ msgid "Receiving"
 msgstr ""
 
 #: ui/accounts_editor_add_pane.ui:82 ui/accounts_editor_servers_pane.ui:91
-#, fuzzy
 msgid "Sending"
-msgstr "Siunčiama..."
+msgstr "Siunčiama"
 
 #: ui/accounts_editor_edit_pane.ui:4
-#, fuzzy
 msgid "Edit Account"
 msgstr "Redaguoti naudotoją"
 
@@ -3347,9 +3334,8 @@ msgstr "SMTP nustatymai"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
-msgstr "_Atsiųsti paštą"
+msgstr "Atsiųsti paštą"
 
 #. Translators: This label describes an account preference
 #: ui/accounts_editor_edit_pane.ui:98
@@ -3442,7 +3428,6 @@ msgid "Select conversations"
 msgstr "Trinti pokalbį"
 
 #: ui/application-main-window.ui:452
-#, fuzzy
 msgid "_Accounts"
 msgstr "Paskyros"
 
@@ -3590,13 +3575,11 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
-msgstr "Tema:"
+msgstr "Tema"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
-#, fuzzy
 msgid "Pr_eview"
 msgstr "Peržiūra"
 
@@ -3769,7 +3752,6 @@ msgid "Select _All"
 msgstr "Pasirinkti _viską"
 
 #: ui/composer-editor-menus.ui:57 ui/conversation-message-menus.ui:43
-#, fuzzy
 msgid "_Inspect…"
 msgstr "_Tikrinti"
 
@@ -3778,9 +3760,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_Atšaukti"
+msgstr "Atšaukti"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3800,9 +3781,8 @@ msgid "Insert the new link with this URL"
 msgstr ""
 
 #: ui/composer-link-popover.ui:28
-#, fuzzy
 msgid "Add"
-msgstr "_Pridėti"
+msgstr "Pridėti"
 
 #. Note that this button and the Insert button will never be shown at the same time to the user.
 #: ui/composer-link-popover.ui:34
@@ -3810,9 +3790,8 @@ msgid "Update this link’s URL"
 msgstr ""
 
 #: ui/composer-link-popover.ui:35
-#, fuzzy
 msgid "Update"
-msgstr "Atna_ujinti"
+msgstr "Atnaujinti"
 
 #: ui/composer-link-popover.ui:41
 #, fuzzy
@@ -3849,7 +3828,6 @@ msgstr "_Nematoma kopija:"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Atsakyti"
 
@@ -3887,14 +3865,12 @@ msgid "Save _All"
 msgstr "Pasirinkti _viską"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_Atsakyti"
+msgstr "Atsakyti"
 
 #: ui/components-conversation-actions.ui:25
-#, fuzzy
 msgid "Reply All"
-msgstr "At_sakyti visiems"
+msgstr "Atsakyti visiems"
 
 #: ui/components-conversation-actions.ui:35
 #, fuzzy
@@ -3907,13 +3883,11 @@ msgid "More Reply Options"
 msgstr "Daugiau parametrų"
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "_Persiųsti"
+msgstr "Persiųsti"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "At_sakyti visiems"
 
@@ -3986,9 +3960,8 @@ msgid "New Conversation…"
 msgstr "Perkelti pokalbį"
 
 #: ui/conversation-contact-popover.ui:103
-#, fuzzy
 msgid "Copy Email Address"
-msgstr "Kopijuoti _pašto adresą"
+msgstr "Kopijuoti pašto adresą"
 
 #: ui/conversation-contact-popover.ui:116
 #, fuzzy
@@ -4030,9 +4003,8 @@ msgid "The sender may not be trustworthy"
 msgstr ""
 
 #: ui/conversation-email.ui:22
-#, fuzzy
 msgid "Save all attachments"
-msgstr "Išsaugoti visus pri_segtukus..."
+msgstr "Išsaugoti visus prisegtukus"
 
 #. Note: The application will never show this button at the same time as unstar_button, one will always be hidden.
 #: ui/conversation-email.ui:35
@@ -4091,7 +4063,6 @@ msgid "_View Source"
 msgstr "_Žiūrėti kodą"
 
 #: ui/conversation-message-link-popover.ui:50
-#, fuzzy
 msgid "But actually goes to:"
 msgstr "bet iš tiesų nukreipia į"
 
@@ -4128,22 +4099,18 @@ msgid "_New Conversation…"
 msgstr "Perkelti pokalbį"
 
 #: ui/conversation-message-menus.ui:21
-#, fuzzy
 msgid "Copy Email _Address"
 msgstr "Kopijuoti _pašto adresą"
 
 #: ui/conversation-message-menus.ui:27
-#, fuzzy
 msgid "Save _Image As…"
 msgstr "_Išsaugoti paveikslą kaip..."
 
 #: ui/conversation-message-menus.ui:33
-#, fuzzy
 msgid "_Select All"
 msgstr "Pasirinkti _viską"
 
 #: ui/conversation-message-menus.ui:50
-#, fuzzy
 msgid "Show images"
 msgstr "Rodyti paveikslėlius"
 
@@ -4177,14 +4144,12 @@ msgid "Sent by:"
 msgstr ""
 
 #: ui/conversation-message.ui:144
-#, fuzzy
 msgid "Reply to:"
-msgstr "Kam _atsakyti:"
+msgstr "Kam atsakyti:"
 
 #: ui/conversation-message.ui:173
-#, fuzzy
 msgid "Subject"
-msgstr "Tema:"
+msgstr "Tema"
 
 #: ui/conversation-message.ui:193
 #, fuzzy
@@ -4611,7 +4576,6 @@ msgid "_Password"
 msgstr "_Slaptažodis"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Prisiminti slaptažodį"
 

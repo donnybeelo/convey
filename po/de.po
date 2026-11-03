@@ -742,7 +742,6 @@ msgid "_Cancel"
 msgstr "_Abbrechen"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Konto entfernen"
 
@@ -899,14 +898,12 @@ msgstr "_Hinzufügen"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "IMAP-Server"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "SMTP-Server"
 
@@ -1567,7 +1564,6 @@ msgstr "Dies kann nicht rückgängig gemacht werden."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Löschen"
 
@@ -1680,7 +1676,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Möchten Sie wirklich diese Anhänge öffnen?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -3240,7 +3235,6 @@ msgid "(no subject)"
 msgstr "(kein Betreff)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "Anwenden"
 
@@ -3252,7 +3246,6 @@ msgstr "Absendername"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
@@ -3270,7 +3263,6 @@ msgstr "Entfernen"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "Anmeldename"
 
@@ -3281,7 +3273,6 @@ msgstr "Passwort"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "Sicherheit der Verbindung"
 
@@ -3292,7 +3283,6 @@ msgstr "Ein Konto hinzufügen"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Ihr Name"
 
@@ -3314,7 +3304,6 @@ msgid "Account Name"
 msgstr "Kontoname"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "E-Mail-Adressen"
 
@@ -3329,7 +3318,6 @@ msgstr "Einstellungen"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "E-Mail herunterladen"
 
@@ -3369,12 +3357,10 @@ msgstr "Anwenden"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "Kontoquelle"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "Anbieter"
 
@@ -3566,7 +3552,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Betreff"
 
@@ -3809,7 +3794,6 @@ msgstr "_Blindkopie"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "An_twort an"
 
@@ -3866,7 +3850,6 @@ msgstr "Weiterleiten"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Allen antworten"
 
@@ -3933,7 +3916,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "In Konversation suchen"
 
@@ -4508,17 +4490,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Convey benötigt Ihr E-Mail-Passwort, um fortzufahren"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
 msgstr "Benutzername"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
 msgstr "Passwort"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Passwort speichern"
 

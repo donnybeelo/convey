@@ -1487,7 +1487,6 @@ msgstr ""
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Forigi"
 
@@ -1601,7 +1600,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Ĉu vi vere volas malfermi tiun alkroĉaĵon?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1783,7 +1781,7 @@ msgstr ""
 #. for a problem report.
 #: src/client/components/components-problem-report-info-bar.vala:94
 msgid "_Details"
-msgstr ""
+msgstr "Detaloj"
 
 #. Translators: Tooltip for viewing technical details for
 #. a problem report.
@@ -2170,24 +2168,23 @@ msgstr[1] "Ne trovis konversacion"
 #: src/client/conversation-list/conversation-list-view.vala:497
 #: ui/conversation-email-menus.ui:9
 msgid "_Reply"
-msgstr ""
+msgstr "Respondi"
 
 #: src/client/conversation-list/conversation-list-view.vala:503
 msgid "R_eply All"
-msgstr ""
+msgstr "Respondi al"
 
 #. Translators: Menu item to forward a specific message.
 #: src/client/conversation-list/conversation-list-view.vala:509
 #: ui/conversation-email-menus.ui:27
 msgid "_Forward"
-msgstr ""
+msgstr "Antaŭen"
 
 #. Translators: Human-readable version of the RFC 822 From header
 #: src/client/conversation-viewer/conversation-email.vala:549
 #: src/client/util/util-email.vala:258
-#, fuzzy
 msgid "From:"
-msgstr "_De:"
+msgstr "De:"
 
 #. Translators: Human-readable version of the RFC 822 Date header
 #: src/client/conversation-viewer/conversation-email.vala:569
@@ -2198,7 +2195,6 @@ msgstr "Dato:"
 #. Translators: Human-readable version of the RFC 822 Subject header
 #: src/client/conversation-viewer/conversation-email.vala:579
 #: src/client/util/util-email.vala:261
-#, fuzzy
 msgid "Subject:"
 msgstr "Temo"
 
@@ -2398,7 +2394,7 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:84
 #: ui/problem-details-dialog.ui:4
 msgid "Details"
-msgstr ""
+msgstr "Detaloj"
 
 #: src/client/dialogs/password-dialog.vala:30
 msgid "SMTP Credentials"
@@ -2531,9 +2527,8 @@ msgstr ""
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "_Sendi"
+msgstr "Sendi"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -2735,7 +2730,6 @@ msgstr ""
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(neniu temo)"
 
@@ -3152,9 +3146,8 @@ msgstr ""
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
-msgstr "Retpoŝtadreso:"
+msgstr "Retpoŝtadreso"
 
 #: ui/accounts-mailbox-editor-dialog.ui:62 ui/accounts_editor_edit_pane.ui:70
 msgid "Signature"
@@ -3165,9 +3158,8 @@ msgid "Used instead of the account signature when sending from this address"
 msgstr ""
 
 #: ui/accounts-mailbox-editor-dialog.ui:70
-#, fuzzy
 msgid "Remove"
-msgstr "Fo_rigi"
+msgstr "Forigi"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
@@ -3177,7 +3169,7 @@ msgstr ""
 #. Translators: Label for the user's password for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:36
 msgid "Password"
-msgstr ""
+msgstr "Pasvorto"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
@@ -3460,7 +3452,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Temo"
 
@@ -3639,9 +3630,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_Rezigni"
+msgstr "Rezigni"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3697,14 +3687,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
-msgstr "_Kopio"
+msgstr "Kopio"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "Kaŝkopio"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3765,7 +3754,6 @@ msgstr "Antaŭen"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Respondi al"
 
@@ -4027,7 +4015,6 @@ msgstr ""
 
 #. Translators: Title label for placeholder when no conversations have been selected.
 #: ui/conversation-viewer.ui:39
-#, fuzzy
 msgid "No Conversations Selected"
 msgstr "Neniu konversacio elektita"
 
@@ -4050,7 +4037,6 @@ msgstr ""
 
 #. Translators: Title label for placeholder when multiple conversations have been selected
 #: ui/conversation-viewer.ui:131
-#, fuzzy
 msgid "Multiple Conversations Selected"
 msgstr "Pluraj elektitaj konversacioj"
 
@@ -4062,7 +4048,6 @@ msgstr ""
 #. Translators: Title label for placeholder when no conversations exist in a folder
 #. Translators: Title label for placeholder when no conversations were found in a search
 #: ui/conversation-viewer.ui:148 ui/conversation-viewer.ui:165
-#, fuzzy
 msgid "No Conversations Found"
 msgstr "Ne trovis konversacion"
 
@@ -4413,7 +4398,7 @@ msgstr "Bonvole enigu vian retpoŝtan pasvorton"
 
 #: ui/password-dialog.ui:31
 msgid "_Username"
-msgstr ""
+msgstr "Uzantonomo"
 
 #: ui/password-dialog.ui:37
 msgid "_Password"

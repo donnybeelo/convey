@@ -722,7 +722,6 @@ msgid "_Cancel"
 msgstr "_Zrušit"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Odebrat účet"
 
@@ -878,14 +877,12 @@ msgstr "_Přidat"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "Server IMAP"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "Server SMTP"
 
@@ -1545,7 +1542,6 @@ msgstr "Nebude to možné vrátit zpět."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Smazat"
 
@@ -1660,13 +1656,12 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Opravdu chcete otevřít tuto přílohu?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
 msgstr ""
 "Příloha by po otevření mohla poškodit váš počítač. Otevírejte pouze soubory "
-"z důvěryhodných zdrojů. "
+"z důvěryhodných zdrojů."
 
 #: src/client/components/components-attachment-pane.vala:321
 #: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
@@ -3220,7 +3215,6 @@ msgid "(no subject)"
 msgstr "(bez předmětu)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "Použít"
 
@@ -3232,7 +3226,6 @@ msgstr "Jméno odesílatele"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "E-mailová adresa"
 
@@ -3250,7 +3243,6 @@ msgstr "Odebrat"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "Přihlašovací jméno"
 
@@ -3261,7 +3253,6 @@ msgstr "Heslo"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "Zabezpečení připojení"
 
@@ -3272,7 +3263,6 @@ msgstr "Přidat účet"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Vaše jméno"
 
@@ -3294,7 +3284,6 @@ msgid "Account Name"
 msgstr "Název účtu"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "E-mailová adresa"
 
@@ -3309,7 +3298,6 @@ msgstr "Nastavení"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "Stahovat e-maily"
 
@@ -3349,12 +3337,10 @@ msgstr "Použít"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "Původ účtu"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "Poskytovatel služby"
 
@@ -3545,7 +3531,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Předmět"
 
@@ -3760,9 +3745,8 @@ msgstr "Smazat tento odkaz"
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "_Od"
+msgstr "Od"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3789,7 +3773,6 @@ msgstr "_Skrytá kopie"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "O_dpovědět"
 
@@ -3846,7 +3829,6 @@ msgstr "Přeposlat"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Odpovědět všem"
 
@@ -3913,7 +3895,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "Najít v konverzaci"
 
@@ -4485,17 +4466,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Aby se mohlo pokračovat, potřebuje Convey heslo k vašemu e-mailu"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
 msgstr "Uživatelské jméno"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
 msgstr "Heslo"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Pamatovat si heslo"
 

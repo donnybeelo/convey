@@ -1589,7 +1589,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "តើ​អ្នក​ប្រាកដ​ថា​ចង់​បើក \"%s\" ?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -1600,7 +1599,7 @@ msgstr ""
 #: src/client/components/components-attachment-pane.vala:321
 #: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
 msgid "_Open"
-msgstr ""
+msgstr "បើក"
 
 #: src/client/components/components-attachment-pane.vala:326
 msgid "Don’t _ask me again"
@@ -1695,9 +1694,8 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:209
 #: ui/problem-details-dialog.ui:38
-#, fuzzy
 msgid "Save As"
-msgstr "_រក្សាទុក​ជា"
+msgstr "រក្សាទុក​ជា"
 
 #: src/client/components/components-preferences-dialog.vala:56
 #, c-format
@@ -2117,12 +2115,12 @@ msgstr[0] ""
 #: src/client/conversation-list/conversation-list-view.vala:449
 #: ui/components-menu-conversation.ui:5
 msgid "Mark as _Read"
-msgstr ""
+msgstr "_សម្គាល់​ជា​បាន​អាន​ហើយ"
 
 #: src/client/conversation-list/conversation-list-view.vala:458
 #: ui/components-menu-conversation.ui:10
 msgid "Mark as _Unread"
-msgstr ""
+msgstr "_សម្គាល់​ជា​មិន​ទាន់​អាន"
 
 #: src/client/conversation-list/conversation-list-view.vala:467
 #: ui/components-menu-conversation.ui:20
@@ -2365,9 +2363,8 @@ msgstr ""
 #. Dialog title for displaying technical details of a problem. Same as the button that invokes it.
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:84
 #: ui/problem-details-dialog.ui:4
-#, fuzzy
 msgid "Details"
-msgstr "_លម្អិត"
+msgstr "លម្អិត"
 
 #: src/client/dialogs/password-dialog.vala:30
 msgid "SMTP Credentials"
@@ -2493,9 +2490,8 @@ msgstr ""
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "_ផ្ញើ​ទៅ"
+msgstr "ផ្ញើ​ទៅ"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -2694,7 +2690,6 @@ msgstr ""
 #. Translators: Label used when an email has a missing or
 #. an empty subject
 #: src/client/util/util-email.vala:52
-#, fuzzy
 msgid "(No subject)"
 msgstr "(គ្មាន​ប្រធានបទ)"
 
@@ -2996,7 +2991,7 @@ msgstr "ប្រអប់​ចេញ"
 
 #: src/client/util/util-i18n.vala:408
 msgid "Archive"
-msgstr ""
+msgstr "ទុក​ក្នុង​ប័ណ្ណសារ"
 
 #. Translators: ComboBox value for source of SMTP
 #. authentication credentials (none) when adding a new
@@ -3135,7 +3130,7 @@ msgstr ""
 #. Translators: Label for the user's password for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:36
 msgid "Password"
-msgstr ""
+msgstr "ពាក្យ​សម្ងាត់ ៖"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
@@ -3307,9 +3302,8 @@ msgstr ""
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
-#, fuzzy
 msgid "Preferences"
-msgstr "_ចំណង់​ចំណូល​ចិត្ត"
+msgstr "ចំណង់​ចំណូល​ចិត្ត"
 
 #: ui/components-preferences-dialog.ui:15
 msgid "_Reopen last inbox"
@@ -3419,7 +3413,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "ប្រធាន​បទ ៖"
 
@@ -3528,11 +3521,11 @@ msgstr ""
 
 #: ui/composer-editor.ui:347
 msgid "S_ans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ui/composer-editor.ui:352
 msgid "S_erif"
-msgstr ""
+msgstr "Serif"
 
 #: ui/composer-editor.ui:357
 msgid "_Fixed Width"
@@ -3540,15 +3533,15 @@ msgstr ""
 
 #: ui/composer-editor.ui:367
 msgid "_Small"
-msgstr ""
+msgstr "តូច"
 
 #: ui/composer-editor.ui:372
 msgid "_Medium"
-msgstr ""
+msgstr "មធ្យម"
 
 #: ui/composer-editor.ui:377
 msgid "Lar_ge"
-msgstr ""
+msgstr "ធំ"
 
 #: ui/composer-editor.ui:387
 msgid "_Rich Text"
@@ -3597,9 +3590,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "_បោះ​បង់"
+msgstr "បោះ​បង់"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3637,7 +3629,6 @@ msgstr ""
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
 msgstr "មក​ពី ៖"
 
@@ -3647,7 +3638,6 @@ msgstr ""
 
 #. Translators: Label for composer To address entry
 #: ui/composer-widget.ui:91
-#, fuzzy
 msgid "_To"
 msgstr "ផ្ញើ​ទៅ ៖"
 
@@ -3657,14 +3647,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
 msgstr "ចម្លង ៖"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "លាក់ ៖"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3674,7 +3663,6 @@ msgstr "_ឆ្លើយ​តប"
 
 #. Translators: Label for composer Subject line entry
 #: ui/composer-widget.ui:139
-#, fuzzy
 msgid "_Subject"
 msgstr "ប្រធាន​បទ ៖"
 
@@ -3707,9 +3695,8 @@ msgid "Save _All"
 msgstr "_រក្សាទុក​ជា"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "_ឆ្លើយ​តប"
+msgstr "ឆ្លើយ​តប"
 
 #: ui/components-conversation-actions.ui:25
 #, fuzzy
@@ -3725,9 +3712,8 @@ msgid "More Reply Options"
 msgstr ""
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "_បញ្ចូន​បន្ត"
+msgstr "បញ្ចូន​បន្ត"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
@@ -3747,9 +3733,8 @@ msgid ""
 msgstr ""
 
 #: ui/components-inspector-error-view.ui:31
-#, fuzzy
 msgid "Details:"
-msgstr "_លម្អិត"
+msgstr "លម្អិត"
 
 #. Tooltip for inspector button
 #. Tooltip for problem report button
@@ -3983,7 +3968,6 @@ msgid "Reply to:"
 msgstr "_ឆ្លើយ​តប"
 
 #: ui/conversation-message.ui:173
-#, fuzzy
 msgid "Subject"
 msgstr "ប្រធាន​បទ ៖"
 
@@ -4055,9 +4039,8 @@ msgid "_Case sensitive"
 msgstr ""
 
 #: ui/find_bar.glade:132
-#, fuzzy
 msgid "label"
-msgstr "ស្លាក"
+msgstr "ដាក់​ស្លាក"
 
 #: ui/gtk/help-overlay.ui:8
 msgid "Conversation Shortcuts"
@@ -4379,12 +4362,10 @@ msgid "Convey requires your email password to continue"
 msgstr "សូម​បញ្ចូល​ពាក្យ​សម្ងាត់​អ៊ីមែល​របស់​អ្នក"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
 msgstr "_ឈ្មោះ​អ្នក​ប្រើ ៖"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
 msgstr "_ពាក្យ​សម្ងាត់ ៖"
 

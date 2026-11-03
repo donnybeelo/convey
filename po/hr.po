@@ -724,7 +724,6 @@ msgid "_Cancel"
 msgstr "_Odustani"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "Ukloni račun"
 
@@ -880,14 +879,12 @@ msgstr "_Dodaj"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "IMAP poslužitelj"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "SMTP poslužitelj"
 
@@ -1556,7 +1553,6 @@ msgstr "Ovo se ne može poništiti."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "Obriši"
 
@@ -1671,7 +1667,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "Sigurno želite otvoriti ove privitke?"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -3226,7 +3221,6 @@ msgid "(no subject)"
 msgstr "(bez predmeta)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "Primjeni"
 
@@ -3238,7 +3232,6 @@ msgstr "Ime pošiljatelja"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "Adresa e-pošte"
 
@@ -3256,7 +3249,6 @@ msgstr "Ukloni"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "Ime prijave"
 
@@ -3267,7 +3259,6 @@ msgstr "Lozinka"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "Sigurnost povezivanja"
 
@@ -3278,7 +3269,6 @@ msgstr "Dodaj račun"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "Vaše ime"
 
@@ -3300,7 +3290,6 @@ msgid "Account Name"
 msgstr "Naziv računa"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "Adrese e-pošte"
 
@@ -3315,7 +3304,6 @@ msgstr "Postavke"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "Preuzimanje pošte"
 
@@ -3356,12 +3344,10 @@ msgstr "Primjeni"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "Izvor računa"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "Pružatelj usluge"
 
@@ -3554,7 +3540,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "Predmet"
 
@@ -3797,7 +3782,6 @@ msgstr "_Prima tajnu kopiju"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_Odgovor na"
 
@@ -3854,7 +3838,6 @@ msgstr "Proslijedi"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "Odgovori svima"
 
@@ -3920,7 +3903,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "Pretraži u razgovoru"
 
@@ -4116,7 +4098,6 @@ msgstr "Ova poruka nije pouzdana."
 
 #. Translators: Title label for placeholder when no conversations have been selected.
 #: ui/conversation-viewer.ui:39
-#, fuzzy
 msgid "No Conversations Selected"
 msgstr "Nema odabranih razgovora"
 
@@ -4140,7 +4121,6 @@ msgstr "Pretraži sljedeće pojavljivanje izraza pretrage."
 
 #. Translators: Title label for placeholder when multiple conversations have been selected
 #: ui/conversation-viewer.ui:131
-#, fuzzy
 msgid "Multiple Conversations Selected"
 msgstr "Više razgovora je odabrano"
 
@@ -4153,7 +4133,6 @@ msgstr "Odabir radnje će se primijeniti na sve odabrane razgovore"
 #. Translators: Title label for placeholder when no conversations exist in a folder
 #. Translators: Title label for placeholder when no conversations were found in a search
 #: ui/conversation-viewer.ui:148 ui/conversation-viewer.ui:165
-#, fuzzy
 msgid "No Conversations Found"
 msgstr "Nema pronađenih razgovora"
 
@@ -4496,17 +4475,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Convey zahtijeva vašu lozinku e-pošte za nastavak"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
-msgstr "_Korisničko ime:"
+msgstr "Korisničko ime"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
-msgstr "_Lozinka:"
+msgstr "Lozinka"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "_Zapamti lozinku"
 

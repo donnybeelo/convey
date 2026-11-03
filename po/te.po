@@ -860,7 +860,7 @@ msgstr ""
 #: src/client/accounts/accounts-service-information-widget.vala:206
 #: src/engine/api/convey-service-information.vala:85
 msgid "None"
-msgstr ""
+msgstr "ఏదీకాదు"
 
 #. Add a suffix for OAuth2 auth so people know they
 #. shouldn't expect to be prompted for a password
@@ -1597,7 +1597,7 @@ msgstr ""
 #: src/client/components/components-attachment-pane.vala:321
 #: src/client/components/stock.vala:26 ui/components-attachment-pane-menus.ui:7
 msgid "_Open"
-msgstr ""
+msgstr "తెరువు"
 
 #: src/client/components/components-attachment-pane.vala:326
 #, fuzzy
@@ -1697,9 +1697,8 @@ msgstr ""
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:208
 #: src/client/dialogs/dialogs-problem-details-dialog.vala:209
 #: ui/problem-details-dialog.ui:38
-#, fuzzy
 msgid "Save As"
-msgstr "ఇలా భద్రపరుచు...(_S)"
+msgstr "ఇలా భద్రపరుచు...(S)"
 
 #: src/client/components/components-preferences-dialog.vala:56
 #, c-format
@@ -2500,9 +2499,8 @@ msgstr ""
 #. Translators: Info bar button label for sending an
 #. email template
 #: src/client/plugin/email-templates/email-templates.vala:297
-#, fuzzy
 msgid "Send"
-msgstr "పంపు (_S)"
+msgstr "పంపు (S)"
 
 #. Translators: Info bar button label for editing an
 #. existing email template
@@ -3004,7 +3002,7 @@ msgstr ""
 
 #: src/client/util/util-i18n.vala:408
 msgid "Archive"
-msgstr ""
+msgstr "కవిలె (A)"
 
 #. Translators: ComboBox value for source of SMTP
 #. authentication credentials (none) when adding a new
@@ -3310,9 +3308,8 @@ msgstr ""
 
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
-#, fuzzy
 msgid "Preferences"
-msgstr "ప్రాధాన్యతలు (_P)"
+msgstr "ప్రాధాన్యతలు (P)"
 
 #: ui/components-preferences-dialog.ui:15
 msgid "_Reopen last inbox"
@@ -3420,9 +3417,8 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
-msgstr "విషయం:"
+msgstr "విషయం"
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:187
@@ -3544,11 +3540,11 @@ msgstr ""
 
 #: ui/composer-editor.ui:372
 msgid "_Medium"
-msgstr ""
+msgstr "మాధ్యమం"
 
 #: ui/composer-editor.ui:377
 msgid "Lar_ge"
-msgstr ""
+msgstr "అతిపెద్ద"
 
 #: ui/composer-editor.ui:387
 msgid "_Rich Text"
@@ -3597,9 +3593,8 @@ msgid "Detach the composer from the window"
 msgstr ""
 
 #: ui/composer-headerbar.ui:36
-#, fuzzy
 msgid "Cancel"
-msgstr "రద్దుచేయి (_C)"
+msgstr "రద్దుచేయి (C)"
 
 #: ui/composer-headerbar.ui:75
 msgid "_Send"
@@ -3637,9 +3632,8 @@ msgstr ""
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "పంపినవారు:"
+msgstr "పంపినవారు"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3647,9 +3641,8 @@ msgstr ""
 
 #. Translators: Label for composer To address entry
 #: ui/composer-widget.ui:91
-#, fuzzy
 msgid "_To"
-msgstr "వీరికి:"
+msgstr "వీరికి"
 
 #: ui/composer-widget.ui:105
 msgid "Show Cc, Bcc, and Reply-To fields"
@@ -3657,14 +3650,13 @@ msgstr ""
 
 #. Translators: Label for composer CC address entry
 #: ui/composer-widget.ui:116
-#, fuzzy
 msgid "_Cc"
-msgstr "సిసి:"
+msgstr "సిసి"
 
 #. Translators: Label for composer BCC address entry
 #: ui/composer-widget.ui:124
 msgid "_Bcc"
-msgstr ""
+msgstr "బిసిసి"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
@@ -3674,9 +3666,8 @@ msgstr "ప్రతిస్పందించు (_R)"
 
 #. Translators: Label for composer Subject line entry
 #: ui/composer-widget.ui:139
-#, fuzzy
 msgid "_Subject"
-msgstr "విషయం:"
+msgstr "విషయం"
 
 #: ui/composer-widget.ui:168
 msgid "Drop files here"
@@ -3704,9 +3695,8 @@ msgid "Save _All"
 msgstr "ఇలా భద్రపరుచు...(_S)"
 
 #: ui/components-conversation-actions.ui:16
-#, fuzzy
 msgid "Reply"
-msgstr "ప్రతిస్పందించు (_R)"
+msgstr "ప్రతిస్పందించు (R)"
 
 #: ui/components-conversation-actions.ui:25
 #, fuzzy
@@ -3722,9 +3712,8 @@ msgid "More Reply Options"
 msgstr ""
 
 #: ui/components-conversation-actions.ui:64
-#, fuzzy
 msgid "Forward"
-msgstr "మునుముందుకు (_F)"
+msgstr "మునుముందుకు (F)"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
@@ -3978,9 +3967,8 @@ msgid "Reply to:"
 msgstr "ప్రతిస్పందించు (_R)"
 
 #: ui/conversation-message.ui:173
-#, fuzzy
 msgid "Subject"
-msgstr "విషయం:"
+msgstr "విషయం"
 
 #: ui/conversation-message.ui:193
 msgid "This message was encrypted"
@@ -4047,9 +4035,8 @@ msgid "_Case sensitive"
 msgstr ""
 
 #: ui/find_bar.glade:132
-#, fuzzy
 msgid "label"
-msgstr "నామాంకాలు"
+msgstr "నామాంకం (L)"
 
 #: ui/gtk/help-overlay.ui:8
 msgid "Conversation Shortcuts"

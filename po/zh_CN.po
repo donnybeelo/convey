@@ -709,7 +709,6 @@ msgid "_Cancel"
 msgstr "取消(_C)"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "移除帐号"
 
@@ -865,14 +864,12 @@ msgstr "添加(_A)"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "IMAP 服务器"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "SMTP 服务器"
 
@@ -1625,7 +1622,6 @@ msgid "Are you sure you want to open these attachments?"
 msgstr "您确定要打开这些附件吗？"
 
 #: src/client/components/components-attachment-pane.vala:319
-#, fuzzy
 msgid ""
 "Attachments may cause damage to your system if opened. Only open files from "
 "trusted sources."
@@ -3132,7 +3128,6 @@ msgid "(no subject)"
 msgstr "（无主题）"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "应用"
 
@@ -3144,7 +3139,6 @@ msgstr "发件人姓名"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "邮件地址"
 
@@ -3162,7 +3156,6 @@ msgstr "移除"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "登录名"
 
@@ -3173,7 +3166,6 @@ msgstr "密码"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "连接安全"
 
@@ -3184,7 +3176,6 @@ msgstr "添加帐号"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "您的姓名"
 
@@ -3206,7 +3197,6 @@ msgid "Account Name"
 msgstr "帐号名称"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "邮箱地址"
 
@@ -3221,7 +3211,6 @@ msgstr "设置"
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "下载邮件"
 
@@ -3261,12 +3250,10 @@ msgstr "应用"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "帐号来源"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "服务提供商"
 
@@ -3455,7 +3442,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "主题"
 
@@ -3670,9 +3656,8 @@ msgstr "删除该链接"
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "发件人："
+msgstr "发件人(F)"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3699,7 +3684,6 @@ msgstr "密送(_B)"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "回复给(_R)"
 
@@ -3756,7 +3740,6 @@ msgstr "转发"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "回复全部"
 
@@ -3822,7 +3805,6 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "在会话中查找"
 
@@ -4391,17 +4373,14 @@ msgid "Convey requires your email password to continue"
 msgstr "Convey 需要您的电子邮箱密码以继续"
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
-msgstr "用户名(_U)："
+msgstr "用户名"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
-msgstr "密码(_P)："
+msgstr "密码"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "记住密码(_R)"
 

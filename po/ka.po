@@ -687,7 +687,6 @@ msgid "_Cancel"
 msgstr "_შეწყვეტა"
 
 #: src/client/accounts/accounts-editor-edit-pane.vala:297
-#, fuzzy
 msgid "_Remove Account"
 msgstr "ანგარიშის წაშლა"
 
@@ -843,14 +842,12 @@ msgstr "_დამატება"
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's IMAP service.
 #: src/client/accounts/accounts-service-information-widget.vala:108
-#, fuzzy
 msgid "IMAP Server"
 msgstr "IMAP სერვერი"
 
 #. Translators: This label describes the host name or IP
 #. address and port used by an account's SMTP service.
 #: src/client/accounts/accounts-service-information-widget.vala:113
-#, fuzzy
 msgid "SMTP Server"
 msgstr "SMTP სერვერი"
 
@@ -1471,7 +1468,6 @@ msgstr "ეს შეუქცევადია."
 #: src/client/application/application-main-window.vala:2113
 #: src/client/application/application-main-window.vala:2132
 #: src/client/components/components-conversation-actions.vala:255
-#, fuzzy
 msgid "_Delete"
 msgstr "წაშლა"
 
@@ -1613,7 +1609,6 @@ msgid_plural "Move conversations to a folder"
 msgstr[0] "საუბრის გადატანა ნაგვის ყუთში"
 
 #: src/client/components/components-conversation-actions.vala:243
-#, fuzzy
 msgid "_Archive"
 msgstr "არქივი"
 
@@ -2043,7 +2038,7 @@ msgstr "ფარულიასლი:"
 #. Translators: Human-readable version of the RFC 822 Reply-To header
 #: src/client/composer/composer-widget.vala:2255
 msgid "Reply-To: "
-msgstr ""
+msgstr "უპასუხეთ"
 
 #: src/client/composer/composer-widget.vala:2384 ui/composer-widget.ui:97
 msgid "Encrypt with OpenPGP"
@@ -3075,10 +3070,9 @@ msgstr ""
 
 #: src/engine/rfc822/rfc822-message.vala:1304
 msgid "(no subject)"
-msgstr ""
+msgstr "(სათაურის გარეშე)"
 
 #: ui/accounts-mailbox-editor-dialog.ui:22
-#, fuzzy
 msgid "_Apply"
 msgstr "გადატარება"
 
@@ -3090,7 +3084,6 @@ msgstr "გამგზავნის სახელი"
 #. Translators: Label used for the address part of an email address when editing a user's sender address preferences for an account
 #. Translators: Label for the default sender address when adding an account
 #: ui/accounts-mailbox-editor-dialog.ui:51 ui/accounts_editor_add_pane.ui:60
-#, fuzzy
 msgid "Email Address"
 msgstr "ელფოსტის მისამართი"
 
@@ -3108,7 +3101,6 @@ msgstr "წაშლა"
 
 #. Translators: Label for the user's login name for an IMAP, SMTP, etc service
 #: ui/accounts-service-information-widget.ui:30
-#, fuzzy
 msgid "Login Name"
 msgstr "მომხმარებლის სახელი"
 
@@ -3119,7 +3111,6 @@ msgstr "პაროლი"
 
 #. Translators: This label describes what form of transport security (TLS, StartTLS, etc) used by an account's IMAP or SMTP service
 #: ui/accounts-tls-combo-row.ui:5
-#, fuzzy
 msgid "Connection Security"
 msgstr "შეერთების უსაფრთხოება"
 
@@ -3130,7 +3121,6 @@ msgstr "ახალი ანგარიშის დამატება"
 
 #. Translators: Label for the person's actual name when adding an account
 #: ui/accounts_editor_add_pane.ui:53
-#, fuzzy
 msgid "Your Name"
 msgstr "თქვენი სახელი"
 
@@ -3152,7 +3142,6 @@ msgid "Account Name"
 msgstr "ანგარიშის სახელი"
 
 #: ui/accounts_editor_edit_pane.ui:40
-#, fuzzy
 msgid "Email Addresses"
 msgstr "ელფოსტის მისამართები"
 
@@ -3167,7 +3156,6 @@ msgstr ""
 
 #. Translators: This label describes the account preference for the length of time (weeks, months or years) that past email should be downloaded
 #: ui/accounts_editor_edit_pane.ui:82
-#, fuzzy
 msgid "Download Mail"
 msgstr "ელფოსტის გადმოწერა"
 
@@ -3207,12 +3195,10 @@ msgstr "გადატარება"
 
 #. Translators: This label describes the program that created the account, e.g. an SSO service like GOA, or locally by Convey
 #: ui/accounts_editor_servers_pane.ui:55
-#, fuzzy
 msgid "Account Source"
 msgstr "ანგარიშის წყარო"
 
 #: ui/accounts_editor_servers_pane.ui:64
-#, fuzzy
 msgid "Service Provider"
 msgstr "სერვისის მომწოდებელი"
 
@@ -3287,7 +3273,7 @@ msgstr ""
 #. Translators: Preferences page title
 #: ui/components-preferences-dialog.ui:8
 msgid "Preferences"
-msgstr ""
+msgstr "პარამეტრები"
 
 #: ui/components-preferences-dialog.ui:15
 #, fuzzy
@@ -3399,7 +3385,6 @@ msgstr ""
 
 #. Translators: Preferences label
 #: ui/components-preferences-dialog.ui:180
-#, fuzzy
 msgid "S_ubject"
 msgstr "თემა"
 
@@ -3614,9 +3599,8 @@ msgstr "ამ ბმული წაშლა"
 
 #. Translators: Label for composer From address entry
 #: ui/composer-widget.ui:58
-#, fuzzy
 msgid "From"
-msgstr "_ვისგან"
+msgstr "ვისგან"
 
 #: ui/composer-widget.ui:79
 msgid "Choose an address to send from"
@@ -3643,7 +3627,6 @@ msgstr "_ფარულიასლი"
 
 #. Translators: Label for composer Reply-To address entry
 #: ui/composer-widget.ui:132
-#, fuzzy
 msgid "_Reply To"
 msgstr "_პასუხი ვის"
 
@@ -3700,7 +3683,6 @@ msgstr "გადაგზავნა"
 
 #. Translators: Menu item to reply to all recipients of a conversation.
 #: ui/components-conversation-actions.ui:118
-#, fuzzy
 msgid "Reply _All"
 msgstr "ყველასთვის პასუხი"
 
@@ -3761,13 +3743,12 @@ msgid "_Copy to Folder…"
 msgstr ""
 
 #: ui/components-menu-conversation.ui:34
-#, fuzzy
 msgid "_Find in Conversation"
 msgstr "ძებნა საუბარში"
 
 #: ui/conversation-contact-popover.ui:94
 msgid "New Conversation…"
-msgstr ""
+msgstr "ახალი საუბარი…"
 
 #: ui/conversation-contact-popover.ui:103
 msgid "Copy Email Address"
@@ -4314,7 +4295,7 @@ msgstr ""
 #: ui/gtk/help-overlay.ui:443
 msgctxt "shortcut window"
 msgid "Reply to sender "
-msgstr ""
+msgstr "გამომგზავნისთვის პასუხი"
 
 #: ui/gtk/help-overlay.ui:530
 msgctxt "shortcut window"
@@ -4330,17 +4311,14 @@ msgid "Convey requires your email password to continue"
 msgstr ""
 
 #: ui/password-dialog.ui:31
-#, fuzzy
 msgid "_Username"
 msgstr "მომხმარებლის სახელი"
 
 #: ui/password-dialog.ui:37
-#, fuzzy
 msgid "_Password"
 msgstr "პაროლი"
 
 #: ui/password-dialog.ui:43
-#, fuzzy
 msgid "_Remember Password"
 msgstr "პაროლის დამახსოვრება"
 
