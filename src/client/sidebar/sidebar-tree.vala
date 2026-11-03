@@ -35,7 +35,7 @@ public class Sidebar.Tree : Gtk.Widget, Gtk.Scrollable {
         public weak Gtk.Image? icon_widget = null;
         public weak Gtk.Spinner? spinner_widget = null;
         public weak Gtk.Label? name_widget = null;
-        public weak Gtk.Label? count_widget = null;
+        public weak CountBadge? count_widget = null;
         public ulong children_handler = 0;
         public ulong expanded_handler = 0;
         public bool expansion_restored = false;
@@ -376,7 +376,7 @@ public class Sidebar.Tree : Gtk.Widget, Gtk.Scrollable {
             xalign = 0,
             hexpand = true
         };
-        var count = new Gtk.Label(null) {
+        var count = new CountBadge() {
             halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER
         };
@@ -412,7 +412,7 @@ public class Sidebar.Tree : Gtk.Widget, Gtk.Scrollable {
         var icon = (Gtk.Image) box.get_first_child();
         var spinner = (Gtk.Spinner) icon.get_next_sibling();
         var name = (Gtk.Label) spinner.get_next_sibling();
-        var count = (Gtk.Label) name.get_next_sibling();
+        var count = (CountBadge) name.get_next_sibling();
 
         box.set_data("sidebar-node", node);
         node.expander_widget = expander;
@@ -541,7 +541,7 @@ public class Sidebar.Tree : Gtk.Widget, Gtk.Scrollable {
 
         int count = entry.get_count();
         node.count_widget.visible = count > 0;
-        node.count_widget.label = count > 0 ? count.to_string() : "";
+        node.count_widget.set_text(count > 0 ? count.to_string() : "");
 
         string? tooltip = entry.get_sidebar_tooltip();
         node.expander_widget.tooltip_markup =

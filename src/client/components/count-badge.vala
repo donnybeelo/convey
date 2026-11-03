@@ -5,90 +5,51 @@
  */
 
 /**
- * Draws the count badge and calculates its dimensions.
+ * Draws a count centred on its visible glyph pixels.
  */
-public class CountBadge : Convey.BaseObject {
-    public const string UNREAD_BG_COLOR = "#888888";
-	public const int SPACING = 6;
+public class CountBadge : Gtk.Widget {
+    private string text = "";
 
-    private const int FONT_SIZE_MESSAGE_COUNT = 8;
-
-    public int count { get; set; default = 0; }
-
-    private int min = 0;
-
-    /**
-     * Creates a count badge.
-     * @param min Minimum count to draw.
-     */
-    public CountBadge(int min) {
-        this.min = min;
+    static construct {
+        set_css_name("label");
+        set_accessible_role(Gtk.AccessibleRole.LABEL);
     }
 
-    public int get_width(Gtk.Widget widget) {
-        int width = 0;
-        render_internal(widget, null, 0, 0, false, out width, null);
-
-        return width;
+    public void set_text(string text) {
+        this.text = text;
+        update_property(Gtk.AccessibleProperty.LABEL, text, -1);
+        queue_resize();
     }
 
-    public int get_height(Gtk.Widget widget) {
-        int height = 0;
-        render_internal(widget, null, 0, 0, false, null, out height);
-
-        return height;
+    private Pango.Layout create_layout() {
+        var layout = create_pango_layout(this.text);
+        var attrs = new Pango.AttrList();
+        attrs.insert(new Pango.AttrFontFeatures("tnum 1"));
+        layout.set_attributes(attrs);
+        return layout;
     }
 
-    public void render(Gtk.Widget widget, Cairo.Context? ctx, int x, int y, bool selected) {
-        render_internal(widget, ctx, x, y, selected, null, null);
+    public override void measure(Gtk.Orientation orientation, int for_size,
+                                 out int minimum, out int natural,
+                                 out int minimum_baseline, out int natural_baseline) {
+        Pango.Rectangle ink, logical;
+        create_layout().get_extents(out ink, out logical);
+        var size = orientation == Gtk.Orientation.HORIZONTAL ? logical.width : logical.height;
+        minimum = natural = (int) Math.ceil(Pango.units_to_double(size));
+        minimum_baseline = natural_baseline = -1;
     }
 
-    private void render_internal(Gtk.Widget widget, Cairo.Context? ctx, int x, int y, bool selected,
-        out int? width, out int? height) {
-        if (count < min) {
-            width = 0;
-            height = 0;
-
-            return;
-        }
-
-        string mails =
-            "<span foreground='white' font='%d' weight='bold'> %d </span>"
-            .printf(FONT_SIZE_MESSAGE_COUNT, count);
-
-        Pango.Layout layout_num = widget.create_pango_layout(null);
-        layout_num.set_markup(mails, -1);
-        layout_num.set_alignment(Pango.Alignment.RIGHT);
-
-        Pango.Rectangle? ink_rect;
-        Pango.Rectangle? logical_rect;
-        layout_num.get_pixel_extents(out ink_rect, out logical_rect);
-        if (ctx != null) {
-            double bg_width = logical_rect.width + SPACING;
-            double bg_height = logical_rect.height;
-            double radius = bg_height / 2.0;
-            double degrees = Math.PI / 180.0;
-
-            // Create rounded rect.
-            ctx.new_sub_path();
-            ctx.arc(x + bg_width - radius,  y + radius, radius, -90 * degrees, 0 * degrees);
-            ctx.arc(x + bg_width - radius,  y + bg_height - radius, radius, 0 * degrees, 90 * degrees);
-            ctx.arc(x + radius, y + bg_height - radius, radius, 90 * degrees, 180 * degrees);
-            ctx.arc(x + radius, y + radius, radius, 180 * degrees, 270 * degrees);
-            ctx.close_path();
-
-            // Colorize our shape.
-            Util.Gtk.set_source_color_from_string(ctx, UNREAD_BG_COLOR);
-            ctx.fill_preserve();
-            ctx.set_line_width(2.0);
-            ctx.stroke();
-
-            // Center the text.
-            ctx.move_to(x + (bg_width / 2) - logical_rect.width / 2, y);
-            Pango.cairo_show_layout(ctx, layout_num);
-        }
-
-        width = logical_rect.width + SPACING;
-        height = logical_rect.height;
+    public override void snapshot(Gtk.Snapshot snapshot) {
+        var layout = create_layout();
+        Pango.Rectangle ink, logical;
+        layout.get_extents(out ink, out logical);
+        var origin = Graphene.Point() {
+            x = (float) ((get_width() - Pango.units_to_double(ink.width)) / 2 - Pango.units_to_double(ink.x)),
+            y = (float) ((get_height() - Pango.units_to_double(ink.height)) / 2 - Pango.units_to_double(ink.y))
+        };
+        snapshot.save();
+        snapshot.translate(origin);
+        snapshot.append_layout(layout, get_color());
+        snapshot.restore();
     }
 }

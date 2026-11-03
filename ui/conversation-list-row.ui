@@ -99,7 +99,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="count_badge">
+                  <object class="CountBadge" id="count_badge">
                     <style>
                       <class name="count-badge"/>
                     </style>

@@ -169,9 +169,10 @@ row.conversation-list .count-badge {
   background: #888888;
   color: white;
   margin-top: 4px;
-  min-width: 1.5em;
+  min-width: 0.8em;
+  padding: 0 4px;
   border-radius: 1em;
-  font-size: 0.8em;
+  font-size: 0.75em;
   font-weight: bold;
 }
 
@@ -629,8 +630,7 @@ listview.navigation-sidebar .sidebar-count {
   padding: 0 4px;
   border-radius: 1em;
   background: alpha(currentColor, 0.15);
-  font-feature-settings: "tnum" 1;
-  font-size: 0.8em;
+  font-size: 0.75em;
   font-weight: bold;
 }
 

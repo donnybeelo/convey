@@ -26,12 +26,16 @@ internal class ConversationList.Row : Gtk.ListBoxRow {
     [GtkChild] unowned Gtk.Label subject;
     [GtkChild] unowned Gtk.Label participants;
     [GtkChild] unowned Gtk.Label date;
-    [GtkChild] unowned Gtk.Label count_badge;
+    [GtkChild] unowned CountBadge count_badge;
 
     [GtkChild] unowned Gtk.Image flagged_icon;
 
     [GtkChild] unowned Gtk.CheckButton selected_button;
     [GtkChild] unowned Gtk.Revealer selected_revealer;
+
+    static construct {
+        typeof(CountBadge).ensure();
+    }
 
     private Gtk.Revealer revealer = new Gtk.Revealer() {
         transition_type = SLIDE_DOWN,
