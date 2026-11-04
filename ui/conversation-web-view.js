@@ -38,6 +38,136 @@ ConversationPageState.prototype = {
         document.addEventListener("mousemove", function(e) {
             state._pointer = e;
         });
+        document.addEventListener(
+            "load", () => this.updatePreferredHeight(), true
+        );
+        window.addEventListener("load", () => this.updatePreferredHeight());
+    },
+    getPreferredHeight: function() {
+        return Math.ceil(
+            document.documentElement.getBoundingClientRect().height
+        );
+    },
+    fitToHeight: function(maxHeight) {
+        this.maxHeight = maxHeight;
+        this.autoZoom();
+    },
+    fitPhotos: function(measure, fits) {
+        let root = document.documentElement;
+        let widest = 0;
+        for (const img of document.images) {
+            let rect = img.getBoundingClientRect();
+            if (rect.width >= 120 && rect.height >= 60 &&
+                rect.width <= rect.height * 2.5) {
+                img.setAttribute("data-convey-photo", "");
+                widest = Math.max(widest, rect.width);
+            } else {
+                img.removeAttribute("data-convey-photo");
+            }
+        }
+        let setMax = (width) => root.style.setProperty(
+            "--convey-photo-max", width + "px"
+        );
+        let low = 80;
+        root.classList.add("convey-photo-fit");
+        setMax(low);
+        if (widest <= low || !fits(measure())) {
+            root.classList.remove("convey-photo-fit");
+            return measure();
+        }
+        let high = widest;
+        while (high - low > 4) {
+            let mid = (low + high) / 2;
+            setMax(mid);
+            if (fits(measure())) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+        }
+        setMax(low);
+        return measure();
+    },
+    disableScrolling: function() {
+        document.documentElement.classList.add("convey-no-scroll");
+    },
+    autoZoom: function() {
+        if (!this.isLoaded) {
+            return;
+        }
+        let root = document.documentElement;
+        let body = document.body;
+        root.classList.add("convey-auto-zoom");
+        root.classList.remove(
+            "convey-layout", "convey-zoomed", "convey-sized", "convey-photo-fit"
+        );
+
+        let style = getComputedStyle(body);
+        let rtl = style.direction == "rtl";
+        let marginLeft = parseFloat(style.marginLeft) || 0;
+        let marginRight = parseFloat(style.marginRight) || 0;
+        let marginBottom = parseFloat(style.marginBottom) || 0;
+        let viewport = root.clientWidth;
+        let contentWidth = root.scrollWidth;
+
+        let zoom = 1;
+        let width = body.getBoundingClientRect().width;
+        if (contentWidth > viewport) {
+            width = contentWidth - (rtl ? marginRight : marginLeft);
+            zoom = (viewport - 1 - marginLeft - marginRight) / width;
+        }
+        root.style.setProperty("--convey-layout-width", width + "px");
+        root.classList.add("convey-layout");
+
+        let contents = document.createRange();
+        contents.selectNodeContents(body);
+        let measure = () => Math.max(
+            0,
+            contents.getBoundingClientRect().bottom -
+                body.getBoundingClientRect().top
+        );
+        let bodyHeight = measure();
+        let outside = body.getBoundingClientRect().top + marginBottom;
+        let fits = (height) => outside + height * zoom <= this.maxHeight;
+        if (this.maxHeight && !fits(bodyHeight)) {
+            bodyHeight = this.fitPhotos(measure, fits);
+            if (!fits(bodyHeight)) {
+                zoom = Math.min(
+                    zoom,
+                    Math.max(0.3, (this.maxHeight - outside) / bodyHeight)
+                );
+            }
+        }
+
+        if (zoom < 0.999) {
+            let shift = Math.max(
+                0, (viewport - marginLeft - marginRight - width * zoom) / 2
+            );
+            root.style.setProperty("--convey-zoom", zoom);
+            root.style.setProperty(
+                "--convey-shift", (rtl ? -shift : shift) + "px"
+            );
+            root.style.setProperty(
+                "--convey-origin", rtl ? "top right" : "top left"
+            );
+            root.classList.add("convey-zoomed");
+        } else {
+            zoom = 1;
+            root.classList.remove("convey-layout");
+        }
+        root.style.setProperty(
+            "--convey-page-height",
+            Math.ceil(outside + bodyHeight * zoom) + "px"
+        );
+        root.classList.add("convey-sized");
+
+        // Apply styles before transitions come back
+        root.offsetHeight;
+        root.classList.remove("convey-auto-zoom");
+    },
+    updatePreferredHeight: function() {
+        this.autoZoom();
+        PageState.prototype.updatePreferredHeight.apply(this, []);
     },
     scrollHorizontally: function(dx) {
         let p = this._pointer;
@@ -123,6 +253,9 @@ ConversationPageState.prototype = {
         this.createControllableQuotes();
         this.wrapSignature();
         this.deceptiveLinksTitle();
+        this.disableMediaRules(/width/i);
+        new ResizeObserver(() => this.updatePreferredHeight())
+            .observe(document.body);
         PageState.prototype.loaded.apply(this, []);
     },
     /**

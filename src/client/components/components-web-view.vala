@@ -186,7 +186,7 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         return (uint) WebKit.Settings.font_size_to_pixels((uint) size);
     }
 
-    private static inline double get_text_scale () {
+    protected static inline double get_text_scale () {
         return Gtk.Settings.get_default().gtk_xft_dpi / 96.0 / 1024.0;
     }
 

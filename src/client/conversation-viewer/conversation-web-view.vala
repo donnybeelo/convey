@@ -40,6 +40,7 @@ public class ConversationWebView : Components.WebView {
     public bool is_truncated { get; private set; default = false; }
 
     private bool scrolls_internally = false;
+    private double max_page_height = 0;
 
     /** Emitted when the user clicks on a link with deceptive text. */
     public signal void deceptive_link_clicked(
@@ -227,10 +228,24 @@ public class ConversationWebView : Components.WebView {
         register_message_callback(
             DECEPTIVE_LINK_CLICKED, on_deceptive_link_clicked
         );
+        if (!this.scrolls_internally) {
+            this.content_loaded.connect(
+                () => call_js(Util.JS.callable("disableScrolling"))
+            );
+        }
 
         this.notify["preferred-height"].connect(() => {
             this.is_truncated = this.preferred_height > max_height();
             queue_resize();
+            double max_page_height =
+                max_height() * 0.98 / (this.zoom_level * get_text_scale());
+            if (!this.scrolls_internally &&
+                max_page_height != this.max_page_height) {
+                this.max_page_height = max_page_height;
+                call_js(
+                    Util.JS.callable("fitToHeight").double(max_page_height)
+                );
+            }
         });
 
         // Unless standalone, the view is allocated its full content

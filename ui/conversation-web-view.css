@@ -13,6 +13,34 @@
   transition: height 0.25s !important;
 }
 
+.convey-auto-zoom, .convey-auto-zoom * {
+  transition: none !important;
+}
+
+.convey-layout body {
+  width: var(--convey-layout-width) !important;
+}
+
+.convey-zoomed body {
+  transform: translateX(var(--convey-shift)) scale(var(--convey-zoom)) !important;
+  transform-origin: var(--convey-origin) !important;
+}
+
+.convey-photo-fit img[data-convey-photo] {
+  max-width: var(--convey-photo-max) !important;
+  height: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.convey-no-scroll {
+  overflow: hidden !important;
+}
+
+.convey-sized {
+  height: var(--convey-page-height) !important;
+}
+
 html {
   /* Width must always be defined by the viewport so content doesn't
   overflow inside the WebView, height must always be defined by the
@@ -34,7 +62,7 @@ body {
   padding: 0;
 
   /* XXX for plain text only? */
-  overflow-wrap: break-word !important;
+  overflow-wrap: anywhere !important;
 
   /* Fix messages with broken body style. See Bug 750075. */
   height: auto !important;

@@ -69,18 +69,17 @@ PageState.prototype = {
     },
     loaded: function() {
         this.isLoaded = true;
-        this.disableSenderDarkModeRules();
+        this.disableMediaRules(/prefers-color-scheme\s*:\s*dark/i);
         // Always fire a preferred height update first so that it will
         // be vaguegly correct when notifying of the HTML load
         // completing.
         this.updatePreferredHeight();
         this._contentLoaded();
     },
-    disableSenderDarkModeRules: function() {
+    disableMediaRules: function(pattern) {
         function walk(rules) {
             for (const rule of rules) {
-                if (rule.media != null &&
-                    /prefers-color-scheme\s*:\s*dark/i.test(rule.media.mediaText)) {
+                if (rule.media != null && pattern.test(rule.media.mediaText)) {
                     rule.media.mediaText = "not all";
                 } else if (rule.cssRules != null) {
                     walk(rule.cssRules);
