@@ -1547,7 +1547,7 @@ public class Application.MainWindow :
         folder_drag.drag_update.connect(on_folder_drag_update);
         folder_drag.drag_end.connect(() => {
             if (this.folder_list_dragged) {
-                config.folder_list_width = (int) this.inner_view.min_sidebar_width;
+                config.folder_list_width = (int) this.inner_view.max_sidebar_width;
             }
         });
         this.inner_view.add_controller(folder_drag);
@@ -2945,8 +2945,9 @@ public class Application.MainWindow :
 
     private void set_folder_list_width(int width) {
         width = width.clamp(180, 400);
-        this.inner_view.min_sidebar_width = width;
+        this.inner_view.min_sidebar_width = 180;
         this.inner_view.max_sidebar_width = width;
+        this.inner_view.sidebar_width_fraction = 1.0;
     }
 
     private void close_folder_drawer() {
