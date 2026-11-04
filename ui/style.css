@@ -166,13 +166,13 @@ row.conversation-list.unread .details > :nth-child(2) {
 }
 
 row.conversation-list .count-badge {
-  background: #888888;
-  color: white;
+  background: @window_fg_color;
+  color: @window_bg_color;
   margin-top: 4px;
   min-width: 0.8em;
   padding: 0 4px;
   border-radius: 1em;
-  font-size: 0.75em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 
@@ -630,7 +630,7 @@ listview.navigation-sidebar .sidebar-count {
   padding: 0 4px;
   border-radius: 1em;
   background: alpha(currentColor, 0.15);
-  font-size: 0.75em;
+  font-size: 0.8em;
   font-weight: bold;
 }
 
