@@ -2977,8 +2977,10 @@ public class Application.MainWindow :
                 (this.is_folder_list_shown || this.is_conversation_list_shown)) {
                 close_composer(false, false);
             }
-        } else {
-            if (selected > 0) {
+        } else if (selected > 0) {
+            var shown = this.conversation_viewer.current_list?.conversation;
+            if (selected > 1 || shown == null ||
+                !(shown in this.conversation_list_view.selected)) {
                 select_conversations.begin(
                     this.conversation_list_view.selected,
                     Gee.Collection.empty<Convey.EmailIdentifier>(),
