@@ -19,6 +19,13 @@ public class ConversationViewer : Adw.Bin, Convey.BaseInterface {
         get; private set; default = null;
     }
 
+    private Gtk.Widget? scroll_anchor = null;
+    private double scroll_anchor_fraction = 0;
+    private int scroll_anchor_width = 0;
+    private int64 restore_scroll_until = 0;
+    private bool restoring_scroll = false;
+    private bool restore_scroll_queued = false;
+
     /** Returns the currently displayed composer if any. */
     public Composer.Widget? current_composer {
         get; private set; default = null;
@@ -99,7 +106,14 @@ public class ConversationViewer : Adw.Bin, Convey.BaseInterface {
             if (this.current_list != null) {
                 this.current_list.mark_visible_read();
             }
+            if (!this.restoring_scroll &&
+                GLib.get_monotonic_time() > this.restore_scroll_until) {
+                save_scroll_anchor();
+            }
         });
+        this.conversation_scroller.vadjustment.changed.connect(
+            on_scroll_extent_changed
+        );
     }
 
     ~ConversationViewer() {
@@ -297,8 +311,65 @@ public class ConversationViewer : Adw.Bin, Convey.BaseInterface {
         this.conversation_scroller.child = viewport;
     }
 
+    private void on_scroll_extent_changed() {
+        int width = this.conversation_scroller.get_width();
+        if (width != this.scroll_anchor_width) {
+            this.scroll_anchor_width = width;
+            this.restore_scroll_until = GLib.get_monotonic_time() + 1000000;
+        }
+        if (GLib.get_monotonic_time() < this.restore_scroll_until &&
+            !this.restore_scroll_queued) {
+            this.restore_scroll_queued = true;
+            GLib.Idle.add_once(() => {
+                this.restore_scroll_queued = false;
+                restore_scroll_anchor();
+            });
+        }
+    }
+
+    private void save_scroll_anchor() {
+        this.scroll_anchor = null;
+        Gtk.Widget? viewport = this.conversation_scroller.child;
+        ConversationListBox? list = this.current_list;
+        if (viewport == null || list == null) {
+            return;
+        }
+        Graphene.Point top;
+        if (!viewport.compute_point(
+                list, { list.get_width() / 2.0f, 0 }, out top
+            )) {
+            return;
+        }
+        Gtk.Widget? row = list.pick(
+            top.x, top.y,
+            Gtk.PickFlags.INSENSITIVE | Gtk.PickFlags.NON_TARGETABLE
+        )?.get_ancestor(typeof(Gtk.ListBoxRow));
+        Graphene.Point offset = Graphene.Point();
+        if (row == null || row.get_height() <= 0 ||
+            !viewport.compute_point(row, { 0, 0 }, out offset)) {
+            return;
+        }
+        this.scroll_anchor = row;
+        this.scroll_anchor_fraction = offset.y / row.get_height();
+    }
+
+    private void restore_scroll_anchor() {
+        Gtk.Widget? viewport = this.conversation_scroller.child;
+        Graphene.Point offset = Graphene.Point();
+        if (this.scroll_anchor == null || viewport == null ||
+            !viewport.compute_point(this.scroll_anchor, { 0, 0 }, out offset)) {
+            return;
+        }
+        double target =
+            this.scroll_anchor_fraction * this.scroll_anchor.get_height();
+        this.restoring_scroll = true;
+        this.conversation_scroller.vadjustment.value += target - offset.y;
+        this.restoring_scroll = false;
+    }
+
     // Remove any existing conversation list, cancelling its loading
     private Gtk.Widget remove_current_list() {
+        this.scroll_anchor = null;
         // Remove the viewport that contains the current list
         Gtk.Widget? scrolled_child = this.conversation_scroller.get_child();
         if (scrolled_child != null) {
