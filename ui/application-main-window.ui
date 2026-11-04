@@ -412,16 +412,10 @@
       </object>
     </child>
 
-    <child>
-      <object class="AdwBreakpoint">
-        <condition>max-width: 1020sp</condition>
-        <setter object="conversation_viewer_actions_revealer" property="reveal-child">True</setter>
-      </object>
-    </child>
     <!-- 1st breakpoint: split folder/conversation list from conversation viewer -->
     <child>
       <object class="AdwBreakpoint">
-        <condition>max-width: 920sp</condition>
+        <condition>max-width: 1000sp</condition>
         <setter object="outer_view" property="collapsed">True</setter>
       </object>
     </child>
@@ -429,15 +423,6 @@
     <child>
       <object class="AdwBreakpoint">
         <condition>max-width: 540sp</condition>
-        <setter object="outer_view" property="collapsed">True</setter>
-        <setter object="inner_view" property="collapsed">True</setter>
-        <setter object="folder_drawer_button" property="visible">True</setter>
-      </object>
-    </child>
-    <!-- When things get really tight, split up the actions in the conversation viewer -->
-    <child>
-      <object class="AdwBreakpoint">
-        <condition>max-width: 500sp</condition>
         <setter object="outer_view" property="collapsed">True</setter>
         <setter object="inner_view" property="collapsed">True</setter>
         <setter object="folder_drawer_button" property="visible">True</setter>
