@@ -286,6 +286,12 @@ row.convey-folder-popover-list-row > label {
   padding: 1px;
 }
 
+.convey-recipients > button {
+  min-height: 0;
+  padding: 2px 4px;
+  margin-left: -4px;
+}
+
 .convey-unsubscribe {
   min-height: 0;
   padding: 4px 8px;

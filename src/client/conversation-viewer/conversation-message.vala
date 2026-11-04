@@ -129,6 +129,11 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             primary.add_css_class(PRIMARY_CLASS);
             if (this.address_type == Type.FROM) {
                 primary.add_css_class(FROM_CLASS);
+            } else {
+                primary.ellipsize = Pango.EllipsizeMode.NONE;
+                primary.wrap = true;
+                primary.wrap_mode = Pango.WrapMode.WORD_CHAR;
+                primary.xalign = 0;
             }
             address_parts.append(primary);
 
@@ -143,7 +148,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 // contact popover uses the spoofed mailbox and
                 // displays it as being spoofed.
                 this.displayed = this.source;
-            } else if (this.contact.is_trusted) {
+            } else if (this.contact.is_trusted && this.address_type == Type.FROM) {
                 // The contact's name can be trusted, so no need to
                 // display the email address
                 primary.set_text(this.contact.display_name);
@@ -159,12 +164,21 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                     this.contact.display_name, this.source.address
                 );
 
-                Gtk.Label secondary = new Gtk.Label(null);
-                secondary.ellipsize = Pango.EllipsizeMode.END;
-                secondary.set_halign(Gtk.Align.START);
-                secondary.add_css_class("dim-label");
-                secondary.set_text(display_address);
-                address_parts.append(secondary);
+                if (this.address_type == Type.OTHER) {
+                    primary.set_markup(
+                        "%s <span alpha=\"55%%\">• %s</span>".printf(
+                            GLib.Markup.escape_text(this.contact.display_name),
+                            GLib.Markup.escape_text(display_address)
+                        )
+                    );
+                } else {
+                    Gtk.Label secondary = new Gtk.Label(null);
+                    secondary.ellipsize = Pango.EllipsizeMode.END;
+                    secondary.set_halign(Gtk.Align.START);
+                    secondary.add_css_class("dim-label");
+                    secondary.set_text(display_address);
+                    address_parts.append(secondary);
+                }
             }
 
             this.child = address_parts;
@@ -197,7 +211,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
          */
         private const int SHORT_RESULTS = 11;
 
-        private Adw.WrapBox wrapbox = new Adw.WrapBox();
+        private Gtk.Box wrapbox = new Gtk.Box(Gtk.Orientation.VERTICAL, 2);
 
         private Gtk.Label show_more;
         private Gtk.Label show_less;
@@ -209,8 +223,6 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
 
         construct {
             this.child = this.wrapbox;
-            this.wrapbox.child_spacing = 0;
-            this.wrapbox.line_spacing = 2;
 
             this.show_more = create_label();
             this.show_more.activate_link.connect(() => {
@@ -241,16 +253,11 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 }
             });
             child.add_controller(click);
+            child.can_focus = false;
 
-            if (!this.contacts.is_empty) {
-                var comma = new Gtk.Label(",");
-                child.margin_start = 4;
-                this.wrapbox.insert_child_after(comma, this.contacts.last());
-                this.separators.add(comma);
-            }
             this.wrapbox.insert_child_after(
                 child,
-                this.separators.is_empty ? null : this.separators.last()
+                this.contacts.is_empty ? null : this.contacts.last()
             );
             this.contacts.add(child);
 
@@ -361,16 +368,21 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
     private Gtk.Overlay? header_overlay = null;
     private Gtk.Widget? header_actions = null;
     private Gtk.Button? unsubscribe_button = null;
+    private Gtk.Button? unsubscribe_sizer = null;
 
     [GtkChild] private unowned Gtk.Box sender_header;
     [GtkChild] private unowned Gtk.FlowBox sender_address;
 
     [GtkChild] private unowned Gtk.Image encryption_icon;
+    [GtkChild] private unowned Gtk.Box recipients_row;
+    [GtkChild] private unowned Gtk.Label recipients_summary;
+    [GtkChild] private unowned Gtk.Label details_date;
 
     [GtkChild] private unowned Gtk.Box reply_to_header;
     [GtkChild] private unowned Gtk.Box to_header;
     [GtkChild] private unowned Gtk.FlowBox reply_to_addresses;
 
+    [GtkChild] private unowned ContactList from_list;
     [GtkChild] private unowned ContactList to_list;
     [GtkChild] private unowned ContactList cc_list;
     [GtkChild] private unowned ContactList bcc_list;
@@ -763,19 +775,27 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
     }
 
     private void reserve_unsubscribe_space() {
-        if (this.unsubscribe_button == null) {
+        if (this.header_actions == null) {
             return;
+        }
+        if (this.unsubscribe_button == null && this.unsubscribe_sizer == null) {
+            this.unsubscribe_sizer = new Gtk.Button.with_label(_("Unsubscribe"));
+            this.unsubscribe_sizer.add_css_class("convey-unsubscribe");
         }
         int button_width, button_height, actions_width, actions_height;
         int from_width, from_height;
-        measure_natural(this.unsubscribe_button, out button_width, out button_height);
+        measure_natural(
+            this.unsubscribe_button ?? this.unsubscribe_sizer,
+            out button_width, out button_height
+        );
         measure_natural(this.header_actions, out actions_width, out actions_height);
         measure_natural(this.from_header, out from_width, out from_height);
-        int reserved = int.max(0, button_width - actions_width);
+        int reserved = this.unsubscribe_button == null
+            ? 0 : int.max(0, button_width - actions_width);
         int overhang = int.max(0, actions_height - from_height) / 2;
         this.subject.margin_end = reserved;
-        this.to_header.margin_end = this.subject.visible ? 0 : reserved;
-        this.to_header.height_request =
+        this.recipients_row.margin_end = this.subject.visible ? 0 : reserved;
+        this.recipients_row.height_request =
             this.subject.visible ? -1 : button_height + overhang;
     }
 
@@ -793,6 +813,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         this.header_overlay.set_clip_overlay(actions, false);
         this.header_overlay.get_child_position.connect(on_header_actions_position);
         this.summary.append(this.header_overlay);
+        actions.map.connect(reserve_unsubscribe_space);
     }
 
     private bool on_header_actions_position(Gtk.Overlay overlay,
@@ -1005,6 +1026,9 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 cancellable
             );
             yield fill_header_addresses(
+                this.from_list, headers.from, cancellable
+            );
+            yield fill_header_addresses(
                 this.to_list, headers.to, cancellable
             );
             yield fill_header_addresses(
@@ -1012,6 +1036,11 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
             );
             yield fill_header_addresses(
                 this.bcc_list, headers.bcc, cancellable
+            );
+            /// Translators: Summary of a message's recipients, e.g.
+            /// "to Alice and 2 others"
+            this.recipients_summary.label = _("to %s").printf(
+                Util.Email.to_short_recipient_display(headers)
             );
         }
     }
@@ -1215,6 +1244,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         this.compact_date.set_tooltip_text(date_tooltip);
 
         this.date.set_text(date_text);
+        this.details_date.set_text(date_tooltip);
         this.date.set_tooltip_text(date_tooltip);
     }
 

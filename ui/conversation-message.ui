@@ -105,67 +105,6 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox" id="sender_header">
-                    <property name="visible">False</property>
-                    <property name="orientation">horizontal</property>
-                    <child>
-                      <object class="GtkLabel" id="sender_label">
-                        <property name="label" translatable="yes">Sent by:</property>
-                        <property name="yalign">0</property>
-                        <style>
-                          <class name="dim-label"/>
-                          <class name="convey-header"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkFlowBox" id="sender_address">
-                        <property name="visible">False</property>
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <property name="column_spacing">4</property>
-                        <property name="homogeneous">False</property>
-                        <property name="max_children_per_line">4</property>
-                        <property name="selection_mode">none</property>
-                        <signal name="child-activated" handler="on_address_box_child_activated"/>
-                        <style>
-                          <class name="convey-header-value"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="reply_to_header">
-                    <property name="visible">False</property>
-                    <property name="orientation">horizontal</property>
-                    <child>
-                      <object class="GtkLabel" id="reply_to_label">
-                        <property name="label" translatable="yes">Reply to:</property>
-                        <property name="yalign">0</property>
-                        <style>
-                          <class name="dim-label"/>
-                          <class name="convey-header"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkFlowBox" id="reply_to_addresses">
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <property name="column_spacing">4</property>
-                        <property name="homogeneous">False</property>
-                        <property name="max_children_per_line">4</property>
-                        <property name="selection_mode">none</property>
-                        <signal name="child-activated" handler="on_address_box_child_activated"/>
-                        <style>
-                          <class name="convey-header-value"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
                   <object class="GtkLabel" id="subject">
                     <property name="visible">False</property>
                     <property name="halign">start</property>
@@ -181,8 +120,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox" id="to_header">
-                    <property name="visible">False</property>
+                  <object class="GtkBox" id="recipients_row">
                     <property name="orientation">horizontal</property>
                     <child>
                       <object class="GtkImage" id="encryption_icon">
@@ -197,74 +135,235 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="to_label">
-                        <property name="label" translatable="yes">To:</property>
-                        <property name="yalign">0</property>
+                      <object class="GtkMenuButton">
+                        <property name="halign">start</property>
+                        <property name="always-show-arrow">True</property>
+                        <child>
+                          <object class="GtkLabel" id="recipients_summary">
+                            <property name="ellipsize">end</property>
+                            <style>
+                              <class name="dim-label"/>
+                            </style>
+                          </object>
+                        </child>
+                        <property name="popover">
+                          <object class="GtkPopover">
+                            <child>
+                              <object class="AdwClamp">
+                                <property name="maximum-size">420</property>
+                                <property name="tightening-threshold">420</property>
+                                <child>
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">12</property>
+                                    <child>
+                                      <object class="GtkBox" id="details_from_header">
+                                        <property name="visible">False</property>
+                                        <property name="orientation">horizontal</property>
+                                        <child>
+                                          <object class="GtkLabel" id="details_from_label">
+                                            <property name="label" translatable="yes">From</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="ConversationMessageContactList" id="from_list">
+                                            <property name="valign">start</property>
+                                            <property name="hexpand">True</property>
+                                            <signal name="child-activated" handler="on_address_box_child_activated"/>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="sender_header">
+                                        <property name="visible">False</property>
+                                        <property name="orientation">horizontal</property>
+                                        <child>
+                                          <object class="GtkLabel" id="sender_label">
+                                            <property name="label" translatable="yes">Sent by</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkFlowBox" id="sender_address">
+                                            <property name="visible">False</property>
+                                            <property name="valign">start</property>
+                                            <property name="hexpand">True</property>
+                                            <property name="column_spacing">4</property>
+                                            <property name="homogeneous">False</property>
+                                            <property name="max_children_per_line">1</property>
+                                            <property name="selection_mode">none</property>
+                                            <signal name="child-activated" handler="on_address_box_child_activated"/>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="reply_to_header">
+                                        <property name="visible">False</property>
+                                        <property name="orientation">horizontal</property>
+                                        <child>
+                                          <object class="GtkLabel" id="reply_to_label">
+                                            <property name="label" translatable="yes">Reply to</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkFlowBox" id="reply_to_addresses">
+                                            <property name="valign">start</property>
+                                            <property name="hexpand">True</property>
+                                            <property name="column_spacing">4</property>
+                                            <property name="homogeneous">False</property>
+                                            <property name="max_children_per_line">1</property>
+                                            <property name="selection_mode">none</property>
+                                            <signal name="child-activated" handler="on_address_box_child_activated"/>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="to_header">
+                                        <property name="visible">False</property>
+                                        <property name="orientation">horizontal</property>
+                                        <child>
+                                          <object class="GtkLabel" id="to_label">
+                                            <property name="label" translatable="yes">To</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="ConversationMessageContactList" id="to_list">
+                                            <property name="valign">start</property>
+                                            <property name="hexpand">True</property>
+                                            <signal name="child-activated" handler="on_address_box_child_activated"/>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="cc_header">
+                                        <property name="orientation">horizontal</property>
+                                        <property name="visible">False</property>
+                                        <child>
+                                          <object class="GtkLabel" id="cc_label">
+                                            <property name="label" translatable="yes">Cc</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="ConversationMessageContactList" id="cc_list">
+                                            <property name="valign">start</property>
+                                            <property name="hexpand">True</property>
+                                            <signal name="child-activated" handler="on_address_box_child_activated"/>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="bcc_header">
+                                        <property name="orientation">horizontal</property>
+                                        <property name="visible">False</property>
+                                        <child>
+                                          <object class="GtkLabel" id="bcc_label">
+                                            <property name="label" translatable="yes">Bcc</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="ConversationMessageContactList" id="bcc_list">
+                                            <property name="valign">start</property>
+                                            <property name="hexpand">True</property>
+                                            <signal name="child-activated" handler="on_address_box_child_activated"/>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox">
+                                        <property name="orientation">horizontal</property>
+                                        <child>
+                                          <object class="GtkLabel" id="details_date_label">
+                                            <property name="label" translatable="yes">Date</property>
+                                            <property name="xalign">0</property>
+                                            <property name="yalign">0</property>
+                                            <style>
+                                              <class name="dim-label"/>
+                                              <class name="convey-header"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="details_date">
+                                            <property name="xalign">0</property>
+                                            <property name="hexpand">True</property>
+                                            <style>
+                                              <class name="convey-header-value"/>
+                                            </style>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                    <style>
+                                      <class name="convey-headers"/>
+                                    </style>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
                         <style>
-                          <class name="dim-label"/>
-                          <class name="convey-header"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ConversationMessageContactList" id="to_list">
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <signal name="child-activated" handler="on_address_box_child_activated"/>
-                        <style>
-                          <class name="convey-header-value"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="cc_header">
-                    <property name="orientation">horizontal</property>
-                    <property name="visible">False</property>
-                    <child>
-                      <object class="GtkLabel" id="cc_label">
-                        <property name="label" translatable="yes">Cc:</property>
-                        <property name="yalign">0</property>
-                        <style>
-                          <class name="dim-label"/>
-                          <class name="convey-header"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ConversationMessageContactList" id="cc_list">
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <signal name="child-activated" handler="on_address_box_child_activated"/>
-                        <style>
-                          <class name="convey-header-value"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkBox" id="bcc_header">
-                    <property name="orientation">horizontal</property>
-                    <property name="visible">False</property>
-                    <child>
-                      <object class="GtkLabel" id="bcc_label">
-                        <property name="label" translatable="yes">Bcc:</property>
-                        <property name="yalign">0</property>
-                        <style>
-                          <class name="dim-label"/>
-                          <class name="convey-header"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="ConversationMessageContactList" id="bcc_list">
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <signal name="child-activated" handler="on_address_box_child_activated"/>
-                        <style>
-                          <class name="convey-header-value"/>
+                          <class name="flat"/>
+                          <class name="convey-recipients"/>
                         </style>
                       </object>
                     </child>
@@ -323,4 +422,16 @@
       <class name="convey-message"/>
     </style>
   </template>
+  <object class="GtkSizeGroup">
+    <property name="mode">horizontal</property>
+    <widgets>
+      <widget name="details_from_label"/>
+      <widget name="sender_label"/>
+      <widget name="reply_to_label"/>
+      <widget name="to_label"/>
+      <widget name="cc_label"/>
+      <widget name="bcc_label"/>
+      <widget name="details_date_label"/>
+    </widgets>
+  </object>
 </interface>
