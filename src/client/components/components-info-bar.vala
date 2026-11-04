@@ -66,6 +66,8 @@ public class Components.InfoBar : Gtk.Box {
         this.status = new Gtk.Label(status);
         this.status.halign = START;
         this.status.xalign = 0;
+        this.status.wrap = true;
+        this.status.wrap_mode = Pango.WrapMode.WORD_CHAR;
 
         _set_message_type(Gtk.MessageType.INFO);
 
