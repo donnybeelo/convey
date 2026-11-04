@@ -48,6 +48,7 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
     internal const string ACTION_TRASH = "trash";
     internal const string ACTION_UNSUBSCRIBE = "unsubscribe";
     internal const string ACTION_VIEW_SOURCE = "view-source";
+    internal const string ACTION_OPEN_IN_WINDOW = "open-in-window";
 
     // Offset from the top of the list box which emails views will
     // scrolled to, so the user can see there are additional messages
@@ -85,6 +86,7 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
         { ACTION_TRASH, on_email_trash, ACTION_TARGET_TYPE },
         { ACTION_UNSUBSCRIBE, on_email_unsubscribe, ACTION_TARGET_TYPE },
         { ACTION_VIEW_SOURCE, on_email_view_source, ACTION_TARGET_TYPE },
+        { ACTION_OPEN_IN_WINDOW, on_email_open_in_window, ACTION_TARGET_TYPE },
     };
 
 
@@ -1676,6 +1678,14 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
         ConversationEmail? view = action_target_to_view(param);
         if (view != null) {
             view.print.begin();
+        }
+    }
+
+    private void on_email_open_in_window(GLib.SimpleAction action,
+                                         GLib.Variant? param) {
+        ConversationEmail? view = action_target_to_view(param);
+        if (view != null) {
+            view.primary_message.open_in_window();
         }
     }
 

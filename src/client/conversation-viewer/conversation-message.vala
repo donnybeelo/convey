@@ -1706,7 +1706,7 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
         }
     }
 
-    private void open_in_window() {
+    internal void open_in_window() {
         var main = get_root() as Application.MainWindow;
         if (main == null || this.body_html == null) {
             return;

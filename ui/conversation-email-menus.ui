@@ -66,6 +66,11 @@
     </section>
     <section>
       <item>
+        <!-- Translators: Menu item to open a message in a separate window -->
+        <attribute name="label" translatable="yes">Open in _Window</attribute>
+        <attribute name="action">eml.open-in-window</attribute>
+      </item>
+      <item>
         <!-- Translators: Menu item to print a single, specific message -->
         <attribute name="label" translatable="yes">_Print…</attribute>
         <attribute name="action">eml.print</attribute>
