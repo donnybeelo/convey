@@ -257,11 +257,26 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
             Pango.FontDescription font = Pango.FontDescription.from_string(value);
             WebKit.Settings settings = get_settings();
             settings.default_font_family = font.get_family();
-            settings.default_font_size = to_wk2_font_size(font);
+            uint base_px = (uint) WebKit.Settings.font_size_to_pixels(DESKTOP_DEFAULT_FONT_PT);
+            settings.default_font_size = base_px;
+            this.font_scale = to_wk2_font_size(font) / (double) base_px;
             set_settings(settings);
+            apply_zoom();
+            if (_monospace_font != null) {
+                this.monospace_font = _monospace_font;
+            }
         }
     }
     private string _document_font;
+
+    private const uint DESKTOP_DEFAULT_FONT_PT = 11;
+    private double font_scale = 1.0;
+    public double user_zoom { get; set; default = ZOOM_DEFAULT; }
+
+    private void apply_zoom() {
+        this.zoom_level = this.user_zoom * this.font_scale;
+        notify_property("preferred-height");
+    }
 
     public string monospace_font {
         get {
@@ -272,7 +287,7 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
             Pango.FontDescription font = Pango.FontDescription.from_string(value);
             WebKit.Settings settings = get_settings();
             settings.monospace_font_family = font.get_family();
-            settings.default_monospace_font_size = to_wk2_font_size(font);
+            settings.default_monospace_font_size = (uint) (to_wk2_font_size(font) / this.font_scale);
             set_settings(settings);
         }
     }
@@ -514,32 +529,30 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
     }
 
     public void zoom_reset() {
-        this.zoom_level = ZOOM_DEFAULT;
-        // Notify the preferred height has changed since it depends on
-        // the zoom level. Same for zoom in and out below.
-        notify_property("preferred-height");
+        this.user_zoom = ZOOM_DEFAULT;
+        apply_zoom();
     }
 
     public void zoom_in() {
         double new_zoom = double.min(
-            this.zoom_level + this.zoom_level * ZOOM_FACTOR, ZOOM_MAX
+            this.user_zoom + this.user_zoom * ZOOM_FACTOR, ZOOM_MAX
         );
-        if (new_zoom == this.zoom_level) {
+        if (new_zoom == this.user_zoom) {
             return;
         }
-        this.zoom_level = new_zoom;
-        notify_property("preferred-height");
+        this.user_zoom = new_zoom;
+        apply_zoom();
     }
 
     public void zoom_out() {
         double new_zoom = double.max(
-            this.zoom_level - this.zoom_level * ZOOM_FACTOR, ZOOM_MIN
+            this.user_zoom - this.user_zoom * ZOOM_FACTOR, ZOOM_MIN
         );
-        if (new_zoom == this.zoom_level) {
+        if (new_zoom == this.user_zoom) {
             return;
         }
-        this.zoom_level = new_zoom;
-        notify_property("preferred-height");
+        this.user_zoom = new_zoom;
+        apply_zoom();
     }
 
     public new async void set_editable(bool enabled,
@@ -684,16 +697,17 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         // to a single value, so zooming one message would reflow them
         // all at once (a noticeable stall on large threads). New views
         // still open at the last-used zoom via the initial read.
-        this.zoom_level = config.conversation_viewer_zoom;
-        if (this.zoom_level < ZOOM_MIN) {
-            this.zoom_level = ZOOM_MIN;
-        } else if (this.zoom_level > ZOOM_MAX) {
-            this.zoom_level = ZOOM_MAX;
+        this.user_zoom = config.conversation_viewer_zoom;
+        if (this.user_zoom < ZOOM_MIN) {
+            this.user_zoom = ZOOM_MIN;
+        } else if (this.user_zoom > ZOOM_MAX) {
+            this.user_zoom = ZOOM_MAX;
         }
         config.bind(
             Application.Configuration.CONVERSATION_VIEWER_ZOOM_KEY,
-            this, "zoom_level", GLib.SettingsBindFlags.SET
+            this, "user-zoom", GLib.SettingsBindFlags.SET
         );
+        apply_zoom();
         var scroll_controller = new Gtk.EventControllerScroll(Gtk.EventControllerScrollFlags.VERTICAL);
         scroll_controller.scroll.connect(on_scroll_event);
         add_controller(scroll_controller);
