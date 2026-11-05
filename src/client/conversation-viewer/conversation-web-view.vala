@@ -224,6 +224,12 @@ public class ConversationWebView : Components.WebView {
         return height;
     }
 
+    protected override void scroll_zoom(bool increase) {
+        if (!activate_action("win.zoom", "s", increase ? "in" : "out")) {
+            base.scroll_zoom(increase);
+        }
+    }
+
     private void init() {
         register_message_callback(
             DECEPTIVE_LINK_CLICKED, on_deceptive_link_clicked

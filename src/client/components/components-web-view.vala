@@ -505,6 +505,14 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         execute_editing_command(WebKit.EDITING_COMMAND_COPY);
     }
 
+    protected virtual void scroll_zoom(bool increase) {
+        if (increase) {
+            zoom_in();
+        } else {
+            zoom_out();
+        }
+    }
+
     public void zoom_reset() {
         this.zoom_level = ZOOM_DEFAULT;
         // Notify the preferred height has changed since it depends on
@@ -841,10 +849,10 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         var event = (Gdk.ScrollEvent) scroll_controller.get_current_event();
         if (Gdk.ModifierType.CONTROL_MASK in event.get_modifier_state()) {
             if (event.get_direction() == Gdk.ScrollDirection.UP) {
-                zoom_in();
+                scroll_zoom(true);
                 return true;
             } else if (event.get_direction() == Gdk.ScrollDirection.DOWN) {
-                zoom_out();
+                scroll_zoom(false);
                 return true;
             } else if (event.get_direction() == Gdk.ScrollDirection.SMOOTH) {
                 // Touchpads emit many tiny deltas per gesture. Zooming
@@ -855,11 +863,11 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
                 event.get_deltas(out delta_x, out delta_y);
                 this.zoom_scroll_delta += delta_y;
                 while (this.zoom_scroll_delta <= -1.0) {
-                    zoom_in();
+                    scroll_zoom(true);
                     this.zoom_scroll_delta += 1.0;
                 }
                 while (this.zoom_scroll_delta >= 1.0) {
-                    zoom_out();
+                    scroll_zoom(false);
                     this.zoom_scroll_delta -= 1.0;
                 }
                 return true;

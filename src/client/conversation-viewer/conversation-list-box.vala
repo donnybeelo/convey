@@ -1039,51 +1039,31 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
     /**
      * Increases the magnification level used for displaying messages.
      */
-    // The message the user is looking at: the primary message of the
-    // topmost email currently in the viewport. Zoom acts on this one
-    // view so it responds instantly, rather than reflowing the whole
-    // thread.
-    private ConversationMessage? viewport_message() {
-        var adj = this.listbox.get_adjustment();
-        double bottom = adj.value + adj.page_size;
-        var row = this.listbox.get_row_at_y(
-            (int) adj.value + EMAIL_TOP_OFFSET
-        ) as EmailRow;
-        while (row != null && !row.is_expanded) {
-            var next = this.listbox.get_row_at_index(row.get_index() + 1);
-            Graphene.Point point = {};
-            if (next == null ||
-                !next.compute_point(this.listbox, { 0, 0 }, out point) ||
-                point.y >= bottom) {
-                return null;
-            }
-            row = next as EmailRow;
-        }
-        return row != null ? row.view.primary_message : null;
-    }
-
     public void zoom_in() {
-        var msg_view = viewport_message();
-        if (msg_view != null)
+        message_view_iterator().foreach((msg_view) => {
             msg_view.zoom_in();
+            return true;
+        });
     }
 
     /**
      * Decreases the magnification level used for displaying messages.
      */
     public void zoom_out() {
-        var msg_view = viewport_message();
-        if (msg_view != null)
+        message_view_iterator().foreach((msg_view) => {
             msg_view.zoom_out();
+            return true;
+        });
     }
 
     /**
      * Resets magnification level used for displaying messages to the default.
      */
     public void zoom_reset() {
-        var msg_view = viewport_message();
-        if (msg_view != null)
+        message_view_iterator().foreach((msg_view) => {
             msg_view.zoom_reset();
+            return true;
+        });
     }
 
     /**
