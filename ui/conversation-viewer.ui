@@ -100,6 +100,7 @@
                             <property name="wrap-mode">word-char</property>
                             <property name="ellipsize">end</property>
                             <property name="lines">3</property>
+                            <property name="selectable">True</property>
                             <style>
                               <class name="title-3"/>
                               <class name="conversation-subject"/>
