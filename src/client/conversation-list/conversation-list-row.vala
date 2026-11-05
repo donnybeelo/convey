@@ -111,6 +111,13 @@ internal class ConversationList.Row : Gtk.ListBoxRow {
         update();
     }
 
+    public override bool focus(Gtk.DirectionType direction) {
+        if (!this.config.autoselect && !this.has_focus && get_focus_child() == null) {
+            return grab_focus();
+        }
+        return base.focus(direction);
+    }
+
     /** Shows the row immediately, without animating. */
     internal void show_now() {
         this.revealer.transition_type = NONE;
