@@ -21,6 +21,8 @@ internal class ConversationList.Row : Gtk.ListBoxRow {
 
     [GtkChild] unowned Gtk.Box details;
     [GtkChild] unowned Gtk.Box preview_box;
+    [GtkChild] unowned Gtk.Box participants_box;
+    [GtkChild] unowned Gtk.Box subject_box;
     [GtkChild] unowned Gtk.Image encrypted_icon;
     [GtkChild] unowned Gtk.Label preview;
     [GtkChild] unowned Gtk.Label subject;
@@ -55,6 +57,7 @@ internal class ConversationList.Row : Gtk.ListBoxRow {
                     previous = widget;
                 }
             }
+            place_count_badge();
         }
     }
 
@@ -95,12 +98,16 @@ internal class ConversationList.Row : Gtk.ListBoxRow {
 
         conversation.email_flags_changed.connect(update_flags);
 
+        this.participants_box.notify["visible"].connect(place_count_badge);
+        this.subject_box.notify["visible"].connect(place_count_badge);
+        this.preview_box.notify["visible"].connect(place_count_badge);
+
         config.bind(Application.Configuration.DISPLAY_PREVIEW_KEY,
                     this.preview_box, "visible");
         config.bind(Application.Configuration.DISPLAY_PARTICIPANTS_KEY,
-                    this.participants, "visible");
+                    this.participants_box, "visible");
         config.bind(Application.Configuration.DISPLAY_SUBJECT_KEY,
-                    this.subject, "visible");
+                    this.subject_box, "visible");
         config.bind(Application.Configuration.CONVERSATION_LIST_ORDER_KEY,
                     this, "field-order", GET);
 
@@ -280,12 +287,24 @@ internal class ConversationList.Row : Gtk.ListBoxRow {
         }
     }
 
+    private void place_count_badge() {
+        var line = this.details.get_first_child();
+        while (line != null && !line.visible) {
+            line = line.get_next_sibling();
+        }
+        var badge = this.count_badge;
+        if (line != null && badge.parent != line) {
+            badge.unparent();
+            badge.insert_before(line, null);
+        }
+    }
+
     private Gtk.Widget? get_field_widget(string field) {
         switch (field) {
         case "participants":
-            return this.participants;
+            return this.participants_box;
         case "subject":
-            return this.subject;
+            return this.subject_box;
         case "preview":
             return this.preview_box;
         default:

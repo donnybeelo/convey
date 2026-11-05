@@ -32,11 +32,16 @@ public class CountBadge : Gtk.Widget {
     public override void measure(Gtk.Orientation orientation, int for_size,
                                  out int minimum, out int natural,
                                  out int minimum_baseline, out int natural_baseline) {
+        var layout = create_layout();
         Pango.Rectangle ink, logical;
-        create_layout().get_extents(out ink, out logical);
+        layout.get_extents(out ink, out logical);
         var size = orientation == Gtk.Orientation.HORIZONTAL ? logical.width : logical.height;
         minimum = natural = (int) Math.ceil(Pango.units_to_double(size));
-        minimum_baseline = natural_baseline = -1;
+        minimum_baseline = natural_baseline = orientation == Gtk.Orientation.HORIZONTAL ? -1 : (int) Math.round(
+            (natural - Pango.units_to_double(ink.height)) / 2
+            - Pango.units_to_double(ink.y)
+            + Pango.units_to_double(layout.get_baseline())
+        );
     }
 
     public override void snapshot(Gtk.Snapshot snapshot) {
