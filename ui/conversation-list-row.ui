@@ -96,6 +96,9 @@
                 <child>
                   <object class="GtkImage" id="flagged_icon">
                     <property name="icon-name">starred-symbolic</property>
+                    <style>
+                      <class name="flagged-icon"/>
+                    </style>
                   </object>
                 </child>
                 <child>

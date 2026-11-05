@@ -166,14 +166,19 @@ row.conversation-list.unread .details > :nth-child(2) {
 }
 
 row.conversation-list .count-badge {
-  background: @window_fg_color;
+  background: alpha(@window_fg_color, 0.65);
   color: @window_bg_color;
-  margin-top: 4px;
-  min-width: 0.8em;
+  margin-bottom: 0;
+  min-width: 1em;
   padding: 0 4px;
   border-radius: 1em;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: bold;
+}
+
+row.conversation-list .flagged-icon {
+  color: alpha(@window_fg_color, 0.65);
+  -gtk-icon-size: calc(1em + 2px);
 }
 
 row.conversation-list check {
