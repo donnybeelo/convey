@@ -1045,13 +1045,21 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
     // thread.
     private ConversationMessage? viewport_message() {
         var adj = this.listbox.get_adjustment();
+        double bottom = adj.value + adj.page_size;
         var row = this.listbox.get_row_at_y(
             (int) adj.value + EMAIL_TOP_OFFSET
         ) as EmailRow;
-        if (row == null || !row.is_expanded) {
-            return null;
+        while (row != null && !row.is_expanded) {
+            var next = this.listbox.get_row_at_index(row.get_index() + 1);
+            Graphene.Point point = {};
+            if (next == null ||
+                !next.compute_point(this.listbox, { 0, 0 }, out point) ||
+                point.y >= bottom) {
+                return null;
+            }
+            row = next as EmailRow;
         }
-        return row.view.primary_message;
+        return row != null ? row.view.primary_message : null;
     }
 
     public void zoom_in() {
