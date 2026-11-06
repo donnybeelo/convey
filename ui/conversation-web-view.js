@@ -119,13 +119,15 @@ ConversationPageState.prototype = {
         root.style.setProperty("--convey-layout-width", width + "px");
         root.classList.add("convey-layout");
 
-        let contents = document.createRange();
-        contents.selectNodeContents(body);
-        let measure = () => Math.max(
-            0,
-            contents.getBoundingClientRect().bottom -
-                body.getBoundingClientRect().top
-        );
+        let measure = () => {
+            let end = document.createElement("div");
+            end.style.clear = "both";
+            body.appendChild(end);
+            let height = end.getBoundingClientRect().top -
+                body.getBoundingClientRect().top;
+            end.remove();
+            return Math.max(0, height);
+        };
         let bodyHeight = measure();
         let outside = body.getBoundingClientRect().top + marginBottom;
         let fits = (height) => outside + height * zoom <= this.maxHeight;

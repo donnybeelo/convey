@@ -24,6 +24,7 @@ class ConversationPageStateTest : Components.WebViewTestCase<ConversationWebView
         add_test("is_descendant_of_with_class", is_descendant_of_with_class);
         add_test("is_descendant_of_no_match", is_descendant_of_no_match);
         add_test("is_descendant_of_lax", is_descendant_of_lax);
+        add_test("folded_quote_height", folded_quote_height);
 
         try {
             ConversationWebView.load_resources();
@@ -152,6 +153,33 @@ class ConversationPageStateTest : Components.WebViewTestCase<ConversationWebView
         );
     }
 
+
+    public void folded_quote_height() throws GLib.Error {
+        var window = new Gtk.Window();
+        window.set_default_size(800, 600);
+        window.child = (Gtk.Widget) this.test_view;
+        window.present();
+
+        string lines = "";
+        for (int i = 0; i < 60; i++) {
+            lines += "line<br>";
+        }
+        load_body_fixture("<p>hello</p><blockquote>" + lines + "</blockquote>");
+
+        double folded = Util.JS.to_double(
+            run_javascript("convey.getPreferredHeight()")
+        );
+        double unfolded = Util.JS.to_double(
+            run_javascript("""
+                document.querySelector(".convey-shower button").click();
+                convey.getPreferredHeight();
+            """)
+        );
+        window.destroy();
+
+        assert(folded < 300);
+        assert(unfolded > 900);
+    }
 
     protected override ConversationWebView set_up_test_view(GLib.File cache_dir) {
         return new ConversationWebView(this.config, cache_dir);
