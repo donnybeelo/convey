@@ -251,6 +251,7 @@ ConversationPageState.prototype = {
         document.body.insertBefore(headerTable, document.body.firstChild);
     },
     loaded: function() {
+        this.fixViewportHeights();
         this.updateDirection();
         this.createControllableQuotes();
         this.wrapSignature();
@@ -259,6 +260,49 @@ ConversationPageState.prototype = {
         new ResizeObserver(() => this.updatePreferredHeight())
             .observe(document.body);
         PageState.prototype.loaded.apply(this, []);
+    },
+    /**
+     * Replace viewport height units with pixels based on the screen height.
+     */
+    fixViewportHeights: function() {
+        let unit = screen.height / 100;
+        let fix = (style) => {
+            for (let i = 0; i < style.length; i++) {
+                let name = style[i];
+                let value = style.getPropertyValue(name);
+                let fixed = value.replace(
+                    /(-?[\d.]+)[dsl]?vh\b/g, (m, n) => n * unit + "px"
+                );
+                if (fixed != value) {
+                    style.setProperty(
+                        name, fixed, style.getPropertyPriority(name)
+                    );
+                }
+            }
+        };
+        let walk = (rules) => {
+            for (const rule of rules) {
+                if (rule.style != null) {
+                    fix(rule.style);
+                }
+                if (rule.cssRules != null) {
+                    walk(rule.cssRules);
+                }
+            }
+        };
+        for (const sheet of document.styleSheets) {
+            if (sheet.ownerNode == null) {
+                continue;
+            }
+            try {
+                walk(sheet.cssRules);
+            } catch (e) {
+                // skip stylesheets that can't be accessed
+            }
+        }
+        for (const el of document.querySelectorAll("[style]")) {
+            fix(el.style);
+        }
     },
     /**
      * Set dir="auto" if not already set.

@@ -25,6 +25,7 @@ class ConversationPageStateTest : Components.WebViewTestCase<ConversationWebView
         add_test("is_descendant_of_no_match", is_descendant_of_no_match);
         add_test("is_descendant_of_lax", is_descendant_of_lax);
         add_test("folded_quote_height", folded_quote_height);
+        add_test("viewport_height_does_not_grow", viewport_height_does_not_grow);
 
         try {
             ConversationWebView.load_resources();
@@ -179,6 +180,29 @@ class ConversationPageStateTest : Components.WebViewTestCase<ConversationWebView
 
         assert(folded < 300);
         assert(unfolded > 900);
+    }
+
+    public void viewport_height_does_not_grow() throws GLib.Error {
+        var window = new Gtk.Window();
+        window.set_default_size(800, 600);
+        window.child = (Gtk.Widget) this.test_view;
+        window.present();
+
+        load_body_fixture("<div style='min-height:100vh'>hello</div>");
+
+        var loop = new GLib.MainLoop();
+        GLib.Timeout.add(2000, () => {
+            loop.quit();
+            return GLib.Source.REMOVE;
+        });
+        loop.run();
+
+        bool fits = Util.JS.to_bool(
+            run_javascript("convey.getPreferredHeight() < screen.height + 100")
+        );
+        window.destroy();
+
+        assert(fits);
     }
 
     protected override ConversationWebView set_up_test_view(GLib.File cache_dir) {
