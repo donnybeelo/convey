@@ -1549,6 +1549,20 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 });
             popover.closed.connect(() => {
                     address_child.unset_state_flags(Gtk.StateFlags.ACTIVE);
+                    var details = address_child.get_ancestor(
+                        typeof(Gtk.Popover)
+                    ) as Gtk.Popover;
+                    if (details != null) {
+                        // Re-show the details popover so it regains the
+                        // input grab the contact menu took from it
+                        GLib.Idle.add(() => {
+                            if (details.visible) {
+                                details.popdown();
+                                details.popup();
+                            }
+                            return GLib.Source.REMOVE;
+                        });
+                    }
                 });
             popover.popup();
         }
