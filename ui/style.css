@@ -292,9 +292,17 @@ row.convey-folder-popover-list-row > label {
   padding: 1px;
 }
 
+.convey-headers {
+  --convey-second-line-offset: 2px;
+}
+
+.convey-headers > label.convey-subject {
+  margin-top: var(--convey-second-line-offset);
+}
+
 .convey-recipients > button {
   min-height: 0;
-  padding: 2px 4px;
+  padding: var(--convey-second-line-offset) 4px;
   margin-left: -4px;
 }
 
