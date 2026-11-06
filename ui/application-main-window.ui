@@ -434,7 +434,7 @@
   <menu id="app_menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Accounts</attribute>
+        <attribute name="label" translatable="yes">Manage _Accounts</attribute>
         <attribute name="action">app.accounts</attribute>
       </item>
       <item>

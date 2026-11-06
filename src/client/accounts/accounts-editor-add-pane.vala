@@ -352,31 +352,6 @@ internal class Accounts.EditorAddPane : Accounts.EditorPane {
         this.last_valid_hostname = hostname;
     }
 
-    private void add_goa_account() {
-        this.accounts.add_goa_account.begin(
-            this.provider, this.op_cancellable,
-            (obj, res) => {
-                bool add_local = false;
-                try {
-                    this.accounts.add_goa_account.end(res);
-                } catch (GLib.IOError.NOT_SUPPORTED err) {
-                    // Not a supported type, so don't bother logging the error
-                    add_local = true;
-                } catch (GLib.Error err) {
-                    debug("Failed to add %s via GOA: %s",
-                          this.provider.to_string(), err.message);
-                    add_local = true;
-                }
-
-                if (add_local) {
-                    switch_to_server_settings();
-                } else {
-                    this.editor.pop_pane();
-                }
-            }
-        );
-    }
-
     [GtkCallback]
     private void on_validated(Components.ValidatorGroup validators,
                               Components.Validator validator) {
@@ -460,15 +435,7 @@ internal class Accounts.EditorAddPane : Accounts.EditorPane {
     [GtkCallback]
     private void on_action_button_clicked() {
         if (this.stack.get_visible_child_name() == "user_settings") {
-            switch (this.provider) {
-            case Convey.ServiceProvider.GMAIL:
-            case Convey.ServiceProvider.OUTLOOK:
-                add_goa_account();
-                break;
-            case Convey.ServiceProvider.OTHER:
-                switch_to_server_settings();
-                break;
-            }
+            switch_to_server_settings();
         } else {
             this.validate_account.begin(this.op_cancellable);
         }

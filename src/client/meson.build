@@ -158,6 +158,7 @@ client_dependencies = [
   gio,
   gmime,
   goa,
+  goa_backend,
   gtk,
   icu_uc,
   javascriptcoregtk,

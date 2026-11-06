@@ -30,6 +30,7 @@ public class Accounts.Manager : GLib.Object {
     private const string LOCAL_ID_PREFIX = "account_";
     private const string LOCAL_ID_FORMAT = "account_%02u";
     private const string GOA_ID_PREFIX = "goa_";
+    private const string GOA_NON_IMAP_MAIL_PROVIDER = "exchange";
 
     private const int CONFIG_VERSION = 1;
 
@@ -151,7 +152,13 @@ public class Accounts.Manager : GLib.Object {
 
     public async void connect_goa(GLib.Cancellable? cancellable)
         throws GLib.Error {
-        this.goa_service = yield new Goa.Client(cancellable);
+        var client = yield new Goa.Client(cancellable);
+        var manager = (GLib.DBusObjectManagerClient) client.get_object_manager();
+        if (manager.name_owner == null) {
+            debug("GNOME Online Accounts is not installed");
+            return;
+        }
+        this.goa_service = client;
         this.goa_service.account_added.connect(on_goa_account_added);
         this.goa_service.account_changed.connect(on_goa_account_changed);
         this.goa_service.account_removed.connect(on_goa_account_removed);
@@ -400,54 +407,51 @@ public class Accounts.Manager : GLib.Object {
         get { return this.goa_service != null; }
     }
 
-    /**
-     * Opens the GNOME Online Accounts panel in GNOME Settings.
-     *
-     * Throws an error if it was not possible to open GNOME Settings.
-     */
-    public async void add_goa_account_of_any_type(GLib.Cancellable? cancellable)
+    /** Returns the GNOME Online Accounts providers usable for mail. */
+    internal async Gee.List<Goa.Provider> get_goa_providers()
         throws GLib.Error {
-        yield open_goa_settings("add", null, cancellable);
-    }
-
-    /**
-     * Opens GNOME Settings to add an account of a particular type.
-     *
-     * Throws an error if it was not possible to open GNOME Settings,
-     * or if the given type is not supported for by GOA.
-     */
-    public async void add_goa_account(Convey.ServiceProvider type,
-                                      GLib.Cancellable? cancellable)
-        throws GLib.Error {
-        switch (type) {
-        case Convey.ServiceProvider.GMAIL:
-            yield open_goa_settings("add", "google", cancellable);
-            break;
-
-        case Convey.ServiceProvider.OUTLOOK:
-            yield open_goa_settings("add", "windows_live", cancellable);
-            break;
-
-        default:
-            throw new GLib.IOError.NOT_SUPPORTED("Not supported for GOA");
+        var providers = new Gee.ArrayList<Goa.Provider>();
+        GLib.List<Goa.Provider> all;
+        yield Goa.Provider.get_all(out all);
+        int branded = 0;
+        foreach (Goa.Provider provider in all) {
+            Goa.ProviderFeatures features = provider.get_provider_features();
+            if (!(Goa.ProviderFeatures.MAIL in features) ||
+                provider.get_provider_type() == GOA_NON_IMAP_MAIL_PROVIDER) {
+                continue;
+            }
+            if (Goa.ProviderFeatures.BRANDED in features) {
+                providers.insert(branded++, provider);
+            } else {
+                providers.add(provider);
+            }
         }
+        return providers;
     }
 
-    /**
-     * Opens GOA settings for the given account in GNOME Settings.
-     *
-     * Throws an error if it was not possible to open GNOME Settings,
-     * or if the given account is not backed by GOA.
-     */
+    /** Shows the GNOME Online Accounts sign-in for the given provider. */
+    internal async void add_goa_account(Goa.Provider provider,
+                                        Gtk.Widget parent,
+                                        GLib.Cancellable? cancellable)
+        throws GLib.Error {
+        yield provider.add_account(this.goa_service, parent, cancellable);
+    }
+
+    /** Shows the GNOME Online Accounts details for the given account. */
     public async void show_goa_account(Convey.AccountInformation account,
+                                       Gtk.Widget parent,
                                        GLib.Cancellable? cancellable)
         throws GLib.Error {
-        if (!is_goa_account(account)) {
+        GoaMediator? mediator = account.mediator as GoaMediator;
+        Goa.Provider? provider = (mediator == null) ? null :
+            Goa.Provider.get_for_provider_type(
+                mediator.handle.get_account().provider_type
+            );
+        if (provider == null) {
             throw new GLib.IOError.NOT_SUPPORTED("Not a GOA Account");
         }
-
-        yield open_goa_settings(
-            to_goa_id(account.id), null, cancellable
+        yield provider.show_account(
+            this.goa_service, mediator.handle, parent, cancellable
         );
     }
 
@@ -910,59 +914,6 @@ public class Accounts.Manager : GLib.Object {
         set_available(account, is_available);
     }
 
-
-    private async void open_goa_settings(string action,
-                                         string? param,
-                                         GLib.Cancellable? cancellable)
-        throws GLib.Error {
-        // This method was based on the implementation from:
-        // https://gitlab.gnome.org/GNOME/gnome-calendar/blob/master/src/gcal-source-dialog.c,
-        // Courtesy Georges Basile Stavracas Neto <georges.stavracas@gmail.com>
-        GLib.DBusProxy settings = yield new GLib.DBusProxy.for_bus(
-            GLib.BusType.SESSION,
-            GLib.DBusProxyFlags.NONE,
-            null,
-            "org.gnome.Settings",
-            "/org/gnome/Settings",
-            "org.gtk.Actions",
-            cancellable
-        );
-
-        // @s "launch-panel"
-        // @av [<@(sav) ("online-accounts", [<@s "add">, <@s "google">])>]
-        // @a{sv} {}
-
-        GLib.Variant[] args = new GLib.Variant[] {
-            new GLib.Variant.variant(new GLib.Variant.string(action))
-        };
-        if (param != null) {
-            args += new GLib.Variant.variant(new GLib.Variant.string(param));
-        }
-
-        GLib.Variant command = new GLib.Variant.tuple(
-            new GLib.Variant[] {
-                new GLib.Variant.string("online-accounts"),
-                new GLib.Variant.array(GLib.VariantType.VARIANT, args)
-            }
-        );
-
-        GLib.Variant params = new GLib.Variant.tuple(
-            new GLib.Variant[] {
-                new GLib.Variant.string("launch-panel"),
-                new GLib.Variant.array(
-                    GLib.VariantType.VARIANT,
-                    new GLib.Variant[] {
-                        new GLib.Variant.variant(command)
-                    }
-                ),
-                new GLib.Variant("a{sv}")
-            }
-        );
-
-        yield settings.call(
-            "Activate", params, GLib.DBusCallFlags.NONE, -1, cancellable
-        );
-    }
 
     private void on_goa_account_added(Goa.Object account) {
         debug("GOA account added: %s", account.get_account().id);

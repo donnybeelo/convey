@@ -59,6 +59,7 @@ convey_c_args = [
   '-DGCK_API_SUBJECT_TO_CHANGE',
   '-DGCR_API_SUBJECT_TO_CHANGE',
   '-DGOA_API_IS_SUBJECT_TO_CHANGE',
+  '-DGOA_BACKEND_API_IS_SUBJECT_TO_CHANGE',
 ]
 
 # Silence warnings that come from valac's generated C (unused temporaries,

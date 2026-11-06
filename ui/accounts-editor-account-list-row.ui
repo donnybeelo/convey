@@ -3,6 +3,12 @@
   <template class="AccountsAccountListRow" parent="AdwActionRow">
     <property name="activatable">True</property>
     <child type="prefix">
+      <object class="GtkImage" id="provider_icon">
+        <property name="icon-name">mail-unread-symbolic</property>
+        <property name="icon-size">large</property>
+      </object>
+    </child>
+    <child type="prefix">
       <object class="GtkImage" id="drag_icon">
         <property name="icon-name">list-drag-handle-symbolic</property>
         <child>

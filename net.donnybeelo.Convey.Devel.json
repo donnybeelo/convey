@@ -16,8 +16,8 @@
         "--socket=pulseaudio",
         "--share=network",
         "--talk-name=org.gnome.Contacts",
-        "--talk-name=org.gnome.Settings",
         "--talk-name=org.gnome.OnlineAccounts",
+        "--own-name=org.gnome.OnlineAccounts.OAuth2",
         "--talk-name=org.gnome.evolution.dataserver.*",
         "--talk-name=org.gnome.keyring.SystemPrompter",
         "--system-talk-name=org.freedesktop.login1",
@@ -49,7 +49,7 @@
             "name": "gnome-online-accounts",
             "buildsystem": "meson",
             "config-opts": [
-                "-Dgoabackend=false"
+                "-Dkerberos=false"
             ],
             "sources": [
                 {

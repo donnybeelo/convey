@@ -102,12 +102,12 @@ internal class Accounts.EditorServersPane : EditorPane, AccountPane, CommandPane
         if (this.account.mediator is GoaMediator) {
             this.account_provider_row.subtitle = _("GNOME Online Accounts");
 
-            var button = new Gtk.Button.from_icon_name("external-link-symbolic");
+            var button = new Gtk.Button.from_icon_name("document-edit-symbolic");
             button.valign = Gtk.Align.CENTER;
             button.clicked.connect((button) => {
                 if (accounts.is_goa_account(this.account)) {
                     accounts.show_goa_account.begin(
-                        account, this.op_cancellable,
+                        account, this, this.op_cancellable,
                         (obj, res) => {
                             try {
                                 accounts.show_goa_account.end(res);

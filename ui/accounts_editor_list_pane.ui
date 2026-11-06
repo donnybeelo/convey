@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="AccountsEditorListPane" parent="AccountsEditorPane">
-    <property name="title" translatable="yes">Accounts</property>
+    <property name="title" translatable="yes">Manage Accounts</property>
     <style>
       <class name="convey-accounts-editor-pane"/>
     </style>
@@ -41,6 +41,7 @@
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
+                    <property name="spacing">24</property>
                     <child>
                       <object class="GtkGrid" id="welcome_panel">
                         <property name="halign">center</property>
@@ -79,7 +80,7 @@
                             <property name="halign">start</property>
                             <property name="valign">start</property>
                             <property name="wrap">True</property>
-                            <property name="label" translatable="yes">To get started, add an email provider above.</property>
+                            <property name="label" translatable="yes">To get started, add an email provider.</property>
                             <property name="xalign">0</property>
                             <property name="wrap">True</property>
                             <layout>
@@ -94,11 +95,32 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkListBox" id="accounts_list">
-                        <property name="selection_mode">none</property>
-                        <signal name="row-activated" handler="on_row_activated"/>
+                      <object class="AdwPreferencesGroup" id="accounts_group">
+                        <property name="title" translatable="yes">Your Accounts</property>
+                        <child>
+                          <object class="GtkListBox" id="accounts_list">
+                            <property name="selection_mode">none</property>
+                            <signal name="row-activated" handler="on_row_activated"/>
+                            <style>
+                              <class name="boxed-list"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="AdwPreferencesGroup" id="providers_group">
+                        <property name="title" translatable="yes">Connect an Account</property>
+                        <property name="visible">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="goa_missing_label">
+                        <property name="label" translatable="yes">Install GNOME Online Accounts to add Google or Microsoft accounts.</property>
+                        <property name="visible">False</property>
+                        <property name="wrap">True</property>
                         <style>
-                          <class name="boxed-list"/>
+                          <class name="dim-label"/>
                         </style>
                       </object>
                     </child>

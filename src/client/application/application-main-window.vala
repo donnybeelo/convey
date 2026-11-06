@@ -1752,7 +1752,7 @@ public class Application.MainWindow :
         var inboxes_menu = new GLib.Menu();
         // Translators: Folder list context menu item opening the
         // accounts editor
-        inboxes_menu.append(_("_Manage Accounts…"), "app.accounts");
+        inboxes_menu.append(_("_Manage Accounts"), "app.accounts");
         var inboxes_popover = new Gtk.PopoverMenu.from_model(inboxes_menu) {
             has_arrow = false,
             halign = START

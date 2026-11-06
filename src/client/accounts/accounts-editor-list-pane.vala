@@ -57,9 +57,15 @@ internal class Accounts.EditorListPane : Accounts.EditorPane, CommandPane {
 
     [GtkChild] private unowned Gtk.Image welcome_icon;
 
+    [GtkChild] private unowned Gtk.Button add_button;
+
+    [GtkChild] private unowned Adw.PreferencesGroup accounts_group;
+
     [GtkChild] private unowned Gtk.ListBox accounts_list;
 
-    [GtkChild] private unowned Gtk.ScrolledWindow accounts_list_scrolled;
+    [GtkChild] private unowned Adw.PreferencesGroup providers_group;
+
+    [GtkChild] private unowned Gtk.Label goa_missing_label;
 
     private Gee.Map<Convey.AccountInformation,EditorEditPane> edit_pane_cache =
         new Gee.HashMap<Convey.AccountInformation,EditorEditPane>();
@@ -87,6 +93,13 @@ internal class Accounts.EditorListPane : Accounts.EditorPane, CommandPane {
         this.commands.redone.connect(on_execute);
         connect_command_signals();
         update_welcome_panel();
+
+        if (this.accounts.is_goa_available) {
+            this.add_button.visible = false;
+            load_goa_providers.begin();
+        } else {
+            this.goa_missing_label.visible = true;
+        }
     }
 
     public override void dispose() {
@@ -136,17 +149,55 @@ internal class Accounts.EditorListPane : Accounts.EditorPane, CommandPane {
     }
 
     private void update_welcome_panel() {
-        if (this.show_welcome) {
-            // No accounts are available, so show only the welcome
-            // pane and service list.
-            this.welcome_panel.show();
-            this.accounts_list_scrolled.hide();
-        } else {
-            // There are some accounts available, so show them and
-            // the full add service UI.
-            this.welcome_panel.hide();
-            this.accounts_list_scrolled.show();
+        this.welcome_panel.visible = this.show_welcome;
+        this.accounts_group.visible = !this.show_welcome;
+    }
+
+    private async void load_goa_providers() {
+        Gee.List<Goa.Provider> providers;
+        try {
+            providers = yield this.accounts.get_goa_providers();
+        } catch (GLib.Error err) {
+            debug("Failed to load GOA providers: %s", err.message);
+            this.add_button.visible = true;
+            return;
         }
+
+        foreach (Goa.Provider provider in providers) {
+            var icon = new Gtk.Image.from_gicon(provider.get_provider_icon(null));
+            icon.icon_size = Gtk.IconSize.LARGE;
+
+            var row = new Adw.ActionRow();
+            row.title = provider.get_provider_name(null);
+            row.activatable = true;
+            row.add_prefix(icon);
+            row.add_suffix(new Gtk.Image.from_icon_name("go-next-symbolic"));
+            row.activated.connect(() => connect_goa_account(provider));
+            this.providers_group.add(row);
+        }
+        this.providers_group.visible = true;
+    }
+
+    private void connect_goa_account(Goa.Provider provider) {
+        this.accounts.add_goa_account.begin(
+            provider, this, this.op_cancellable,
+            (obj, res) => {
+                try {
+                    this.accounts.add_goa_account.end(res);
+                } catch (GLib.IOError.CANCELLED err) {
+                    // User closed the dialog
+                } catch (GLib.Error err) {
+                    this.editor.add_toast(
+                        new Adw.Toast(
+                            // Translators: In-app notification label,
+                            // when a GNOME Online Accounts account
+                            // could not be added
+                            _("Unable to add account")
+                        )
+                    );
+                    debug("Failed to add GOA account: %s", err.message);
+                }
+            });
     }
 
     private AccountListRow? get_account_row(Convey.AccountInformation account) {
@@ -230,7 +281,7 @@ internal class Accounts.EditorListPane : Accounts.EditorPane, CommandPane {
             // GOA account but it's disabled, so just take people
             // directly to the GOA panel
             manager.show_goa_account.begin(
-                account_row.account, this.op_cancellable,
+                account_row.account, this, this.op_cancellable,
                 (obj, res) => {
                     try {
                         manager.show_goa_account.end(res);
@@ -257,21 +308,7 @@ internal class Accounts.EditorListPane : Accounts.EditorPane, CommandPane {
 
     [GtkCallback]
     private void on_add_button_clicked() {
-        Manager manager = this.accounts;
-        if (!manager.is_goa_available) {
-            show_new_account();
-            return;
-        }
-        manager.add_goa_account_of_any_type.begin(
-            this.op_cancellable,
-            (obj, res) => {
-                try {
-                    manager.add_goa_account_of_any_type.end(res);
-                } catch (GLib.Error err) {
-                    debug("Failed to open GNOME Online Accounts: %s", err.message);
-                    show_new_account();
-                }
-            });
+        show_new_account();
     }
 }
 
@@ -289,6 +326,7 @@ private class Accounts.AccountListRow : Adw.ActionRow {
     public Convey.AccountInformation account { get; construct set; }
 
     [GtkChild] private unowned Gtk.Image drag_icon;
+    [GtkChild] private unowned Gtk.Image provider_icon;
     [GtkChild] private unowned Gtk.Image unavailable_icon;
 
     private bool drag_picked_up = false;
@@ -320,21 +358,21 @@ private class Accounts.AccountListRow : Adw.ActionRow {
         }
         this.title = name;
 
-        string? details = this.account.service_label;
-        switch (account.service_provider) {
-        case Convey.ServiceProvider.GMAIL:
-            details = _("Gmail");
-            break;
+        this.subtitle = this.account.service_label;
 
-        case Convey.ServiceProvider.OUTLOOK:
-            details = _("Outlook.com");
-            break;
-
-        case Convey.ServiceProvider.OTHER:
-            // no-op: Use the generated label
-            break;
+        string provider_type = "imap_smtp";
+        GoaMediator? goa = this.account.mediator as GoaMediator;
+        if (goa != null) {
+            provider_type = goa.handle.get_account().provider_type;
+        } else if (this.account.service_provider == Convey.ServiceProvider.GMAIL) {
+            provider_type = "google";
+        } else if (this.account.service_provider == Convey.ServiceProvider.OUTLOOK) {
+            provider_type = "ms_graph";
         }
-        this.subtitle = details;
+        Goa.Provider? provider = Goa.Provider.get_for_provider_type(provider_type);
+        if (provider != null) {
+            this.provider_icon.gicon = provider.get_provider_icon(null);
+        }
     }
 
     public void update_status(Manager.Status status) {
