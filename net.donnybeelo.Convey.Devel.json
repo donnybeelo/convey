@@ -1,7 +1,7 @@
 {
     "app-id": "net.donnybeelo.Convey.Devel",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "master",
+    "runtime-version": "51",
     "sdk": "org.gnome.Sdk",
     "command": "convey",
     "desktop-file-name-suffix": " (Development)",
@@ -55,7 +55,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/gnome-online-accounts.git",
-                    "branch": "master"
+                    "tag": "3.58.1",
+                    "commit": "c1fd9e58b8e4559e690ab96a191304a6660fba97"
                 }
             ]
         },
@@ -103,7 +104,9 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/evolution-data-server.git"
+                    "url": "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
+                    "tag": "3.60.2",
+                    "commit": "242c81196daf074cdc4c224e48b7b4319985b589"
                 }
             ],
             "cleanup": [
@@ -126,7 +129,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/folks.git",
-                    "branch": "main"
+                    "tag": "0.15.12",
+                    "commit": "1157825538e3d565a4e9c519ac5fedd97ea10d00"
                 }
             ],
             "cleanup": [
@@ -158,7 +162,8 @@
                 {
                     "type": "git",
                     "url": "https://gitlab.gnome.org/GNOME/libpeas",
-                    "branch": "main"
+                    "tag": "2.2.1",
+                    "commit": "744430715e619069b3fcb6c994f2c09257700d05"
                 }
             ]
         },
@@ -168,7 +173,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/Yeraze/ytnef.git",
-                    "branch": "v1.9.3"
+                    "tag": "v1.9.3",
+                    "commit": "d9b2f01d125c9b178f7a00ec397cc2a9f258e8e1"
                 }
             ]
         },
@@ -179,7 +185,8 @@
                 {
                     "type": "git",
                     "url": "https://github.com/snowballstem/snowball.git",
-                    "branch": "main"
+                    "tag": "v3.1.1",
+                    "commit": "cd195b51e948a902a4312f023f4a14392516a543"
                 }
             ],
             "build-commands": [
