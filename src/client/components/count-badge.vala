@@ -29,17 +29,26 @@ public class CountBadge : Gtk.Widget {
         return layout;
     }
 
+    private Pango.Rectangle digit_ink() {
+        var layout = create_layout();
+        layout.set_text("0123456789", -1);
+        Pango.Rectangle ink;
+        layout.get_extents(out ink, null);
+        return ink;
+    }
+
     public override void measure(Gtk.Orientation orientation, int for_size,
                                  out int minimum, out int natural,
                                  out int minimum_baseline, out int natural_baseline) {
         var layout = create_layout();
         Pango.Rectangle ink, logical;
         layout.get_extents(out ink, out logical);
+        var digit = digit_ink();
         var size = orientation == Gtk.Orientation.HORIZONTAL ? logical.width : logical.height;
         minimum = natural = (int) Math.ceil(Pango.units_to_double(size));
         minimum_baseline = natural_baseline = orientation == Gtk.Orientation.HORIZONTAL ? -1 : (int) Math.round(
-            (natural - Pango.units_to_double(ink.height)) / 2
-            - Pango.units_to_double(ink.y)
+            (natural - Pango.units_to_double(digit.height)) / 2
+            - Pango.units_to_double(digit.y)
             + Pango.units_to_double(layout.get_baseline())
         );
     }
@@ -48,9 +57,10 @@ public class CountBadge : Gtk.Widget {
         var layout = create_layout();
         Pango.Rectangle ink, logical;
         layout.get_extents(out ink, out logical);
+        var digit = digit_ink();
         var origin = Graphene.Point() {
             x = (float) ((get_width() - Pango.units_to_double(ink.width)) / 2 - Pango.units_to_double(ink.x)),
-            y = (float) ((get_height() - Pango.units_to_double(ink.height)) / 2 - Pango.units_to_double(ink.y))
+            y = (float) Math.round((get_height() - Pango.units_to_double(digit.height)) / 2 - Pango.units_to_double(digit.y))
         };
         snapshot.save();
         snapshot.translate(origin);
