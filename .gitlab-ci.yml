@@ -132,13 +132,15 @@ flatpak:
     APP_ID: net.donnybeelo.Convey.Devel
     FLATPAK_MODULE: convey
     MANIFEST_PATH: net.donnybeelo.Convey.Devel.json
-    RUNTIME_REPO: 'https://nightly.gnome.org/gnome-nightly.flatpakrepo'
+    RUNTIME_REPO: 'https://flathub.org/repo/flathub.flatpakrepo'
+    CI_FB_ARGS: '--install-deps-from=flathub'
     TEST_RUN_ARGS: $TEST_ARGS
     BUNDLE: convey-dev.flatpak
   extends: .flatpak
   # Keeps XDG_RUNTIME_DIR out of CI_PROJECT_DIR, where its sockets break the
   # flatpak dir source copy.
   script:
+    - flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
     - sed 's#mktemp -p "[^"]*" -d xdg-runtime#mktemp -p "/tmp" -d xdg-runtime#' /usr/lib/citemplates/flatpak-job.sh > /tmp/flatpak-job.sh
     - bash /tmp/flatpak-job.sh
 
