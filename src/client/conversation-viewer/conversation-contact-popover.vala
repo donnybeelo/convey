@@ -9,7 +9,7 @@
  * Display contact information and supported actions for a contact.
  */
 [GtkTemplate (ui = "/net/donnybeelo/Convey/conversation-contact-popover.ui")]
-public class Conversation.ContactPopover : Gtk.Popover {
+public class Conversation.ContactPopover : Adw.Bin {
 
 
     private const string ACTION_COPY_EMAIL= "copy-email";
@@ -55,12 +55,6 @@ public class Conversation.ContactPopover : Gtk.Popover {
 
     [GtkChild] private unowned Gtk.Button unstarred_button;
 
-    [GtkChild] private unowned Gtk.Button open_button;
-
-    [GtkChild] private unowned Gtk.Button save_button;
-
-    [GtkChild] private unowned Gtk.CheckButton load_remote_button;
-
     [GtkChild] private unowned Gtk.Box deceptive_pane;
 
     [GtkChild] private unowned Gtk.Label forged_email_label;
@@ -68,6 +62,8 @@ public class Conversation.ContactPopover : Gtk.Popover {
     [GtkChild] private unowned Gtk.Label actual_email_label;
 
     private GLib.SimpleActionGroup actions = new GLib.SimpleActionGroup();
+
+    public unowned Gtk.PopoverMenu menu { get; private set; }
 
 
     /** Fired when the remote resources load pref changes */
@@ -79,7 +75,6 @@ public class Conversation.ContactPopover : Gtk.Popover {
                           Convey.RFC822.MailboxAddress mailbox,
                           Application.Configuration config) {
 
-        set_parent(relative_to);
         this.contact = contact;
         this.mailbox = mailbox;
         this.config = config;
@@ -95,7 +90,23 @@ public class Conversation.ContactPopover : Gtk.Popover {
         });
 
         this.actions.add_action_entries(ACTION_ENTRIES, this);
-        insert_action_group(ACTION_GROUP, this.actions);
+
+        var builder = new Gtk.Builder.from_resource(
+            "/net/donnybeelo/Convey/conversation-contact-popover-menus.ui"
+        );
+        var menu = new Gtk.PopoverMenu.from_model(
+            (GLib.MenuModel) builder.get_object("contact_menu")
+        );
+        menu.add_child(this, "header");
+        menu.insert_action_group(ACTION_GROUP, this.actions);
+        menu.set_parent(relative_to);
+        menu.closed.connect_after((m) => {
+            GLib.Idle.add(() => {
+                m.unparent();
+                return GLib.Source.REMOVE;
+            });
+        });
+        this.menu = menu;
 
         contact.changed.connect(this.on_contact_changed);
         update();
@@ -137,9 +148,10 @@ public class Conversation.ContactPopover : Gtk.Popover {
             this.starred_button.set_visible(starred);
             this.unstarred_button.set_visible(unstarred);
 
-            this.open_button.set_visible(is_desktop);
-            this.save_button.set_visible(!is_desktop);
-            this.load_remote_button.set_visible(!is_desktop);
+            set_actions_enabled(true);
+            set_action_enabled(ACTION_OPEN, is_desktop);
+            set_action_enabled(ACTION_SAVE, !is_desktop);
+            set_action_enabled(ACTION_LOAD_REMOTE, !is_desktop);
 
             GLib.SimpleAction load_remote = (GLib.SimpleAction)
                 actions.lookup_action(ACTION_LOAD_REMOTE);
@@ -154,11 +166,22 @@ public class Conversation.ContactPopover : Gtk.Popover {
         } else {
             this.deceptive_pane.show();
             this.contact_pane.hide();
+            set_actions_enabled(false);
 
             this.forged_email_label.label = Convey.String.reduce_whitespace(
                 this.mailbox.name
             );
             this.actual_email_label.label = this.mailbox.address;
+        }
+    }
+
+    private void set_action_enabled(string name, bool enabled) {
+        ((GLib.SimpleAction) this.actions.lookup_action(name)).set_enabled(enabled);
+    }
+
+    private void set_actions_enabled(bool enabled) {
+        foreach (unowned string name in this.actions.list_actions()) {
+            set_action_enabled(name, enabled);
         }
     }
 
@@ -277,14 +300,6 @@ public class Conversation.ContactPopover : Gtk.Popover {
 
     private void on_unstar() {
         this.set_favourite.begin(false);
-    }
-
-    [GtkCallback]
-    private void after_closed() {
-        GLib.Idle.add(() => {
-                this.destroy();
-                return GLib.Source.REMOVE;
-            } );
     }
 
 }

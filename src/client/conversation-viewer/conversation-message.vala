@@ -1529,18 +1529,19 @@ public class ConversationMessage : Gtk.Box, Convey.BaseInterface {
                 new Gee.HashMap<string,GLib.Variant>();
             values[ACTION_COPY_EMAIL] = address.to_full_display();
 
-            Conversation.ContactPopover popover = new Conversation.ContactPopover(
+            Conversation.ContactPopover contact = new Conversation.ContactPopover(
                 address_child,
                 address_child.contact,
                 address,
                 this.config
             );
+            Gtk.PopoverMenu popover = contact.menu;
             popover.set_position(Gtk.PositionType.BOTTOM);
             // Drop the arrow so halign actually left-aligns the popover
             // under the address (with an arrow it stays centred).
             popover.set_has_arrow(false);
             popover.set_halign(Gtk.Align.START);
-            popover.load_remote_resources_changed.connect((enabled) => {
+            contact.load_remote_resources_changed.connect((enabled) => {
                     if (this.primary_contact.equal_to(address_child.contact) &&
                         enabled) {
                         show_images(false);

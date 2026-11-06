@@ -456,6 +456,7 @@ ui/components-inspector.ui
 ui/components-menu-conversation.ui
 ui/components-placeholder-pane.ui
 ui/conversation-contact-popover.ui
+ui/conversation-contact-popover-menus.ui
 ui/conversation-email.ui
 ui/conversation-email-menus.ui
 ui/conversation-list-row.ui

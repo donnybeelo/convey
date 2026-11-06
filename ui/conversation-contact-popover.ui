@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="ConversationContactPopover" parent="GtkPopover">
-    <signal name="closed" handler="after_closed" after="yes" swapped="no"/>
+  <template class="ConversationContactPopover" parent="AdwBin">
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox" id="contact_pane">
-            <property name="margin-start">10</property>
-            <property name="margin-end">10</property>
-            <property name="margin-top">10</property>
-            <property name="margin-bottom">10</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkGrid">
@@ -84,73 +83,14 @@
                 </child>
               </object>
             </child>
-            <child>
-              <object class="GtkSeparator">
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="action-name">con.new-conversation</property>
-                <property name="label" translatable="yes">New Conversation…</property>
-                <style>
-                  <class name="flat"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="action-name">con.copy-email</property>
-                <property name="label" translatable="yes">Copy Email Address</property>
-                <style>
-                  <class name="flat"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkSeparator">
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="action-name">con.show-conversations</property>
-                <property name="label" translatable="yes">Show Conversations</property>
-                <style>
-                  <class name="flat"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="open_button">
-                <property name="action-name">con.open</property>
-                <property name="label" translatable="yes">Open in Contacts</property>
-                <style>
-                  <class name="flat"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton" id="save_button">
-                <property name="action-name">con.save</property>
-                <property name="label" translatable="yes">Save in Contacts…</property>
-                <style>
-                  <class name="flat"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="load_remote_button">
-                <property name="action-name">con.load-remote</property>
-                <property name="label" translatable="yes">Always Load Remote Images</property>
-              </object>
-            </child>
           </object>
         </child>
         <child>
           <object class="GtkBox" id="deceptive_pane">
-            <property name="margin-start">10</property>
-            <property name="margin-end">10</property>
-            <property name="margin-top">10</property>
-            <property name="margin-bottom">10</property>
+            <property name="margin-start">12</property>
+            <property name="margin-end">12</property>
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
             <property name="orientation">vertical</property>
             <property name="spacing">6</property>
             <child>
@@ -214,7 +154,6 @@
       </object>
     </child>
     <style>
-      <class name="menu"/>
       <class name="convey-contact-popover"/>
     </style>
   </template>
