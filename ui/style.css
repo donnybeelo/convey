@@ -212,6 +212,7 @@ row.convey-folder-popover-list-row > label {
 
 .conversation-subject {
   padding: 12px 24px 6px;
+  caret-color: transparent;
 }
 
 /* ConversationListBox */
