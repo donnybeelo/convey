@@ -46,6 +46,23 @@
     ],
     "modules": [
         {
+            "name": "librest",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dexamples=false",
+                "-Dgtk_doc=false",
+                "-Dtests=false"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/librest.git",
+                    "tag": "0.9.1",
+                    "commit": "aa9e968e381ede159414c6338da24d61ad0b5d8b"
+                }
+            ]
+        },
+        {
             "name": "gnome-online-accounts",
             "buildsystem": "meson",
             "config-opts": [
