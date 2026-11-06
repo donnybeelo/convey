@@ -14,7 +14,7 @@ finish-args:
   - --share=network
   - --talk-name=org.gnome.Contacts
   - --talk-name=org.gnome.OnlineAccounts
-  - --talk-name=org.gnome.Settings
+  - --own-name=org.gnome.OnlineAccounts.OAuth2
   - --filesystem=xdg-desktop
   - --filesystem=~/.gnupg
   - --socket=gpg-agent
@@ -44,7 +44,7 @@ modules:
     buildsystem: meson
     config-opts:
       - --libdir=lib
-      - -Dgoabackend=false
+      - -Dkerberos=false
     sources:
       - type: git
         url: https://gitlab.gnome.org/GNOME/gnome-online-accounts.git
