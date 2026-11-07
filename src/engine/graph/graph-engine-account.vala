@@ -711,6 +711,13 @@ internal class Convey.Graph.Account : Convey.Account,
                 }
             }
         }
+        var locals = new Gee.ArrayList<Convey.Folder>();
+        locals.add_all(this.local_folders.values);
+        foreach (Convey.Folder folder in locals) {
+            foreach (var id in yield folder.contains_identifiers(ids, cancellable)) {
+                containing.set(id, folder.path);
+            }
+        }
         return containing.size > 0 ? containing : null;
     }
 

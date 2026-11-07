@@ -136,7 +136,7 @@ public class Convey.App.SearchFolder :
         account.email_locally_complete.connect(on_email_locally_complete);
         account.email_removed.connect(on_account_email_removed);
         account.email_locally_removed.connect(on_account_email_removed);
-        account.email_flags_changed.connect(rerun_query);
+        account.email_flags_changed.connect(on_email_flags_changed);
 
         this.entries = new_entry_set();
         this.ids = new_id_map();
@@ -157,7 +157,7 @@ public class Convey.App.SearchFolder :
         account.email_locally_complete.disconnect(on_email_locally_complete);
         account.email_removed.disconnect(on_account_email_removed);
         account.email_locally_removed.disconnect(on_account_email_removed);
-        account.email_flags_changed.disconnect(rerun_query);
+        account.email_flags_changed.disconnect(on_email_flags_changed);
     }
 
     /**
@@ -176,11 +176,21 @@ public class Convey.App.SearchFolder :
     }
 
     private void rerun_query() {
+        this.rerun_query_async.begin();
+    }
+
+    private async void rerun_query_async() {
         if (this.query != null) {
             this.executing.cancel();
             this.executing = new GLib.Cancellable();
-            this.update.begin();
+            yield update();
         }
+    }
+
+    /** {@inheritDoc} */
+    public override async void synchronise_remote(GLib.Cancellable? cancellable)
+        throws GLib.Error {
+        yield rerun_query_async();
     }
 
     /**
@@ -694,6 +704,22 @@ public class Convey.App.SearchFolder :
                                            Gee.Collection<EmailIdentifier> ids) {
         if (this.query != null) {
             this.append.begin(folder, ids);
+        }
+    }
+
+    private void on_email_flags_changed(Folder folder,
+                                        Gee.Map<EmailIdentifier,EmailFlags> changed) {
+        if (this.used_as == FLAGGED && is_open()) {
+            this.append.begin(folder, changed.keys);
+        } else {
+            rerun_query();
+        }
+    }
+
+    protected override void notify_closed(Folder.CloseReason reason) {
+        base.notify_closed(reason);
+        if (reason == FOLDER_CLOSED && this.used_as == FLAGGED) {
+            rerun_query();
         }
     }
 
