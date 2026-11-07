@@ -662,7 +662,10 @@ public abstract class Components.WebView : WebKit.WebView, Convey.BaseInterface 
         this.config = config;
         this.decide_policy.connect(on_decide_policy);
         this.web_process_terminated.connect((reason) => {
-                warning("Web process crashed: %s", reason.to_string());
+                // TERMINATED_BY_API is expected when a window is closed
+                if (reason != WebKit.WebProcessTerminationReason.TERMINATED_BY_API) {
+                    warning("Web process crashed: %s", reason.to_string());
+                }
             });
 
         register_message_callback(

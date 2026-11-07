@@ -1496,6 +1496,15 @@ public class Application.MainWindow :
             true,
             (obj, res) => {
                 this.select_folder.end(res);
+                // GTK4's gtk_window_destroy() no longer disposes the widget
+                // tree, so reference cycles in it (closures capturing locals
+                // ref their owner) keep the window and its WebViews alive.
+                // All conversation views of a window share one WebProcess,
+                // so at least terminate it to release its memory (incl. GPU).
+                var web_view = this.conversation_viewer.previous_web_view;
+                if (web_view != null) {
+                    web_view.terminate_web_process();
+                }
                 destroy();
             }
         );
