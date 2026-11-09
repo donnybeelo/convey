@@ -29,6 +29,7 @@ ComposerPageState.prototype = {
         this.bodyPart = null;
         this.signaturePart = null;
         this.quotePart = null;
+        this.quoteToggle = null;
         this.focusedPart = null;
 
         this.selections = new Map();
@@ -76,6 +77,18 @@ ComposerPageState.prototype = {
         ComposerPageState.collapseWhiteSpace(this.bodyPart);
         ComposerPageState.collapseWhiteSpace(this.signaturePart);
         this.quotePart = document.getElementById("convey-quote");
+        if (this.quotePart != null) {
+            this.quoteToggle = document.createElement("button");
+            this.quoteToggle.id = "convey-quote-toggle";
+            this.quoteToggle.textContent = "•••";
+            this.quoteToggle.addEventListener("click", function() {
+                state.setQuoteVisible(
+                    !document.body.classList.contains("convey-show-quote")
+                );
+            });
+            this.quotePart.before(this.quoteToggle);
+            this.setQuoteVisible(false);
+        }
 
         // Should be using 'e.key' in listeners below instead of
         // keyIdentifier, but that was only fixed in WK in Oct 2016
@@ -339,10 +352,18 @@ ComposerPageState.prototype = {
             this.bodyObserver.takeRecords();
         }
     },
+    setQuoteVisible: function(visible) {
+        document.body.classList.toggle("convey-show-quote", visible);
+        for (let style of this.quotePart.querySelectorAll("style")) {
+            style.disabled = !visible;
+        }
+    },
     deleteQuotedMessage: function() {
         if (this.quotePart != null) {
             this.quotePart.parentNode.removeChild(this.quotePart);
             this.quotePart = null;
+            this.quoteToggle.remove();
+            this.quoteToggle = null;
         }
     },
     /**

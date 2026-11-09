@@ -58,6 +58,21 @@ body > div#convey-quote:focus-within {
   outline: 1px dashed #ccc !important;
 }
 
+body:not(.convey-show-quote) > div#convey-quote {
+  display: none;
+}
+
+#convey-quote-toggle {
+  margin: 6px 12px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background-color: rgba(127, 127, 127, 0.25);
+  color: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 blockquote {
   margin: 0 10px;
   border: 0;
