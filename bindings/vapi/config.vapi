@@ -9,7 +9,7 @@ namespace Config
     // Keep this list in sync with the config.h configuration_data() in meson
     public const string GETTEXT_PACKAGE;
     public const string G_LOG_DOMAIN;
-    public const string APP_ID;
+    public static string APP_ID;
     public const string BUILD_ROOT_DIR;
     public const string GSETTINGS_DIR;
     public const string INSTALL_PREFIX;

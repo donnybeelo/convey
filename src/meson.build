@@ -3,7 +3,7 @@ conf = configuration_data()
 # keep this in sync with config.vapi
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf.set_quoted('G_LOG_DOMAIN', meson.project_name())
-conf.set_quoted('APP_ID', convey_id)
+conf.set('APP_ID', '(g_getenv("FLATPAK_ID") ?: "@0@")'.format(convey_id))
 conf.set_quoted('BUILD_ROOT_DIR', meson.project_build_root())
 conf.set_quoted('GSETTINGS_DIR', meson.project_build_root() / 'desktop')
 conf.set_quoted('INSTALL_PREFIX', convey_prefix)
