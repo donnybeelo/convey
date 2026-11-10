@@ -6,6 +6,7 @@ icon_files = files(
   'detach-symbolic.svg',
   'text-x-generic-symbolic.svg',
   'edit-symbolic.svg',
+  'file-cabinet-symbolic.svg',
   'font-size-symbolic.svg',
   'font-color-symbolic.svg',
   'format-ordered-list-symbolic.svg',

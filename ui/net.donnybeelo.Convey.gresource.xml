@@ -64,6 +64,7 @@
     <file alias="icons/scalable/actions/detach-symbolic.svg" preprocess="xml-stripblanks">../icons/detach-symbolic.svg</file>
     <file alias="icons/scalable/actions/text-x-generic-symbolic.svg" preprocess="xml-stripblanks">../icons/text-x-generic-symbolic.svg</file>
     <file alias="icons/scalable/actions/edit-symbolic.svg" preprocess="xml-stripblanks">../icons/edit-symbolic.svg</file>
+    <file alias="icons/scalable/actions/file-cabinet-symbolic.svg" preprocess="xml-stripblanks">../icons/file-cabinet-symbolic.svg</file>
     <file alias="icons/scalable/actions/font-size-symbolic.svg" preprocess="xml-stripblanks">../icons/font-size-symbolic.svg</file>
     <file alias="icons/scalable/actions/font-color-symbolic.svg" preprocess="xml-stripblanks">../icons/font-color-symbolic.svg</file>
     <file alias="icons/scalable/actions/format-ordered-list-symbolic.svg" preprocess="xml-stripblanks">../icons/format-ordered-list-symbolic.svg</file>

@@ -84,7 +84,7 @@
           <object class="GtkMenuButton" id="move_message_button">
             <property name="focus_on_click">False</property>
             <property name="receives_default">False</property>
-            <property name="icon_name">go-jump-symbolic</property>
+            <property name="icon_name">file-cabinet-symbolic</property>
           </object>
         </child>
         <child>
