@@ -45,6 +45,7 @@
             meson
             ninja
             cmake
+            gnumake
             pkg-config
             vala
             gobject-introspection
