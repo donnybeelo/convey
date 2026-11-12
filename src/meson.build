@@ -147,6 +147,7 @@ valadoc_dependencies = [
   glib,
   gmime,
   goa,
+  goa_backend,
   gtk,
   javascriptcoregtk,
   json_glib,
