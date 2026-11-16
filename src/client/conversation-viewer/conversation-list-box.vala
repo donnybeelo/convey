@@ -986,9 +986,13 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
         append(row);
         this.current_composer = row;
 
-        embed.composer.notify["saved-id"].connect(
-            (id) => { this.draft_id = embed.composer.saved_id; }
-        );
+        embed.composer.notify["saved-id"].connect(() => {
+            this.draft_id = embed.composer.saved_id;
+            EmailRow? stale = this.draft_id != null ? this.email_rows.get(this.draft_id) : null;
+            if (stale != null) {
+                remove_email(stale.email);
+            }
+        });
         embed.vanished.connect(() => {
                 this.current_composer = null;
                 this.draft_id = null;
@@ -1217,7 +1221,8 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
         // Re-check for an existing row: the fetch above yields, so a
         // second append signal for the same email can get this far too.
         if (!this.cancellable.is_cancelled() &&
-            !this.email_rows.has_key(id)) {
+            !this.email_rows.has_key(id) &&
+            (this.draft_id == null || !id.equal_to(this.draft_id))) {
             EmailRow row = add_email(full_email);
             yield row.view.load_contacts();
             if (is_interesting(full_email)) {
@@ -1439,7 +1444,7 @@ public class ConversationListBox : Adw.Bin, Convey.BaseInterface {
         // Don't add rows that are already present, or that are
         // currently being edited.
         if (!this.email_rows.has_key(part_email.id) &&
-            part_email.id != this.draft_id) {
+            (this.draft_id == null || !part_email.id.equal_to(this.draft_id))) {
             load_full_email.begin(part_email.id, (obj, ret) => {
                     try {
                         load_full_email.end(ret);
