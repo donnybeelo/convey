@@ -12,6 +12,10 @@ straight-forward, modern interface.
 Convey is a hard fork of [Geary](https://gitlab.gnome.org/GNOME/geary),
 and is not affiliated with or endorsed by the GNOME Foundation.
 
+Bear in mind that AI usage is involved in the development of this project,
+but is in no way the decision-maker. If this is a dealbreaker for you,
+do not use Convey.
+
 Installation
 --------------------
 
