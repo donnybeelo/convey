@@ -29,6 +29,7 @@ public class Composer.WebView : Components.WebView {
     private const string QUOTE = """
 <div id="%s" dir="auto"><br />%s</div>
 """;
+    private const string QUOTE_SOURCE = """<div data-convey-quote="%s"></div>""";
     private const string CURSOR = "<div><span id=\"cursormarker\"></span><br /></div>";
     private const string SPACER = "<div><br /></div>";
 
@@ -524,7 +525,7 @@ public class Composer.WebView : Components.WebView {
             }
 
             if (!top_posting && !Convey.String.is_empty(quote)) {
-                html.append(quote);
+                html.append(QUOTE_SOURCE.printf(GLib.Markup.escape_text(quote)));
                 html.append(SPACER);
             }
 
@@ -532,7 +533,7 @@ public class Composer.WebView : Components.WebView {
             html.append(BODY_POST.printf(SIGNATURE_HTML_ID));
 
             if (top_posting && !Convey.String.is_empty(quote)) {
-                html.append_printf(QUOTE, QUOTE_HTML_ID, quote);
+                html.append_printf(QUOTE, QUOTE_HTML_ID, QUOTE_SOURCE.printf(GLib.Markup.escape_text(quote)));
             }
         } else {
             html.append(body);

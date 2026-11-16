@@ -53,6 +53,10 @@ ComposerPageState.prototype = {
     loaded: function() {
         let state = this;
 
+        for (let source of document.querySelectorAll("[data-convey-quote]")) {
+            source.outerHTML = source.dataset.conveyQuote;
+        }
+
         this.bodyPart = document.getElementById("convey-body");
         if (this.bodyPart != null) {
             // Capture clicks on the document that aren't on an
