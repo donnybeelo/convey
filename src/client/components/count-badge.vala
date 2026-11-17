@@ -45,6 +45,9 @@ public class CountBadge : Gtk.Widget {
         layout.get_extents(out ink, out logical);
         var digit = digit_ink();
         var size = orientation == Gtk.Orientation.HORIZONTAL ? logical.width : logical.height;
+        if (orientation == Gtk.Orientation.VERTICAL && get_valign() == Gtk.Align.BASELINE_CENTER) {
+            size = get_parent().get_pango_context().get_font_description().get_size();
+        }
         minimum = natural = (int) Math.ceil(Pango.units_to_double(size));
         minimum_baseline = natural_baseline = orientation == Gtk.Orientation.HORIZONTAL ? -1 : (int) Math.round(
             (natural - Pango.units_to_double(digit.height)) / 2
@@ -60,7 +63,9 @@ public class CountBadge : Gtk.Widget {
         var digit = digit_ink();
         var origin = Graphene.Point() {
             x = (float) ((get_width() - Pango.units_to_double(ink.width)) / 2 - Pango.units_to_double(ink.x)),
-            y = (float) Math.round((get_height() - Pango.units_to_double(digit.height)) / 2 - Pango.units_to_double(digit.y))
+            y = (float) (get_baseline() == -1
+                ? Math.round((get_height() - Pango.units_to_double(digit.height)) / 2 - Pango.units_to_double(digit.y))
+                : get_baseline() - Pango.units_to_double(layout.get_baseline()))
         };
         snapshot.save();
         snapshot.translate(origin);
