@@ -410,14 +410,23 @@ convey-composer-box > border {
   border-width: 0px;
 }
 
-convey-composer-editor > frame > border {
-  border-left-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
+convey-composer-editor frame {
+  border-width: 1px 0 0 0;
+  border-radius: 0;
 }
 
-convey-composer-editor frame {
-  border-radius: 0;
+.convey-composer-subject {
+  background: none;
+}
+
+.convey-composer-subject > row {
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.convey-composer-body {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
 
 /* From row: an AdwComboRow with the stock .property class (dim

@@ -133,14 +133,6 @@
                                 <property name="use-underline">True</property>
                               </object>
                             </child>
-                            <child>
-                              <object class="AdwEntryRow" id="subject_row">
-                                <!-- Translators: Label for composer Subject line entry -->
-                                <property name="title" translatable="yes">_Subject</property>
-                                <property name="use-underline">True</property>
-                                <signal name="changed" handler="on_subject_changed"/>
-                              </object>
-                            </child>
                           </object>
                         </child>
                       </object>
@@ -186,7 +178,41 @@
           </object>
         </child>
         <child>
-          <object class="AdwBin" id="editor_bin">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="margin-top">6</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
+            <property name="margin-bottom">6</property>
+            <style>
+              <class name="card"/>
+            </style>
+            <child>
+              <object class="GtkListBox">
+                <property name="selection-mode">none</property>
+                <style>
+                  <class name="convey-composer-subject"/>
+                </style>
+                <property name="visible" bind-source="subject_row" bind-property="visible" bind-flags="sync-create"/>
+                <child>
+                  <object class="AdwEntryRow" id="subject_row">
+                    <!-- Translators: Label for composer Subject line entry -->
+                    <property name="title" translatable="yes">_Subject</property>
+                    <property name="use-underline">True</property>
+                    <signal name="changed" handler="on_subject_changed"/>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwBin" id="editor_bin">
+                <property name="vexpand">True</property>
+                <property name="overflow">hidden</property>
+                <style>
+                  <class name="convey-composer-body"/>
+                </style>
+              </object>
+            </child>
           </object>
         </child>
         <child>
