@@ -2228,8 +2228,22 @@ public class Application.MainWindow :
         this.conversation_viewer.headerbar.right_actions.selected_conversations = to_select.size;
         this.conversation_viewer.headerbar.left_actions.selected_conversations = to_select.size;
 
+        var composer = this.conversation_viewer.current_composer;
+        var shown = this.conversation_viewer.current_list?.conversation;
+        if (composer != null &&
+            (composer.current_mode == INLINE ||
+             composer.current_mode == INLINE_COMPACT) &&
+            shown != null && !(shown in to_select)) {
+            if ((yield composer.conditional_close(true)) == CANCELLED) {
+                this.conversation_list_view.select_conversations(
+                    Convey.Collection.single(shown)
+                );
+                return;
+            }
+        }
+
         if ((this.selected_folder != null || this.all_inboxes) &&
-            !this.has_composer) {
+            !this.composer_open) {
             switch(to_select.size) {
             case 0:
                 update_conversation_actions(NONE);
