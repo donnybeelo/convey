@@ -239,10 +239,10 @@ public class Composer.Widget : Adw.Bin, Convey.BaseInterface {
     /** Determines if the composer is completely empty. */
     public bool is_blank {
         get {
-            return this.to_row.is_empty
-                && this.cc_row.is_empty
-                && this.bcc_row.is_empty
-                && this.reply_to_row.is_empty
+            return !this.to_row.has_valid_address
+                && !this.cc_row.has_valid_address
+                && !this.bcc_row.has_valid_address
+                && !this.reply_to_row.has_valid_address
                 && this.subject_row.text.length == 0
                 && this.editor.body.is_empty
                 && this.attached_files.size == 0;

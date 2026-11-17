@@ -38,6 +38,17 @@ public class Composer.AddressesRow : Adw.EntryRow, Convey.BaseInterface {
         get { return Convey.String.is_empty_or_whitespace(this.text); }
     }
 
+    public bool has_valid_address {
+        get {
+            foreach (Convey.RFC822.MailboxAddress address in this._addresses) {
+                if (address.is_valid()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     // Text between the start of the entry or end of the previous email
     // address and the current position of the cursor, if any.
     // This will be used for searching a match in the contact list.
