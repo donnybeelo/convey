@@ -1496,6 +1496,15 @@ public class Application.MainWindow :
             true,
             (obj, res) => {
                 this.select_folder.end(res);
+                // GTK4's gtk_window_destroy() no longer disposes the widget
+                // tree, so reference cycles in it (closures capturing locals
+                // ref their owner) keep the window and its WebViews alive.
+                // All conversation views of a window share one WebProcess,
+                // so at least terminate it to release its memory (incl. GPU).
+                var web_view = this.conversation_viewer.previous_web_view;
+                if (web_view != null) {
+                    web_view.terminate_web_process();
+                }
                 destroy();
             }
         );
@@ -1516,7 +1525,7 @@ public class Application.MainWindow :
         sidebar_drag.drag_update.connect(on_sidebar_drag_update);
         sidebar_drag.drag_end.connect(() => {
             if (this.sidebar_dragged) {
-                config.sidebar_width_fraction = this.outer_view.sidebar_width_fraction;
+                this.application.config.sidebar_width_fraction = this.outer_view.sidebar_width_fraction;
             }
         });
         this.outer_view.add_controller(sidebar_drag);
@@ -1535,7 +1544,7 @@ public class Application.MainWindow :
                 this.outer_view.min_sidebar_width = this.default_min_sidebar_width;
                 this.outer_view.max_sidebar_width = this.default_max_sidebar_width;
                 this.outer_view.sidebar_width_fraction = this.default_sidebar_width_fraction;
-                config.sidebar_width_fraction = 0;
+                this.application.config.sidebar_width_fraction = 0;
             }
         });
         this.sidebar_resize_handle.add_controller(sidebar_reset);
@@ -1547,7 +1556,7 @@ public class Application.MainWindow :
         folder_drag.drag_update.connect(on_folder_drag_update);
         folder_drag.drag_end.connect(() => {
             if (this.folder_list_dragged) {
-                config.folder_list_width = (int) this.inner_view.max_sidebar_width;
+                this.application.config.folder_list_width = (int) this.inner_view.max_sidebar_width;
             }
         });
         this.inner_view.add_controller(folder_drag);
@@ -1560,7 +1569,7 @@ public class Application.MainWindow :
         folder_reset.pressed.connect((n_press, x, y) => {
             if (n_press == 2) {
                 set_folder_list_width(this.default_folder_list_width);
-                config.folder_list_width = 0;
+                this.application.config.folder_list_width = 0;
             }
         });
         this.folder_resize_handle.add_controller(folder_reset);
