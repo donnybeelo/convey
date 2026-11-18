@@ -44,7 +44,6 @@
   <ui template-class="ComponentsInspectorLogView" filename="components-inspector-log-view.ui" sha256="0efba1ba8a6601e1c5a0307311158c7b0af19377409c241a03638725eff92cfb"/>
   <ui template-class="ComposerHeader" filename="composer-headerbar.ui" sha256="e8da1b29b5d9e60e607e17e9881b50cbef11d13e624fc03fd62088902f0a0506"/>
   <ui filename="conversation-email-menus.ui" sha256="40cf8e1ab60c5770265866518b46ad6e3541ec5d88c92b2094a9af80ba8face6"/>
-  <ui filename="gtk/help-overlay.ui" sha256="fb05d4cd6c683540430e19923929ef3581afe30be83ef3805937243aea1a9f68"/>
   <ui template-class="ApplicationMainWindow" filename="application-main-window.ui" sha256="1910bd623ffe392b19b4067b976212e62a84437112b9de55a630263745655281"/>
   <ui template-class="ComponentsConversationHeaderBar" filename="components-headerbar-conversation.ui" sha256="76efbb370aa6ef7de73cb7cbf1b84ceecbc72176a81b7bf2a132d5689c140194"/>
   <ui template-class="AccountsServiceInformationWidget" filename="accounts-service-information-widget.ui" sha256="08fa46b7009a5f77f91ba26a1eba4b4829cca05136d65f1d9a21ce9e64e2db39"/>
