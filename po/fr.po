@@ -1088,7 +1088,8 @@ msgstr ""
 "Kévin Commaille <zecakeh@posteo.net>\n"
 "Alexandre Franke <afranke@gnome.org>\n"
 "Maxime Hardy <maxime.bonneau.hardy@gmail.com>\n"
-"Charles Monzat <charles.monzat@free.fr>"
+"Charles Monzat <charles.monzat@free.fr>\n"
+"Phil Cartes <cartes341@free.fr>"
 
 #. / Command line warning, string substitution
 #. / is the given argument

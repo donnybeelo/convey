@@ -1085,7 +1085,8 @@ msgstr "O aplikaci %s"
 msgid "translator-credits"
 msgstr ""
 "Petr Šimáček <petr.simacek@gmail.com>\n"
-"Marek Černocký <marek@manet.cz>"
+"Marek Černocký <marek@manet.cz>\n"
+"yesseruser <yesseruseryt@gmail.com>"
 
 #. / Command line warning, string substitution
 #. / is the given argument
