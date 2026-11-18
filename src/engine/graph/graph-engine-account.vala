@@ -193,6 +193,7 @@ internal class Convey.Graph.Account : Convey.Account,
         }
         subscribe_screensaver();
         queue_prefetch_refresh();
+        send_stranded_outbox.begin(cancellable);
     }
 
     public override async void close_async(GLib.Cancellable? cancellable = null)
@@ -759,6 +760,19 @@ internal class Convey.Graph.Account : Convey.Account,
             yield outbox.refresh_async(true, cancellable);
         }
         return message_id;
+    }
+
+    private async void send_stranded_outbox(GLib.Cancellable? cancellable) {
+        try {
+            var stranded = yield this.client.list_messages(
+                "outbox", 50, -1, 0, cancellable
+            );
+            foreach (var message in stranded) {
+                yield queue_email(message.id, cancellable);
+            }
+        } catch (GLib.Error err) {
+            debug("Graph: Failed to send stranded outbox mail: %s", err.message);
+        }
     }
 
     /**

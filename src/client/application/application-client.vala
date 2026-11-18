@@ -351,6 +351,7 @@ public class Application.Client : Adw.Application {
 
         // Calls Gtk.init(), amongst other things
         base.startup();
+        this.query_end.connect(on_query_end);
 
         this.engine = new Convey.Engine(get_resource_directory());
         this.config = new Configuration(SCHEMA_ID);
@@ -846,6 +847,19 @@ public class Application.Client : Adw.Application {
             this.last_active_main_window = null;
             base.quit();
         }
+    }
+
+    private void on_query_end() {
+        if (this.controller == null || this.controller.pending_sends.is_empty) {
+            return;
+        }
+        uint cookie = inhibit(
+            null, Gtk.ApplicationInhibitFlags.LOGOUT, _("Sending email")
+        );
+        this.controller.send_pending_now.begin((obj, res) => {
+            this.controller.send_pending_now.end(res);
+            uninhibit(cookie);
+        });
     }
 
     /**
