@@ -350,10 +350,10 @@ row.convey-folder-popover-list-row > label {
   background: alpha(currentColor, 0.15);
 }
 
-.convey-header-value flowboxchild label.dim-label:dir(ltr) {
+.convey-header-value flowboxchild > box > label.dim-label:dir(ltr) {
   margin-left: 6px;
 }
-.convey-header-value flowboxchild label.dim-label:dir(rtl) {
+.convey-header-value flowboxchild > box > label.dim-label:dir(rtl) {
   margin-right: 6px;
 }
 
@@ -397,6 +397,27 @@ row.convey-folder-popover-list-row > label {
 
 .convey-contact-popover .convey-deceptive {
   font-weight: bold;
+}
+
+popover.menu.convey-contact-menu check {
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  border-radius: 4px;
+}
+
+popover.menu.convey-contact-menu modelbutton:dir(ltr) {
+  padding-left: 6px;
+}
+
+popover.menu.convey-contact-menu modelbutton:dir(rtl) {
+  padding-right: 6px;
+}
+
+popover.menu.convey-contact-menu check.left {
+  margin-left: 0;
+}
+
+popover.menu.convey-contact-menu check.right {
+  margin-right: 0;
 }
 
 /* Composer */

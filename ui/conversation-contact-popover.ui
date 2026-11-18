@@ -6,14 +6,13 @@
         <property name="orientation">vertical</property>
         <child>
           <object class="GtkBox" id="contact_pane">
-            <property name="margin-start">12</property>
-            <property name="margin-end">12</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
             <property name="margin-top">6</property>
             <property name="margin-bottom">6</property>
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkGrid">
-                <property name="margin-bottom">6</property>
                 <property name="column_spacing">12</property>
                 <child>
                   <object class="AdwAvatar" id="avatar">
@@ -25,6 +24,7 @@
                 <child>
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
+                    <property name="hexpand">True</property>
                     <child>
                       <object class="GtkLabel" id="contact_name">
                         <property name="halign">start</property>

@@ -98,6 +98,7 @@ public class Conversation.ContactPopover : Adw.Bin {
             (GLib.MenuModel) builder.get_object("contact_menu")
         );
         menu.add_child(this, "header");
+        menu.add_css_class("convey-contact-menu");
         menu.insert_action_group(ACTION_GROUP, this.actions);
         menu.set_parent(relative_to);
         menu.closed.connect_after((m) => {
@@ -151,7 +152,9 @@ public class Conversation.ContactPopover : Adw.Bin {
             set_actions_enabled(true);
             set_action_enabled(ACTION_OPEN, is_desktop);
             set_action_enabled(ACTION_SAVE, !is_desktop);
-            set_action_enabled(ACTION_LOAD_REMOTE, !is_desktop);
+            var domains = this.config.get_images_trusted_domains();
+            bool all_trusted = domains.length > 0 && domains[0] == "*";
+            set_action_enabled(ACTION_LOAD_REMOTE, !is_desktop && !all_trusted);
 
             GLib.SimpleAction load_remote = (GLib.SimpleAction)
                 actions.lookup_action(ACTION_LOAD_REMOTE);

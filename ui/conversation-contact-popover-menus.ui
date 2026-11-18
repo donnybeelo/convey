@@ -37,7 +37,6 @@
       <item>
         <attribute name="label" translatable="yes">Always Load Remote Images</attribute>
         <attribute name="action">con.load-remote</attribute>
-        <attribute name="hidden-when">action-disabled</attribute>
       </item>
     </section>
   </menu>
