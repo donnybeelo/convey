@@ -368,12 +368,10 @@ public class Application.Client : Adw.Application {
         add_app_accelerators(Action.Application.INSPECT, { "<Alt><Shift>I" });
         add_app_accelerators(Action.Application.NEW_WINDOW, { "<Ctrl><Shift>N" });
         add_app_accelerators(Action.Application.QUIT, { "<Ctrl>Q" });
+        add_app_accelerators(Action.Application.SHORTCUTS, { "<Ctrl>F1", "<Ctrl>question" });
 
         // Common window accels
         add_window_accelerators(Action.Window.CLOSE, { "<Ctrl>W" });
-        add_window_accelerators(
-            Action.Window.SHORTCUT_HELP, { "<Ctrl>F1", "<Ctrl>question" }
-        );
         add_window_accelerators(Action.Window.SHOW_MENU, { "F10" });
 
         // Common edit accels
@@ -530,17 +528,15 @@ public class Application.Client : Adw.Application {
     public async void show_about() {
         yield this.present();
 
-        Gtk.show_about_dialog(get_active_window(),
-            "program-name", NAME,
+        Adw.show_about_dialog(get_active_window(),
+            "application-name", NAME,
             "comments", DESCRIPTION,
-            "authors", AUTHORS,
+            "developers", AUTHORS,
             "copyright", string.join("\n", COPYRIGHT_1, COPYRIGHT_2, COPYRIGHT_3),
             "license-type", Gtk.License.LGPL_2_1,
-            "logo-icon-name", Config.APP_ID,
+            "application-icon", Config.APP_ID,
             "version", Config.REVNO == "" ? Config.VERSION : "%s (%s)".printf(Config.VERSION, Config.REVNO),
             "website", "https://gitlab.gnome.org/donnybeelo/convey",
-            "website-label", _("Visit the Convey repository"),
-            "title", _("About %s").printf(NAME),
             // Translators: add your name and email address to receive
             // credit in the About dialog For example: Yamada Taro
             // <yamada.taro@example.com>
