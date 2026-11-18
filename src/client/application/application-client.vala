@@ -838,6 +838,9 @@ public class Application.Client : Adw.Application {
      * prompted about and if cancelled, will cancel shut-down here.
      */
     public async new void quit() {
+        if (this.controller != null) {
+            yield this.controller.send_pending_now();
+        }
         if (this.controller == null ||
             yield this.controller.check_open_composers()) {
             this.last_active_main_window = null;

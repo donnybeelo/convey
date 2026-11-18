@@ -88,6 +88,9 @@ internal class Application.Controller :
     private Gee.Collection<Composer.Widget> composer_widgets =
         new Gee.LinkedList<Composer.Widget>();
 
+    internal Gee.Set<SendComposerCommand> pending_sends =
+        new Gee.HashSet<SendComposerCommand>();
+
     // Requested mailto composers not yet fullfulled
     private Gee.List<string?> pending_mailtos = new Gee.ArrayList<string>();
 
@@ -1488,6 +1491,14 @@ internal class Application.Controller :
         composer.present();
     }
 
+    internal async void send_pending_now() {
+        var sends = new Gee.ArrayList<SendComposerCommand>();
+        sends.add_all(this.pending_sends);
+        foreach (var send in sends) {
+            yield send.send_now();
+        }
+    }
+
     internal async bool check_open_composers() {
         var do_quit = true;
         foreach (var composer in this.composer_widgets) {
@@ -2558,6 +2569,7 @@ private class Application.SendComposerCommand : ComposerCommand {
                     yield this.queue_send.save_email(email, cancellable);
             }
             this.commit_timer.start();
+            this.application.controller.pending_sends.add(this);
         } else if (this.smtp != null) {
             yield this.smtp.send_email(email, cancellable);
             this.executed_label = _("Email sent");
@@ -2572,6 +2584,7 @@ private class Application.SendComposerCommand : ComposerCommand {
     public override async void undo(GLib.Cancellable? cancellable)
         throws GLib.Error {
         this.commit_timer.reset();
+        this.application.controller.pending_sends.remove(this);
         if (this.smtp != null) {
             yield this.smtp.outbox.remove_email_async(
                 Convey.Collection.single(this.saved),
@@ -2590,7 +2603,37 @@ private class Application.SendComposerCommand : ComposerCommand {
         clear_composer();
     }
 
+    internal async void send_now() {
+        if (!this.commit_timer.is_running) {
+            return;
+        }
+        this.commit_timer.reset();
+
+        bool resumed = false;
+        SourceFunc resume = () => {
+            if (!resumed) {
+                resumed = true;
+                send_now.callback();
+            }
+            return GLib.Source.REMOVE;
+        };
+
+        GLib.Object sender = (this.smtp != null)
+            ? (GLib.Object) this.smtp
+            : (GLib.Object) this.context.account;
+        ulong handler = (this.smtp != null)
+            ? this.smtp.email_sent.connect((e) => resume())
+            : this.queue_send.email_sent.connect(() => resume());
+        GLib.Timeout.add_seconds(10, () => resume());
+
+        on_commit_timeout();
+        yield;
+
+        sender.disconnect(handler);
+    }
+
     private void on_commit_timeout() {
+        this.application.controller.pending_sends.remove(this);
         if (this.smtp != null) {
             this.smtp.queue_email(this.saved);
             this.saved = null;
