@@ -180,5 +180,5 @@ modules:
     sources:
       - type: git
         url: https://gitlab.gnome.org/donnybeelo/convey.git
-        tag: '51.0'
+        tag: '51.1'
         commit: INSERT_COMMIT_SHA_HERE
