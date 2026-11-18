@@ -170,6 +170,93 @@
       </object>
     </child>
 
+    <child>
+      <object class="GtkShortcutController" id="single_key_shortcuts">
+        <property name="propagation-phase">none</property>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">r</property>
+            <property name="action">signal(reply-conversation-sender)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">a</property>
+            <property name="action">signal(reply-conversation-all)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">f</property>
+            <property name="action">signal(forward-conversation)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">&lt;Shift&gt;i</property>
+            <property name="action">signal(mark-conversations-read)</property>
+            <property name="arguments">(true,)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">&lt;Shift&gt;u</property>
+            <property name="action">signal(mark-conversations-read)</property>
+            <property name="arguments">(false,)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">s</property>
+            <property name="action">signal(mark-conversations-starred)</property>
+            <property name="arguments">(true,)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">l</property>
+            <property name="action">signal(show-copy-menu)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">e</property>
+            <property name="action">signal(archive-conversations)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">exclam</property>
+            <property name="action">signal(junk-conversations)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">numbersign</property>
+            <property name="action">signal(delete-conversations)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">slash</property>
+            <property name="action">signal(find)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">k</property>
+            <property name="action">action(win.up-conversation)</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcut">
+            <property name="trigger">j</property>
+            <property name="action">action(win.down-conversation)</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
     <!-- Widget tree -->
     <child>
       <object class="AdwToastOverlay" id="overlay">

@@ -380,18 +380,6 @@ public class Application.Client : Adw.Application {
         add_edit_accelerators(Action.Edit.REDO, { "<Ctrl><Shift>Z" });
         add_edit_accelerators(Action.Edit.UNDO, { "<Ctrl>Z" });
 
-        // Disabled since GTK4 key shortcut themes aren't supported yet:
-        // https://gitlab.gnome.org/GNOME/gtk/-/issues/1669#note_1735942
-#if 0
-        // Load Convey CSS for single key shortcuts
-        load_css(this.single_key_shortcuts,
-                 "resource:///net/donnybeelo/Convey/single-key-shortcuts.css");
-        update_single_key_shortcuts();
-        this.config.notify[Configuration.SINGLE_KEY_SHORTCUTS].connect(
-            on_single_key_shortcuts_toggled
-        );
-#endif
-
         MainWindow.add_accelerators(this);
         Composer.Editor.add_accelerators(this);
         Composer.Widget.add_accelerators(this);
@@ -1118,34 +1106,6 @@ public class Application.Client : Adw.Application {
         set_accels_for_action("app." + action, accelerators);
     }
 
-        // Disabled since GTK4 key shortcut themes aren't supported yet:
-        // https://gitlab.gnome.org/GNOME/gtk/-/issues/1669#note_1735942
-#if 0
-    private void update_single_key_shortcuts() {
-        if (this.config.single_key_shortcuts) {
-            Gtk.StyleContext.add_provider_for_display(
-                Gdk.Display.get_default(),
-                this.single_key_shortcuts,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        } else {
-            Gtk.StyleContext.remove_provider_for_display(
-                Gdk.Display.get_default(),
-                this.single_key_shortcuts
-            );
-        }
-    }
-#endif
-
-    private void load_css(Gtk.CssProvider provider, string resource_uri) {
-        provider.parsing_error.connect(on_css_parse_error);
-        try {
-            var file = GLib.File.new_for_uri(resource_uri);
-            provider.load_from_file(file);
-        } catch (GLib.Error error) {
-            warning("Could not load CSS: %s", error.message);
-        }
-    }
 
     private string get_convey_home_dir_name() {
         // Return the standard name if running a release build or
@@ -1324,27 +1284,4 @@ public class Application.Client : Adw.Application {
         }
     }
 
-    // Disabled since GTK4 key shortcut themes aren't supported yet:
-    // https://gitlab.gnome.org/GNOME/gtk/-/issues/1669#note_1735942
-#if 0
-    private void on_single_key_shortcuts_toggled() {
-        update_single_key_shortcuts();
-    }
-#endif
-
-    private void on_css_parse_error(Gtk.CssProvider provider, Gtk.CssSection section, GLib.Error error) {
-        var start = section.get_start_location();
-        var end = section.get_end_location();
-        if (start.lines == end.lines) {
-            warning(
-                "Error parsing %s:%"+size_t.FORMAT+": %s",
-                section.get_file().get_uri(), start.lines, error.message
-            );
-        } else {
-            warning(
-                "Error parsing %s:%"+size_t.FORMAT+"-%"+size_t.FORMAT+": %s",
-                section.get_file().get_uri(), start.lines, end.lines, error.message
-            );
-        }
-    }
 }

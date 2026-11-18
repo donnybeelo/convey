@@ -53,7 +53,6 @@
     <file compressed="true" preprocess="xml-stripblanks">password-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">problem-details-dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
-    <file compressed="true">single-key-shortcuts.css</file>
 
     <!-- Style files -->
     <file compressed="true">style.css</file>

@@ -293,6 +293,7 @@ public class Application.MainWindow :
     private Convey.TimeoutManager update_ui_timeout;
     private int64 update_ui_last = 0;
 
+    [GtkChild] private unowned Gtk.ShortcutController single_key_shortcuts;
     [GtkChild] private unowned Gtk.ToggleButton search_button;
     [GtkChild] private unowned Gtk.ToggleButton conversation_list_selection_button;
     [GtkChild] private unowned Gtk.MenuButton app_menu_button;
@@ -1445,6 +1446,15 @@ public class Application.MainWindow :
         config.bind(Configuration.WINDOW_WIDTH_KEY, this, "window-width");
         config.bind(Configuration.WINDOW_HEIGHT_KEY, this, "window-height");
         config.bind(Configuration.WINDOW_MAXIMIZE_KEY, this, "maximized");
+        update_single_key_shortcuts();
+        config.notify[Configuration.SINGLE_KEY_SHORTCUTS].connect(update_single_key_shortcuts);
+    }
+
+    private void update_single_key_shortcuts() {
+        this.single_key_shortcuts.propagation_phase =
+            this.application.config.single_key_shortcuts
+            ? Gtk.PropagationPhase.BUBBLE
+            : Gtk.PropagationPhase.NONE;
     }
 
     private void restore_saved_window_state() {

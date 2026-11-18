@@ -7,7 +7,6 @@
   <css priority="600" is_global="1" filename="conversation-web-view.css" sha256="1aa9cfbc398550f20a3074bde660d58fef004749f12177b7ee6d2eb0d6c4cea7"/>
   <css priority="600" is_global="1" filename="style.css" sha256="361b678ee702591c62ca77c8ed1d6f40ce2c434b4c6c169014cc82003123a5ab"/>
   <css priority="600" is_global="1" filename="components-web-view.css" sha256="ef3ce7550824306abaaa42f5db8fed6391346e036d0a00c43d0876c9739207da"/>
-  <css priority="600" is_global="1" filename="single-key-shortcuts.css" sha256="480e15ccea64baf074701d5a4ef77b056d637f04dabf26b023d760b5812527a5"/>
   <ui template-class="ConversationListRow" filename="conversation-list-row.ui" sha256="ab60f68e0046c6ad7d51642cf92f183d33109d09c230f3ea8ec68d43a1d4e9cf"/>
   <ui template-class="ComponentsInspectorErrorView" filename="components-inspector-error-view.ui" sha256="2b1e2783852ad618e734ba1052079662240ac4b18823693c83385ece5eb9c034"/>
   <ui template-class="ComponentsConversationActions" filename="components-conversation-actions.ui" sha256="98b559e72d91249521bf1d8ae9b6718610589dde22f4b3d01d67a32b6c10a123"/>
