@@ -237,11 +237,6 @@ row.convey-folder-popover-list-row > label {
   padding: 6px;
 }
 
-/* Update this to match the card radius */
-.convey-message-body {
-  margin: 2px;
-}
-
 /* ConversationEmail */
 
 .convey-unread .convey-message-summary {
