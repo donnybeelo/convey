@@ -11,24 +11,41 @@
 public class Application.DecryptedSubjects : Convey.BaseObject {
 
 
-    private GLib.File file;
+    private const string ATTR_KIND = "kind";
+    private const string KIND = "subjects";
+
+    private static Secret.Schema schema = new Secret.Schema(
+        Application.Client.SCHEMA_ID + ".DecryptedSubjects",
+        Secret.SchemaFlags.NONE,
+        ATTR_KIND, Secret.SchemaAttributeType.STRING,
+        null
+    );
+
     private Gee.Map<string,string> subjects = new Gee.HashMap<string,string>();
 
 
-    public DecryptedSubjects(GLib.File file) {
-        this.file = file;
+    public DecryptedSubjects(GLib.File legacy_file) {
         try {
-            uint8[] contents;
-            file.load_contents(null, out contents, null);
-            var parser = new Json.Parser();
-            parser.load_from_data((string) contents);
-            Json.Object root = parser.get_root().get_object();
-            foreach (string id in root.get_members()) {
-                this.subjects.set(id, root.get_string_member(id));
+            string? contents = Secret.password_lookup_sync(
+                schema, null, ATTR_KIND, KIND
+            );
+            if (contents != null) {
+                var parser = new Json.Parser();
+                parser.load_from_data(contents);
+                Json.Object root = parser.get_root().get_object();
+                foreach (string id in root.get_members()) {
+                    this.subjects.set(id, root.get_string_member(id));
+                }
             }
-        } catch (GLib.IOError.NOT_FOUND err) {
         } catch (GLib.Error err) {
             warning("Unable to load decrypted subjects: %s", err.message);
+        }
+
+        try {
+            legacy_file.delete();
+        } catch (GLib.IOError.NOT_FOUND err) {
+        } catch (GLib.Error err) {
+            warning("Unable to delete legacy decrypted subjects: %s", err.message);
         }
     }
 
@@ -58,11 +75,18 @@ public class Application.DecryptedSubjects : Convey.BaseObject {
         builder.end_object();
         var generator = new Json.Generator();
         generator.set_root(builder.get_root());
-        try {
-            generator.to_file(this.file.get_path());
-        } catch (GLib.Error err) {
-            warning("Unable to save decrypted subjects: %s", err.message);
-        }
+        Secret.password_store.begin(
+            schema, Secret.COLLECTION_DEFAULT, "Convey decrypted subjects",
+            generator.to_data(null), null,
+            (obj, res) => {
+                try {
+                    Secret.password_store.end(res);
+                } catch (GLib.Error err) {
+                    warning("Unable to save decrypted subjects: %s", err.message);
+                }
+            },
+            ATTR_KIND, KIND
+        );
     }
 
 }
